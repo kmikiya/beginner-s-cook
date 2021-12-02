@@ -7,7 +7,7 @@
     <%= @customer.name %>
     <%= @customer.profile %>
     <% if current_customer == @customer %>
-      <%= link_to "プロフィール編集", edit_customer_path(@customer) %>
+      <%= link_to "プロフィール編集", edit_my_page_path(@customer) %>
     <% end %>
   </div>
 

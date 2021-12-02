@@ -23,6 +23,9 @@ scope module: :customer do
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+    get 'my_page/:id' => 'customers#show', as: 'my_page'
+    get 'my_page/:id/edit' => 'customers#edit', as: 'edit_my_page'
+
 
   #レシピ
   resources :recipes, only: [:new, :create, :show, :edit, :update, :delete] do
