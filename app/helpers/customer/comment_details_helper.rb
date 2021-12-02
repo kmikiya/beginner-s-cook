@@ -1,0 +1,2 @@
+module Customer::CommentDetailsHelper
+end
