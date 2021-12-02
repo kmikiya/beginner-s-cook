@@ -18,7 +18,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 scope module: :customer do
   #カスタマー
   resources :customers, only: [:show, :edit, :update, :delete] do
-    #リレーション
+    #リレーション(kichenをフォロー)
         resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
@@ -32,12 +32,24 @@ scope module: :customer do
     resource :favorites, only: [:create, :destroy]
   end
     post 'recipe/id/confirm' => 'recipes#confirm'
-    get 'complete',   on: :collection
+    get 'complete' => 'recipes#compleate'
     root to: 'recipes#top'
 
 
   #材料詳細
   resources :material_detail, only: [:new, :create]
+end
+
+namespace :admin do
+  #トップページのルーティング
+
+    get '/' => 'homes#top'
+
+    #カスタマー
+    resources :customers, only:[:index, :show, :edit, :update]
+
+    #材料
+    resources :material_details, only:[:create, :edit, :update, :delete]
 end
 
 end
