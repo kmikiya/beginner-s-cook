@@ -1,0 +1,19 @@
+<div class="container">
+  ユーザ一覧
+  <table class="table">
+    <thead>
+      <th>ユーザ名</th>
+      <th>レシピ数</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.name %></td>
+        <td><%= customer.recipes.size %></td>
+        <td><%= link_to "BANする", admin_customer_path(customer), method: :delete %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

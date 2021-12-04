@@ -12,9 +12,11 @@
     <%= @explanations.each do |explanation| %>
       <%= explanation.explanation %>
     <% end %>
-    <% if current_customer.id == @recipe.customer.id %>
-      <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
-      <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
+    <% if customer_signed_in? %>
+      <% if current_customer.id == @recipe.customer.id %>
+        <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
+        <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
+      <% end %>
     <% end %>
   </div>
 

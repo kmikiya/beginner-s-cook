@@ -51,7 +51,7 @@ namespace :admin do
     get '/' => 'homes#top'
 
     #カスタマー
-    resources :customers, only:[:index, :show, :edit, :update]
+    resources :customers, only:[:index, :destroy]
 
     #材料
     resources :material_details, only:[:index, :new, :create, :edit, :update, :destroy]
