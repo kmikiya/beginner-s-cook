@@ -16,6 +16,7 @@
         <%= link_to "マイページ", my_page_path(current_customer)%>
         <%= link_to "ログアウト", destroy_customer_session_path, method: :delete%>
         <%= link_to "レシピ投稿", new_recipe_path %>
+        <%= link_to "お気に入り一覧", favorites_path %>
       <% elsif admin_signed_in? %>
         <%= link_to "栄養素表示", admin_material_details_path %>
         <%= link_to "ユーザ一覧", admin_customers_path %>

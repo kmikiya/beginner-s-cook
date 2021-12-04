@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>お気に入り</h2>
+  <table class="table">
+    <thead>
+      <th>title</th>
+      <th>comment</th>
+    </thead>
+    <tbody>
+
+        <% @favorites.each do |favorite| %>
+        <tr>
+          <td>
+            <%= link_to recipe_path(favorite.recipe) do %>
+            　<%= attachment_image_tag favorite.recipe, :image, :fill, 200, 200, size: '50x50' %>
+              <%= favorite.recipe.title %>
+            <% end %>
+          </td>
+          <td><%= favorite.recipe.comment %></td>
+        </tr>
+        <% end %>
+
+    </tbody>
+  </table>
+</div>

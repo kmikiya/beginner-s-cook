@@ -36,6 +36,7 @@ scope module: :customer do
     #手順
     resource :explanation, only: [:create, :edit, :update, :destroy]
   end
+    get 'favorites' => 'favorites#index', as: 'favorites'
     post 'recipes/id/confirm' => 'recipes#confirm'
     get 'complete' => 'recipes#compleate'
     root to: 'recipes#top'
