@@ -15,6 +15,7 @@
       <% if customer_signed_in? %>
         <%= link_to "マイページ", my_page_path(current_customer)%>
         <%= link_to "ログアウト", destroy_customer_session_path, method: :delete%>
+        <%= link_to "レシピ投稿", new_recipe_path %>
       <% else %>
         <%= link_to "ログイン", new_customer_session_path %>
         <%= link_to "新規登録", new_customer_registration_path %>

@@ -1,0 +1,17 @@
+<%= form_with model: @customer,local:true do |f| %>
+<div>
+  プロフィール画像
+  <%= f.attachment_field :profile_image, class:"form-control.file" %>
+</div>
+<div>
+  ヘッダー画像
+  <%= f.attachment_field :bg_image, class:"form-control.file" %>
+</div>
+<div>
+  ニックネーム
+  <%= f.text_field :name %>
+  自己紹介
+  <%= f.text_area :profile %>
+</div>
+<%= f.submit %>
+<% end %>

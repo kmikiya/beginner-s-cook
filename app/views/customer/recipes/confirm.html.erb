@@ -1,0 +1,14 @@
+<div class="container">
+  <div>
+    <%= attachment_image_tag @recipe, :image, :fill, 200, 200 %>
+  </div>
+  <div>
+    <%= @recipe.title %>
+    <%= @recipe.time %>
+    <%= @recipe.comment %>
+  </div>
+
+  <%= form_with model: @recipe, url: { action: :create }, local: true do |f| %>
+    <%= f.submit "投稿を確定する", class: "btn btn-success" %>
+  <% end %>
+</div>

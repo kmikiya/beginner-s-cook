@@ -1,0 +1,23 @@
+<div class="container">
+  <div>
+    <%= attachment_image_tag @recipe, :image, :fill, 200, 200 %>
+  </div>
+  <div>
+    <%= @recipe.title %>
+    <%= @recipe.time %>
+    <%= @recipe.comment %>
+    <%= link_to customer_path(@recipe.customer) do %>
+    <%= @recipe.customer.name %>
+    <% end %>
+    <%= @explanations.each do |explanation| %>
+      <%= explanation.explanation %>
+    <% end %>
+    <% if current_customer.id == @recipe.customer.id %>
+      <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
+      <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
+    <% end %>
+  </div>
+
+
+
+</div>
