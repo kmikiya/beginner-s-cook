@@ -54,7 +54,7 @@ namespace :admin do
     resources :customers, only:[:index, :show, :edit, :update]
 
     #材料
-    resources :material_details, only:[:create, :edit, :update, :destroy]
+    resources :material_details, only:[:index, :new, :create, :edit, :update, :destroy]
 end
 
 end
