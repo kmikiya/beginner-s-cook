@@ -17,21 +17,27 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
  #customer側↓
 scope module: :customer do
   #カスタマー
-  resources :customers, only: [:show, :edit, :update, :delete] do
+  resources :customers, only: [:show, :edit, :update, :destroy] do
     #リレーション(kichenをフォロー)
         resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
+    get 'my_page/:id' => 'customers#show', as: 'my_page'
+    get 'my_page/:id/edit' => 'customers#edit', as: 'edit_my_page'
+
 
   #レシピ
-  resources :recipes, only: [:new, :create, :show, :edit, :update, :delete] do
+  resources :recipes, only: [:new, :create, :show, :edit, :update, :destroy] do
     #コメント
     resources :comments, only: [:create, :destroy]
     #いいね
     resource :favorites, only: [:create, :destroy]
+    #手順
+    resource :explanation, only: [:create, :edit, :update, :destroy]
   end
-    post 'recipe/id/confirm' => 'recipes#confirm'
+    get 'favorites' => 'favorites#index', as: 'favorites'
+    post 'recipes/id/confirm' => 'recipes#confirm'
     get 'complete' => 'recipes#compleate'
     root to: 'recipes#top'
 
@@ -46,10 +52,10 @@ namespace :admin do
     get '/' => 'homes#top'
 
     #カスタマー
-    resources :customers, only:[:index, :show, :edit, :update]
+    resources :customers, only:[:index, :destroy]
 
     #材料
-    resources :material_details, only:[:create, :edit, :update, :delete]
+    resources :material_details, only:[:index, :new, :create, :edit, :update, :destroy]
 end
 
 end

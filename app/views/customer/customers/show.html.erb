@@ -6,8 +6,21 @@
     <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '150x150'%>
     <%= @customer.name %>
     <%= @customer.profile %>
-    <% if current_customer == @customer %>
-      <%= link_to "プロフィール編集", edit_customer_path(@customer) %>
+    フォロワー数
+    <%= @customer.followers.count %>
+    フォロー数
+    <%= @customer.followings.count %>
+
+    <% if customer_signed_in? %>
+      <% if current_customer.following?(@customer) %>
+        <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete, class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post, class: "btn btn-success" %>
+      <% end %>
+
+      <% if current_customer == @customer %>
+        <%= link_to "プロフィール編集", edit_my_page_path(@customer) %>
+      <% end %>
     <% end %>
   </div>
 

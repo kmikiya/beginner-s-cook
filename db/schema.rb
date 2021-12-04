@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_071936) do
+ActiveRecord::Schema.define(version: 2021_12_04_051116) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 2021_12_02_071936) do
     t.datetime "remember_created_at"
     t.string "name", null: false
     t.string "profile"
-    t.string "profile_image"
-    t.string "bg_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "profile_image_id"
+    t.string "bg_image_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(version: 2021_12_02_071936) do
   create_table "explanations", force: :cascade do |t|
     t.integer "recipe_id", null: false
     t.text "explanation", null: false
-    t.string "image", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "process_image_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -65,14 +65,15 @@ ActiveRecord::Schema.define(version: 2021_12_02_071936) do
 
   create_table "material_details", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "calorie"
-    t.integer "sugar"
-    t.integer "protein"
-    t.integer "lipids"
-    t.integer "dietary_fiber"
-    t.integer "salt"
+    t.float "calorie"
+    t.float "sugar"
+    t.float "protein"
+    t.float "lipids"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "amount"
   end
 
   create_table "materials", force: :cascade do |t|
@@ -86,10 +87,10 @@ ActiveRecord::Schema.define(version: 2021_12_02_071936) do
     t.integer "customer_id", null: false
     t.string "title", null: false
     t.integer "time", null: false
-    t.string "image", null: false
     t.string "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_id"
   end
 
   create_table "relationships", force: :cascade do |t|

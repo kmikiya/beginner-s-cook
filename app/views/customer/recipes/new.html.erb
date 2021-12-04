@@ -1,0 +1,24 @@
+<%= form_with model: @recipe, local:true do |f| %>
+<div>
+  プロフィール画像
+  <%= f.attachment_field :image, class:"form-control.file" %>
+</div>
+<div>
+  料理名
+  <%= f.text_field :title %>
+  調理時間
+  <%= f.text_field :time %>
+  コメント
+  <%= f.text_area :comment %>
+  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+</div>
+
+<%= f.fields_for :explanation do |s| %>
+    <%= s.label :explanation, "説明文" %>
+    <%= s.text_area :explanation %>
+    <%#= s.label :process_image, "調理風景" %>
+    <%#= s.attachment_field :process_image, class:"form-control.file" %>
+<% end %>
+
+<%= f.submit %>
+<% end %>
