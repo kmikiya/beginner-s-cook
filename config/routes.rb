@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :customer do
+    get 'reports/edit'
+  end
+  get 'reports/edit'
 # 顧客用
 # URL /customers/sign_in ...
 devise_for :customers, controllers: {
@@ -34,7 +38,9 @@ scope module: :customer do
     #いいね
     resource :favorites, only: [:create, :destroy]
     #手順
-    resource :explanation, only: [:create, :edit, :update, :destroy]
+    resource :explanations, only: [:create, :edit, :update, :destroy]
+    #作ったreport
+    resources :reports
   end
     get 'favorites' => 'favorites#index', as: 'favorites'
     post 'recipes/id/confirm' => 'recipes#confirm'
@@ -43,7 +49,7 @@ scope module: :customer do
 
 
   #材料詳細
-  resources :material_detail, only: [:new, :create]
+  resources :material_details, only: [:new, :create]
 end
 
 namespace :admin do

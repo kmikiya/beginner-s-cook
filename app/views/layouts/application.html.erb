@@ -10,23 +10,34 @@
   </head>
 
   <body>
-    <header>
-      <%= link_to "LOGO", root_path %>
-      <% if customer_signed_in? %>
-        <%= link_to "マイページ", my_page_path(current_customer)%>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete%>
-        <%= link_to "レシピ投稿", new_recipe_path %>
-        <%= link_to "お気に入り一覧", favorites_path %>
-      <% elsif admin_signed_in? %>
-        <%= link_to "栄養素表示", admin_material_details_path %>
-        <%= link_to "ユーザ一覧", admin_customers_path %>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" %>
-      <% else %>
-        <%= link_to "ログイン", new_customer_session_path %>
-        <%= link_to "新規登録", new_customer_registration_path %>
-      <% end %>
-
-    </header>
+    <div class="wrapper">
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container">
+            <a class="navbar-brand" href="/"><%= link_to "LOGO", root_path %></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ml-auto">
+                <% if customer_signed_in? %>
+                  <li class="nav-item"><%= link_to "マイページ", my_page_path(current_customer)%></li>
+                  <li class="nav-item"><%= link_to "レシピ投稿", new_recipe_path %></li>
+                  <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path %></li>
+                  <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete%></li>
+                <% elsif admin_signed_in? %>
+                  <li class="nav-item"><%= link_to "栄養素表示", admin_material_details_path %></li>
+                  <li class="nav-item"><%= link_to "ユーザ一覧", admin_customers_path %></li>
+                  <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" %></li>
+                <% else %>
+                  <li class="nav-item"><%= link_to "ログイン", new_customer_session_path %></li>
+                  <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
     <%= yield %>
   </body>
 </html>

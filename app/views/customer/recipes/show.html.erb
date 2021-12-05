@@ -1,21 +1,25 @@
 <div class="container">
-  <div>
-    <%= attachment_image_tag @recipe, :image, :fill, 200, 200 %>
-  </div>
-  <div>
-    <%= @recipe.title %>
-    <%= @recipe.time %>
-    <%= @recipe.comment %>
-    <%= link_to customer_path(@recipe.customer) do %>
-    <%= @recipe.customer.name %>
-    <% end %>
-    <%= @explanations.each do |explanation| %>
-      <%= explanation.explanation %>
-    <% end %>
-    <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
-    <% if customer_signed_in? %>
-
-      <% if @recipe.favorited_by?(current_customer) %>
+  <div class="row" >
+    <div class="col">
+      <%= attachment_image_tag @recipe, :image, :fill, 200, 200 %>
+    </div>
+    <div class="col">
+      <div claas="row">
+      <table class="table">
+        <thead>
+          <th>料理名</th>
+          <th>調理時間</th>
+          <th>紹介文</th>
+        </thead>
+        <tbody>
+          <td><%= @recipe.title %></td>
+         <td><%= @recipe.time %></td>
+         <td><%= @recipe.comment %></td>
+       </tbody>
+     </table>
+     </div>
+     <div class="row">
+       <% if @recipe.favorited_by?(current_customer) %>
         <p>
           <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
             ♥お気に入りから外す
@@ -28,14 +32,31 @@
           <% end %>
         </p>
       <% end %>
-
+      <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+      <%= link_to recipe_reports_path(@recipe) do %>
+        <div>みんなが作った数　<%= @recipe.report.count %>件</div>
+      <% end %>
       <% if current_customer.id == @recipe.customer.id %>
         <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
         <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
       <% end %>
-    <% end %>
+     </div>
+    </div>
   </div>
 
 
 
+    <%= link_to customer_path(@recipe.customer) do %>
+    <%= @recipe.customer.name %>
+    <% end %>
+    <%= @explanations.each do |explanation| %>
+      <%= explanation.explanation %>
+    <% end %>
+    <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
+    <% if customer_signed_in? %>
+
+
+
+
+    <% end %>
 </div>
