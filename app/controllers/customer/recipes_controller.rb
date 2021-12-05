@@ -6,6 +6,8 @@ class Customer::RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @explanation = @recipe.explanations.build
+    @material_detail = @recipe.material_details.build
+    @material = @material_detail.materials.build
   end
 
   def create
@@ -22,6 +24,7 @@ class Customer::RecipesController < ApplicationController
   def show
     @recipe = Recipe.find(params[:id])
     @explanations = @recipe.explanations
+    @materials = @recipe.material_details
   end
 
   def edit
@@ -44,11 +47,8 @@ class Customer::RecipesController < ApplicationController
   private
 
   def recipe_params
-     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, explanations_attributes: [:id, :explanation, :process_image])
+     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, explanations_attributes: [:id, :explanation, :process_image],
+     material_attributes: [:id], material_details_attributes: [:id, :name, :amount] )
   end
 
-
-  #def explanation_params
-   #  params.require(:explanation).permit(:recipe_id, :explanation, :image )
-  #end
 end

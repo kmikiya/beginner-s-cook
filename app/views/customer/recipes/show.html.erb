@@ -19,6 +19,8 @@
      </table>
      </div>
      <div class="row">
+           <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
+       <% if customer_signed_in? %>
        <% if @recipe.favorited_by?(current_customer) %>
         <p>
           <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
@@ -40,6 +42,7 @@
         <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
         <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
       <% end %>
+      <% end %>
      </div>
     </div>
         <%= link_to customer_path(@recipe.customer) do %>
@@ -48,10 +51,28 @@
   </div>
 
 
-
-
+<div class="row">
+　材料
+  <table class="table">
+    <thead>
+      <th>材料名</th>
+      <th>分量</th>
+    </thead>
+    <tbody>
+      <% @materials.each do |material| %>
+        <tr>
+          <td><%= material.name %></td>
+          <td><%= material.amount %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <div class="row">
+  <h2>作り方</h2><br>
+</div>
+  <div class="row">
     <% @explanations.each do |explanation| %>
     <div class="col">
       <%= attachment_image_tag explanation, :process_image, :fill, 200, 200 %>
@@ -59,11 +80,4 @@
     </div>
     <% end %>
 </div>
-    <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
-    <% if customer_signed_in? %>
-
-
-
-
-    <% end %>
 </div>
