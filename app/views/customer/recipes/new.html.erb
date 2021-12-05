@@ -1,3 +1,4 @@
+<div class="recipe-post">
 <%= form_with model: @recipe, local:true do |f| %>
 <div>
   プロフィール画像
@@ -13,17 +14,29 @@
   <%= f.hidden_field :customer_id, :value => current_customer.id %>
 </div>
 
-<%= f.fields_for :explanations do |s| %>
-    <%= s.label :explanation, "説明文" %>
-    <%= s.text_area :explanation %>
-    <%= s.label :process_image, "調理風景" %>
-    <%= s.attachment_field :process_image, class:"form-control file" %>
+
+<div class="explanation">
+  <div class="mx-auto">
+<%= f.fields_for :explanations do |t| %>
+
+  <%= render 'explanation_fields', f: t %>
 <% end %>
+</div>
 
+      <div id="detail-association-insertion-point"></div>
 
-
-
+      <div class="col-10 mx-auto mt-2">
+        <%= link_to_add_association "+フォームを追加", f, :explanations,
+        class: "add_fields",
+        id: 'add-btn',
+        data: {
+        association_insertion_node: '#detail-association-insertion-point',
+        association_insertion_method: 'after'
+        }%>
+      </div>
+    </div>
 
 
 <%= f.submit %>
 <% end %>
+</div>
