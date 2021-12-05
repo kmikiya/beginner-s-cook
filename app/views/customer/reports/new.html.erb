@@ -1,12 +1,30 @@
-<%= form_with model: @report, local:true do |f| %>
+<%= form_with model:[@recipe, @report], local:true do |f| %>
 <div>
   レポート画像
   <%= f.attachment_field :image, class:"form-control.file" %>
 </div>
 <div>
   感想
-  <%= f.text_field :impression %>
+  <%= f.text_area:impression %>
+  <!-- 評価 -->
+  <div class="form-group row" id="star">
+    <%= f.label :evaluation,'評価 ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :evaluation, id: :review_star %>
+  </div>
 
+  <!-- 評価javascript -->
+  <script>
+  $('#star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'report[evaluation]',
+    half: true,
+  });
+  </script>
+  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+  <%= f.hidden_field :recipe_id, :value => @recipe.id %>
 </div>
 <%= f.submit %>
 <% end %>

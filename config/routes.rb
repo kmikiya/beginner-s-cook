@@ -21,7 +21,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
  #customer側↓
 scope module: :customer do
   #カスタマー
-  resources :customers, only: [:show, :edit, :update, :destroy] do
+  resources :customers, only: [:edit, :update, :destroy] do
     #リレーション(kichenをフォロー)
         resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'

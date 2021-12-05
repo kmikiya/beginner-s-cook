@@ -5,15 +5,12 @@ class Customer::RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    @explanation = Explanation.new
+    @explanation = @recipe.explanations.build
   end
 
   def create
     @recipe = Recipe.new(recipe_params)
-    @explanation = Explanation.new#(explanation_params)
     if @recipe.save
-       @explanation.recipe_id = @recipe.id
-       @explanation.save
     redirect_to root_path
     end
   end
@@ -24,7 +21,7 @@ class Customer::RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
-    @explanations = Explanation.all
+    @explanations = @recipe.explanations
   end
 
   def edit
@@ -47,8 +44,9 @@ class Customer::RecipesController < ApplicationController
   private
 
   def recipe_params
-     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id)
+     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, explanations_attributes: [:id, :explanation, :process_image])
   end
+
 
   #def explanation_params
    #  params.require(:explanation).permit(:recipe_id, :explanation, :image )
