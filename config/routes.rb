@@ -39,8 +39,11 @@ scope module: :customer do
     resource :favorites, only: [:create, :destroy]
     #手順
     resource :explanations, only: [:create, :edit, :update, :destroy]
+    #材料詳細
+    resources :material_details, only: [:new, :create]
     #作ったreport
     resources :reports
+    resources :materials
   end
     get 'favorites' => 'favorites#index', as: 'favorites'
     post 'recipes/id/confirm' => 'recipes#confirm'
@@ -48,8 +51,7 @@ scope module: :customer do
     root to: 'recipes#top'
 
 
-  #材料詳細
-  resources :material_details, only: [:new, :create]
+
 end
 
 namespace :admin do
