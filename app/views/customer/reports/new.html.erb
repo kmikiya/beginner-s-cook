@@ -1,0 +1,12 @@
+<%= form_with model: @report, local:true do |f| %>
+<div>
+  レポート画像
+  <%= f.attachment_field :image, class:"form-control.file" %>
+</div>
+<div>
+  感想
+  <%= f.text_field :impression %>
+
+</div>
+<%= f.submit %>
+<% end %>
