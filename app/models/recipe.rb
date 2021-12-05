@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
   has_many :explanations, dependent: :destroy
   has_many :materials, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :report, dependent: :destroy
   belongs_to :customer
 
   def favorited_by?(customer)

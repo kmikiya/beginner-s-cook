@@ -3,7 +3,7 @@
     <%= attachment_image_tag @customer, :bg_image, :fill, 200, 200, fallback:"no_bg_image.jpg"%>
   </div>
   <div>
-    <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '150x150'%>
+    <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '150x150'%>
     <%= @customer.name %>
     <%= @customer.profile %>
     フォロワー数

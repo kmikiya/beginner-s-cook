@@ -32,6 +32,10 @@
           <% end %>
         </p>
       <% end %>
+      <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+      <%= link_to recipe_reports_path(@recipe) do %>
+        <div>みんなが作った数　<%= @recipe.report.count %>件</div>
+      <% end %>
       <% if current_customer.id == @recipe.customer.id %>
         <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
         <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
