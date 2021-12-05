@@ -1,7 +1,7 @@
   <div class="nested-fields">
   <div class="row mx-auto">
-    <div class="col-5"><%= f.text_area :explanation, class: "form-control", placeholder: "作り方" %></div>
-    <div class="offset-1 col-2"><%= f.attachment_field :process_image, class: "form-control" %></div>
+    <div class="col-5 pb-3"><%= f.text_area :explanation, class: "form-control", placeholder: "作り方" %></div>
+    <div class="offset-1 col-4"><%= f.attachment_field :process_image %></div>
     <div class="offset-1 col-1 px-0 w-auto">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
     </div>

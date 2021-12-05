@@ -1,8 +1,9 @@
 <div class="container">
-  <div>
+  <div class="row">
+  <div class="ml-4">
     <%= attachment_image_tag @customer, :bg_image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '600x200'%>
   </div>
-  <div>
+  <div class="ml-4">
     <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '100x100'%>
     <%= @customer.name %>
     <%= @customer.profile %>
@@ -27,6 +28,7 @@
       <% end %>
     <% end %>
   </div>
+  </div>
   <div class="row">
     <h2>投稿レシピ</h2>
     <% @recipes.each do |recipe| %>
@@ -36,7 +38,4 @@
       <% end %>
     <% end %>
   </div>
-
-
-
 </div>

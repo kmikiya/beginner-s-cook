@@ -6,7 +6,7 @@ class Recipe < ApplicationRecord
   belongs_to :customer
   has_many :material_details, through: :materials
 
-  accepts_nested_attributes_for :explanations, :material_details, allow_destroy: true
+  accepts_nested_attributes_for :explanations, :material_details
   accepts_attachments_for :explanations, attachment: :process_image
 
   def favorited_by?(customer)
