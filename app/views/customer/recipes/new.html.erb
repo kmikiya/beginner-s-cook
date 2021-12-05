@@ -13,12 +13,17 @@
   <%= f.hidden_field :customer_id, :value => current_customer.id %>
 </div>
 
-<%= f.fields_for :explanation do |s| %>
+<%= f.fields_for :explanations do |s| %>
     <%= s.label :explanation, "説明文" %>
     <%= s.text_area :explanation %>
-    <%#= s.label :process_image, "調理風景" %>
-    <%#= s.attachment_field :process_image, class:"form-control.file" %>
+    <%= s.label :process_image, "調理風景" %>
+    <%= s.attachment_field :process_image, class:"form-control file" %>
 <% end %>
+
+
+
+
+
 
 <%= f.submit %>
 <% end %>

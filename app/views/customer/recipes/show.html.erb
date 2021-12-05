@@ -34,7 +34,7 @@
       <% end %>
       <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
       <%= link_to recipe_reports_path(@recipe) do %>
-        <div>みんなが作った数　<%= @recipe.report.count %>件</div>
+        <div>みんなが作った数　<%= @recipe.reports.count %>件</div>
       <% end %>
       <% if current_customer.id == @recipe.customer.id %>
         <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
@@ -42,16 +42,23 @@
       <% end %>
      </div>
     </div>
+        <%= link_to customer_path(@recipe.customer) do %>
+    <%= @recipe.customer.name %>
+    <% end %>
   </div>
 
 
 
-    <%= link_to customer_path(@recipe.customer) do %>
-    <%= @recipe.customer.name %>
-    <% end %>
-    <%= @explanations.each do |explanation| %>
+
+
+<div class="row">
+    <% @explanations.each do |explanation| %>
+    <div class="col">
+      <%= attachment_image_tag explanation, :process_image, :fill, 200, 200 %>
       <%= explanation.explanation %>
+    </div>
     <% end %>
+</div>
     <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
     <% if customer_signed_in? %>
 
