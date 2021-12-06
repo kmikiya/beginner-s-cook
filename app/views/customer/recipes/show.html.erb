@@ -5,6 +5,44 @@
     </div>
     <div class="col">
       <div claas="row">
+
+      <div>
+        <% if @reports.exists? %>
+        <span>平均評価：</span>
+        <span id="star-rate-average"></span>
+        <script>
+          $('#star-rate-average').empty();
+          $('#star-rate-average').raty({
+            size: 36,
+            starOff: "<%= asset_path('star-off.png') %>",
+            starOn: "<%= asset_path('star-on.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            half: true,
+            readOnly: true,
+            score: <%= @average %>,
+          });
+        </script>
+        (<%= @average %>点)
+        <% else %>
+        <span>平均評価：</span>
+        <span id="star-rate-0"></span>
+        <script>
+          $('#star-rate-0').empty();
+          $('#star-rate-0').raty({
+            size: 36,
+            starOff: "<%= asset_path('star-off.png') %>",
+            starOn: "<%= asset_path('star-on.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            half: true,
+            readOnly: true,
+            score: <%= 0 %>,
+          });
+        </script>
+        (<%= 0 %>点)
+        <% end %>
+    </div>
+
+
       <table class="table">
         <thead>
           <th>料理名</th>
@@ -45,7 +83,7 @@
       <% end %>
      </div>
     </div>
-        <%= link_to customer_path(@recipe.customer) do %>
+        <%= link_to my_page_path(@recipe.customer) do %>
     <%= @recipe.customer.name %>
     <% end %>
   </div>
@@ -74,9 +112,9 @@
 </div>
   <div class="row">
     <% @explanations.each do |explanation| %>
-    <div class="col">
-      <%= attachment_image_tag explanation, :process_image, :fill, 200, 200 %>
-      <%= explanation.explanation %>
+    <div class="col-md-3">
+      <div><%= attachment_image_tag explanation, :process_image, :fill, 200, 200 %></div>
+      <div><%= explanation.explanation %></div>
     </div>
     <% end %>
 </div>

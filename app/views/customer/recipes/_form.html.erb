@@ -1,44 +1,55 @@
-<div class="recipe-post">
-  <%= form_with model: recipe, local:true do |f| %>
-    完成写真
-    <%= f.attachment_field :image, class:"form-control.file" %>
-    料理名
-    <%= f.text_field :title %>
-    調理時間
-    <%= f.text_field :time %>
-    コメント
-    <%= f.text_area :comment %>
-    <%= f.hidden_field :customer_id, :value => current_customer.id %>
-</div>
+<%= form_with model: recipe, local:true do |f| %>
+  <div class="row">
+    <div class="col-6">
+      完成写真
+      <%= f.attachment_field :image, class:"form-control.file" %>
+    </div>
 
-<div class="material_detail">
+    <div class="col-6">
+      <div class="ml-4">
+        料理名
+        <%= f.text_field :title %>
+      </div>
+      <div class="ml-4">
+        調理時間
+        <%= f.text_field :time %>
+      </div>
+      <div class="ml-4">
+        コメント
+        <%= f.text_area :comment %>
+        <%= f.hidden_field :customer_id, :value => current_customer.id %>
+      </div>
+    </div>
+  </div>
+
+  <div class="material_detail">
+    <div class="col-10 mx-auto mt-2">
+      <%= link_to_add_association "材料追加", f, :material_details,
+        class: "add_fields",
+        id: 'add-btn',
+        data: {
+        association_insertion_node: '#detail-association-insertion-point',
+      }%>
+    </div>
     <%= f.fields_for :material_details do |t| %>
-      <%= render 'material_detail_fields', f: t %>
+       <%= render 'material_detail_fields', f: t %>
     <% end %>
     <div id="detail-association-insertion-point"></div>
+  </div>
+
+
+  <div class="explanation">
+    <div class="mx-auto">
+      <%= f.fields_for :explanations do |t| %>
+        <%= render 'explanation_fields', f: t %>
+      <% end %>
+    </div>
+    <div id="detail-association-insertion-point"></div>
       <div class="col-10 mx-auto mt-2">
-        <%= link_to_add_association "材料追加", f, :material_details,
-          class: "add_fields",
-          id: 'add-btn',
-          data: {
-          association_insertion_node: '#detail-association-insertion-point',
-          association_insertion_method: 'after'
-        }%>
+        <%= link_to_add_association "工程追加", f, :explanations %>
       </div>
   </div>
 
-<div class="explanation">
-  <div class="mx-auto">
-    <%= f.fields_for :explanations do |t| %>
-      <%= render 'explanation_fields', f: t %>
-    <% end %>
+  <%= f.submit %>
   </div>
-  <div id="detail-association-insertion-point"></div>
-    <div class="col-10 mx-auto mt-2">
-      <%= link_to_add_association "工程追加", f, :explanations %>
-    </div>
-</div>
-
-    <%= f.submit %>
-  <% end %>
-</div>
+<% end %>

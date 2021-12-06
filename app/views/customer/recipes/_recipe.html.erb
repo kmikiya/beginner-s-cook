@@ -1,0 +1,4 @@
+<%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '60x60'%>
+<%= link_to recipe_path(recipe) do %>
+  <%= recipe.title %>
+<% end %>
