@@ -1,6 +1,12 @@
 class Customer::RecipesController < ApplicationController
   def top
     @recipes = Recipe.all
+    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc")
+    # binding.irb
+  end
+
+  def index
+    @recipes = Recipe.all
   end
 
   def new
@@ -25,6 +31,11 @@ class Customer::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @explanations = @recipe.explanations
     @materials = @recipe.material_details
+    #平均点
+    @reports = @recipe.reports
+    if @reports.exists?
+      @average = @reports.average(:evaluation).round(1)
+    end
   end
 
   def edit

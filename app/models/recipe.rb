@@ -8,6 +8,7 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :explanations, :material_details
   accepts_attachments_for :explanations, attachment: :process_image
+  attr_accessor :average
 
   def favorited_by?(customer)
     favorites.where(customer_id: customer.id).exists?

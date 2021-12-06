@@ -15,3 +15,24 @@
  */
  @import "bootstrap";
 
+.recipe-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 1199.98px) {}
+
+@media screen and (max-width: 991.98px) {}
+
+@media screen and (max-width: 767.98px) {
+  .recipe-img {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+    .recipe-img {
+    height: 100px;
+  }
+}

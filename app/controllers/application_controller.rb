@@ -2,11 +2,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_search
 
-def set_search
-  #@search = Article.search(params[:q])
-  @search = Recipe.ransack(params[:q]) #ransackメソッド推奨
-  @search_recipes = @search.result.page(params[:page])
-end
+  def set_search
+    @search = Recipe.ransack(params[:q])
+    @search_recipes = @search.result
+  end
 
   #ログイン後のリンク先設定
   def after_sign_in_path_for(resource)

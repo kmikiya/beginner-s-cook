@@ -32,7 +32,7 @@ scope module: :customer do
 
 
   #レシピ
-  resources :recipes, only: [:new, :create, :show, :edit, :update, :destroy] do
+  resources :recipes do
     #コメント
     resources :comments, only: [:create, :destroy]
     #いいね
