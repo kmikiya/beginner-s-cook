@@ -108,14 +108,40 @@
 </div>
 
 <div class="row">
-  <h2>作り方</h2><br>
+  <h2>作り方</h2>
 </div>
   <div class="row">
-    <% @explanations.each do |explanation| %>
-    <div class="col-md-3">
-      <div><%= attachment_image_tag explanation, :process_image, :fill, 200, 200 %></div>
-      <div><%= explanation.explanation %></div>
+    <div id="wrap">
+      <div class="txt-show">
+        <% @explanations.each do |explanation| %>
+          <div class="col-md-3">
+            <div><%= attachment_image_tag explanation, :process_image, :fill, 200, 200, class: "img-fluid" %></div>
+            <div><%= explanation.explanation %></div>
+     　    </div>
+          <div class="txt-hide">
+            <% explanation.comments.each do |comment| %>
+              <div><%= comment.customer.name %></div>
+              <div><%= comment.comment %></div>
+              <div><%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %></div>
+            <% end %>
+            <%= form_with model: @comment, url: recipe_comments_path(explanation.recipe), local:true do |f| %>
+              <%= f.text_area :comment %>
+              <%= f.hidden_field :customer_id, :value => current_customer.id %>
+              <%= f.hidden_field :explanation_id, :value => explanation.id %>
+              <%= f.submit %>
+            <% end %>
+          </div>
+          <button class="more"></button>
+        <% end %>
+      </div>
     </div>
-    <% end %>
-</div>
-</div>
+  </div>
+
+<script>
+  $(function(){
+  $(".more").on("click", function() {
+    $(this).toggleClass("on-click");
+    $(".txt-hide").slideToggle(1000);
+  });
+});
+</script>

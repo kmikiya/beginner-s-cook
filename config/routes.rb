@@ -33,12 +33,14 @@ scope module: :customer do
 
   #レシピ
   resources :recipes do
-    #コメント
-    resources :comments, only: [:create, :destroy]
+
     #いいね
     resource :favorites, only: [:create, :destroy]
     #手順
-    resource :explanations, only: [:create, :edit, :update, :destroy]
+    resources :explanations, only: [:create, :edit, :update, :destroy]
+     #コメント
+      resource :comments, only: [:create, :destroy]
+
     #材料詳細
     resources :material_details, only: [:new, :create]
     #作ったreport
@@ -46,8 +48,8 @@ scope module: :customer do
     resources :materials
   end
     get 'favorites' => 'favorites#index', as: 'favorites'
-    post 'recipes/id/confirm' => 'recipes#confirm'
-    get 'complete' => 'recipes#compleate'
+    #post 'recipes/id/confirm' => 'recipes#confirm'
+   # get 'complete' => 'recipes#compleate'
     root to: 'recipes#top'
 
 
