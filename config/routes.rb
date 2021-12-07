@@ -44,9 +44,7 @@ scope module: :customer do
       resource :comments, only: [:create, :destroy]
 
     #材料詳細
-    resources :material_details, only: [:new, :create] do
-        get '/material_name/:name', on: :collection, action: :material_name
-  end
+    resources :material_details, only: [:new, :create]
     #作ったreport
     resources :reports
     resources :materials
