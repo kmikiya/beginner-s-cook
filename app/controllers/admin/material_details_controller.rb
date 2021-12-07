@@ -30,11 +30,20 @@ class Admin::MaterialDetailsController < ApplicationController
     redirect_to admin_material_details_path
   end
 
+  def material_name
+     companies = MaterialDetail.by_name_like(autocomplete_params[:name]).pluck(:name).reject(&:blank?)
+    render json: names
+  end
+
 
   private
 
   def material_detail_params
     params.require(:material_detail).permit(:name, :calorie, :sugar, :dietary_fiber, :protein, :lipids, :salt, :amount)
+  end
+
+  def autocomplete_params
+      params.permit(:name)
   end
 
 end

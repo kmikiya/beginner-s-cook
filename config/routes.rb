@@ -20,8 +20,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 
  #customer側↓
 scope module: :customer do
+
   #カスタマー
   resources :customers, only: [:edit, :update, :destroy] do
+
     #リレーション(kichenをフォロー)
         resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
@@ -42,7 +44,9 @@ scope module: :customer do
       resource :comments, only: [:create, :destroy]
 
     #材料詳細
-    resources :material_details, only: [:new, :create]
+    resources :material_details, only: [:new, :create] do
+        get '/material_name/:name', on: :collection, action: :material_name
+  end
     #作ったreport
     resources :reports
     resources :materials

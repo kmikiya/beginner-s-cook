@@ -14,6 +14,9 @@
  *= require_self
  */
  @import "bootstrap";
+ @import "jquery-ui/autocomplete";
+ @import "jquery-ui/theme";
+ @import "jquery-ui/menu";
 
 .recipe-img {
   width: 100%;
