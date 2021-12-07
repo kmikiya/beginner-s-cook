@@ -1,4 +1,6 @@
 class Customer::RecipesController < ApplicationController
+
+
   def top
     @recipes = Recipe.all
     #evaluation_avgここで定義

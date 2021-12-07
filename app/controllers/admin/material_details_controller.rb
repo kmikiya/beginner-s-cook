@@ -2,6 +2,7 @@ class Admin::MaterialDetailsController < ApplicationController
 
   def index
     @materials = MaterialDetail.all
+   # binding.irb
   end
 
   def new
