@@ -1,6 +1,7 @@
 class Customer::RecipesController < ApplicationController
   def top
     @recipes = Recipe.all
+    #evaluation_avgここで定義
     @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc")
     # binding.irb
   end
@@ -36,6 +37,8 @@ class Customer::RecipesController < ApplicationController
     if @reports.exists?
       @average = @reports.average(:evaluation).round(1)
     end
+
+    @comment = Comment.new
   end
 
   def edit
