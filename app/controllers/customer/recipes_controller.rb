@@ -39,7 +39,7 @@ class Customer::RecipesController < ApplicationController
     if @reports.exists?
       @average = @reports.average(:evaluation).round(1)
     end
-
+    @list = List.new
     @comment = Comment.new
   end
 

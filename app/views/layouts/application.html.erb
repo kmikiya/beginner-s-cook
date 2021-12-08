@@ -22,6 +22,7 @@
               <ul class="navbar-nav ml-auto">
                 <% if customer_signed_in? %>
                   <li class="nav-item"><%= link_to "マイページ", my_page_path(current_customer)%></li>
+                  <li class="nav-item"><%= link_to "買い物リスト", lists_path %></li>
                   <li class="nav-item"><%= link_to "レシピ投稿", new_recipe_path %></li>
                   <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path %></li>
                   <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete%></li>

@@ -10,6 +10,7 @@ class Customer < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :lists, dependent: :destroy
 
   def follow(customer_id)
     relationships.create(followed_id: customer_id)

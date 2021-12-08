@@ -31,6 +31,7 @@ scope module: :customer do
     get 'my_page/:id/edit' => 'customers#edit', as: 'edit_my_page'
 
 
+  resources :lists, only: [:index, :destroy, :create]
   #レシピ
   resources :recipes do
 
@@ -51,9 +52,6 @@ scope module: :customer do
     #post 'recipes/id/confirm' => 'recipes#confirm'
    # get 'complete' => 'recipes#compleate'
     root to: 'recipes#top'
-
-
-
 end
 
 namespace :admin do
