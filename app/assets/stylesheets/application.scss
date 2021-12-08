@@ -43,7 +43,8 @@ display: none;
 }
 
 button.more {
-width: 120px;
+width: 200px;
+height: 50px;
 margin: 20px auto;
 display: block;
 background-color: #666;
@@ -56,7 +57,7 @@ transition: .5s;
 }
 
 button.more::after {
-content: "もっと見る";
+content: "コメント";
 transition: .2s;
 -erbkit-transition: .2s;
 }

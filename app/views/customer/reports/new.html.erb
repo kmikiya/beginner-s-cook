@@ -1,16 +1,41 @@
-<%= form_with model:[@recipe, @report], local:true do |f| %>
-<div>
-  レポート画像
-  <%= f.attachment_field :image, class:"form-control.file" %>
-</div>
-<div>
-  感想
-  <%= f.text_area:impression %>
-  <!-- 評価 -->
-  <div class="form-group row" id="star">
-    <%= f.label :evaluation,'評価 ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :evaluation, id: :review_star %>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto text-center shadow-lg rounded px-0 my-5 align-self-center">
+      <h5 class="text-dark bg-light py-4 mb-0">つくったレポート</h5>
+      <div class="form-body p-4">
+        <div class="mx-auto text-center">
+          <p>評価と<br>メッセージを入力してください。</p>
+        </div>
+       <%= form_with model:[@recipe, @report], local:true do |f| %>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            </div>
+             <%= f.attachment_field :image, class:"form-control.file" %>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            </div>
+            <%= f.text_area :impression,class:"form-control", id:"inputImpression", placeholder:"メッセージ"%>
+          </div>
+          <div class="input-group mb-3", id="star">
+            <div class="input-group-prepend">
+            </div>
+            <%= f.label :評価, class:'col-md-3 col-form-label' %>
+          </div>
+          <%= f.hidden_field :customer_id, :value => current_customer.id %>
+          <%= f.hidden_field :recipe_id, :value => @recipe.id %>
+          <%= f.submit "投稿", class:"btn btn-block btn-info mt-5" %>
+        <% end %>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
+
+
+
 
   <!-- 評価javascript -->
   <script>
@@ -23,8 +48,3 @@
     half: true,
   });
   </script>
-  <%= f.hidden_field :customer_id, :value => current_customer.id %>
-  <%= f.hidden_field :recipe_id, :value => @recipe.id %>
-</div>
-<%= f.submit %>
-<% end %>

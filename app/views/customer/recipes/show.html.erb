@@ -1,12 +1,8 @@
-<div class="container">
-  <div class="row" >
-    <div class="col">
-      <%= attachment_image_tag @recipe, :image, :fill, 200, 200 %>
-    </div>
-    <div class="col">
-      <div claas="row">
-
-      <div>
+<div class="container pt-3" style="background-color:#f5fffa;">
+  <div class="text-center">
+    <h2><%= @recipe.title %></h2><p>(調理時間<%= @recipe.time %>分)</p>
+  </div>
+      <div class="text-right">
         <% if @reports.exists? %>
         <span>平均評価：</span>
         <span id="star-rate-average"></span>
@@ -43,86 +39,90 @@
     </div>
 
 
+  <div class="row mb-5 mt-5 justify-content-center" >
+    <div class="col-md-3">
+      <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
+      <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250' %>
+      <% end %>
+    </div>
+    <div class="col-md-6 ml-5">
+    <%= link_to my_page_path(@recipe.customer) do %>
+      <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid" %>
+      <%= @recipe.customer.name %>
+    <% end %>
+
+
       <table class="table">
-        <thead>
-          <th>料理名</th>
-          <th>調理時間</th>
-          <th>紹介文</th>
-        </thead>
         <tbody>
-          <td><%= @recipe.title %></td>
-         <td><%= @recipe.time %></td>
          <td><%= @recipe.comment %></td>
        </tbody>
      </table>
-     </div>
-     <div class="row">
-           <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
-       <% if customer_signed_in? %>
-       <% if @recipe.favorited_by?(current_customer) %>
-        <p>
+     <% if customer_signed_in? %>
+     <p class="mb-0">
+      <% if @recipe.favorited_by?(current_customer) %>
           <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
             ♥お気に入りから外す
           <% end %>
-         </p>
       <% else %>
-        <p>
           <%= link_to recipe_favorites_path(@recipe), method: :post do %>
             ♡お気に入りに保存
           <% end %>
-        </p>
       <% end %>
+      </p>
+      <% end %>
+      <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
+ </div>
+
+     <div class="col-md-2 align-self-end">
+
+       <% if customer_signed_in? %>
       <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
       <%= link_to recipe_reports_path(@recipe) do %>
-        <div>みんなが作った数　<%= @recipe.reports.count %>件</div>
+        <div>みんなが作った数<%= @recipe.reports.count %>件</div>
       <% end %>
       <% if current_customer.id == @recipe.customer.id %>
-        <%= link_to "レシピ編集", edit_recipe_path(@recipe) %>
-        <%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %>
+        <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
+        <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
       <% end %>
       <% end %>
      </div>
-    </div>
-        <%= link_to my_page_path(@recipe.customer) do %>
-    <%= @recipe.customer.name %>
-    <% end %>
   </div>
 
 
 <div class="row">
-　材料
-  <table class="table">
-    <thead>
-      <th>材料名</th>
-      <th>分量</th>
-    </thead>
+  <div class="col">
+    <h2>材料（〇人分）</h2>
+  <table class="table table-striped text-center">
     <tbody>
       <% @materials.each do |material| %>
         <tr>
-          <td><%= material.name %></td>
-          <td><%= material.amount %></td>
-          <%= form_with model: @list, url: lists_path, local:true do |f| %>
+          <td class="col-md-4"><%= material.name %></td>
+          <td class="col-md-4"><%= material.amount %></td>
+          <td class="col-md-4"><%= form_with model: @list, url: lists_path, local:true do |f| %>
             <%= f.hidden_field :customer_id, :value => current_customer.id %>
             <%= f.hidden_field :material_detail_id, :value => material.id %>
-            <td><%= f.submit "この材料を買い物リストに入れる" %></td>
-          <% end %>
+            <%= f.submit "買い物リストへ追加" %>
+          <% end %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  </div>
 </div>
 
 <div class="row">
+  <div class="col-md">
   <h2>作り方</h2>
-</div>
-  <div class="row">
+
     <div id="wrap">
       <div class="txt-show">
         <% @explanations.each do |explanation| %>
-          <div class="col-md-3">
-            <div><%= attachment_image_tag explanation, :process_image, :fill, 200, 200, class: "img-fluid" %></div>
-            <div><%= explanation.explanation %></div>
-     　    </div>
+        <div class="row mb-3">
+          <div class="col-md-7"><%= explanation.explanation %></div>
+          <div class="col-md-3"><%= link_to Refile.attachment_url(explanation, :process_image), 'data-lightbox':"explanation" do %>
+          <%= attachment_image_tag explanation, :process_image, :fill, 200, 200, class: "img-fluid" %>
+          <% end %></div>
+          <button class="more col-md-2 align-self-center"></button>
           <div class="txt-hide">
             <% explanation.comments.each do |comment| %>
               <div><%= comment.customer.name %></div>
@@ -130,16 +130,17 @@
               <div><%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %></div>
             <% end %>
             <%= form_with model: @comment, url: recipe_comments_path(explanation.recipe), local:true do |f| %>
-              <%= f.text_area :comment %>
+              <div class="col-md-1"><%= f.text_area :comment %></div>
               <%= f.hidden_field :customer_id, :value => current_customer.id %>
               <%= f.hidden_field :explanation_id, :value => explanation.id %>
-              <%= f.submit %>
+              <div class="col-md-1"><%= f.submit %></div>
             <% end %>
           </div>
-          <button class="more"></button>
+        </div>
         <% end %>
       </div>
     </div>
+  </div>
   </div>
 
 <script>
