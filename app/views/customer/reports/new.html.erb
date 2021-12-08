@@ -4,12 +4,12 @@
       <h5 class="text-dark bg-light py-4 mb-0">つくったレポート</h5>
       <div class="form-body p-4">
         <div class="mx-auto text-center">
-          <p>評価と<br>メッセージを入力してください。</p>
+          <p>写真と評価<br>メッセージを入力してください。</p>
         </div>
        <%= form_with model:[@recipe, @report], local:true do |f| %>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-            </div>
+            <div class="mb-3"><img id="preview" style="width:40%;"></div>
+              <div class="input-group-prepend"></div>
              <%= f.attachment_field :image, class:"form-control.file" %>
           </div>
           <div class="input-group mb-3">
@@ -18,9 +18,7 @@
             <%= f.text_area :impression,class:"form-control", id:"inputImpression", placeholder:"メッセージ"%>
           </div>
           <div class="input-group mb-3", id="star">
-            <div class="input-group-prepend">
-            </div>
-            <%= f.label :評価, class:'col-md-3 col-form-label' %>
+            <div class="input-group-prepend"></div>
           </div>
           <%= f.hidden_field :customer_id, :value => current_customer.id %>
           <%= f.hidden_field :recipe_id, :value => @recipe.id %>
@@ -39,6 +37,7 @@
 
   <!-- 評価javascript -->
   <script>
+  $('#star').empty();
   $('#star').raty({
     size     : 36,
     starOff:  '<%= asset_path('star-off.png') %>',
@@ -46,5 +45,15 @@
     starHalf: '<%= asset_path('star-half.png') %>',
     scoreName: 'report[evaluation]',
     half: true,
+  });
+  </script>
+  <!-- プレビューjavascript -->
+  <script>
+    $('#report_image').on('change', function (e) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $("#preview").attr('src', e.target.result);
+      }
+      reader.readAsDataURL(e.target.files[0]);
   });
   </script>

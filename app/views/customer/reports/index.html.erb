@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-3">
   <div class="row">
     <% @reports.each do |report| %>
       <div class="col-md-3">
@@ -7,11 +7,14 @@
           <%= report.customer.name %></ul>
         <% end %>
         <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
-        <figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
+        <%= link_to Refile.attachment_url(report, :image), 'data-lightbox':"report" do %>
+        　<figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
+        <% end %>
         <div class="relative-post-evaluation">
           <span>評価：</span>
           <span id="star-rate-<%= report.id %>"></span>
             <script>
+              $('#star-rate-<%= report.id %>').empty();
               $('#star-rate-<%= report.id %>').raty({
                 size: 36,
                 starOff: "<%= asset_path('star-off.png') %>",
@@ -22,13 +25,12 @@
                 score: <%= report.evaluation %>,
               });
             </script>
-            <%= report.evaluation %>
         </div>
           <%= report.impression %>
       </div>
     <% end %>
   </div>
-  <div class="row">
+  <div class="row mt-5">
      <%= link_to "レシピに戻る", recipe_path(@recipe) %>
   </div>
 </div>
