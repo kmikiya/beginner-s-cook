@@ -2,10 +2,12 @@ class Customer::RecipesController < ApplicationController
 
 
   def top
-    @recipes = Recipe.all
+    @recipes = Recipe.page(params[:page]).per(3).order("created_at desc")
     #evaluation_avgここで定義
-    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc")
+    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(3)
     # binding.irb
+    recipes = Recipe.all
+    @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(3)
   end
 
   def index
@@ -32,6 +34,7 @@ class Customer::RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
     @materials = @recipe.material_details
     #平均点
@@ -39,8 +42,9 @@ class Customer::RecipesController < ApplicationController
     if @reports.exists?
       @average = @reports.average(:evaluation).round(1)
     end
-
+    @list = List.new
     @comment = Comment.new
+    #@people = @recipe.materials.people
   end
 
   def edit

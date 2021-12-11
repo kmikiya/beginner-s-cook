@@ -1,35 +1,37 @@
-<div class="container">
-  <ul>
+<div class="container pt-3">
   <div class="row">
     <% @reports.each do |report| %>
-    <ul><%= link_to my_page_path(report.customer) do %>
-        <%= attachment_image_tag report.customer, :profile_image, :fill, 200, 200, fallback:"no-image-icon.jpg" %>
-        <%= report.customer.name %></ul>
-    <% end %>
-    <spam><%= report.created_at %></spam>
-      <figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
-      <%= report.impression %>
-      <div class="relative-post-evaluation">
-        <span>評価：</span>
-        <span id="star-rate-<%= report.id %>"></span>
-        <script>
-          $('#star-rate-<%= report.id %>').raty({
-            size: 36,
-            starOff: "<%= asset_path('star-off.png') %>",
-            starOn: "<%= asset_path('star-on.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            half: true,
-            readOnly: true,
-            score: <%= report.evaluation %>,
-          });
-        </script>
-        <%= report.evaluation %>
+      <div class="col-md-3">
+        <%= link_to my_page_path(report.customer) do %>
+          <%= attachment_image_tag report.customer, :profile_image, :fill, 200, 200, fallback:"no-image-icon.jpg" %>
+          <%= report.customer.name %></ul>
+        <% end %>
+        <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+        <%= link_to Refile.attachment_url(report, :image), 'data-lightbox':"report" do %>
+        　<figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
+        <% end %>
+        <div class="relative-post-evaluation">
+          <span>評価：</span>
+          <span id="star-rate-<%= report.id %>"></span>
+            <script>
+              $('#star-rate-<%= report.id %>').empty();
+              $('#star-rate-<%= report.id %>').raty({
+                size: 36,
+                starOff: "<%= asset_path('star-off.png') %>",
+                starOn: "<%= asset_path('star-on.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                half: true,
+                readOnly: true,
+                score: <%= report.evaluation %>,
+              });
+            </script>
+        </div>
+          <%= report.impression %>
       </div>
     <% end %>
   </div>
-  </ul>
-  <div class="row">
-    <%= link_to "レシピに戻る", recipe_path(@recipe) %>
+  <div class="row mt-5">
+     <%= link_to "レシピに戻る", recipe_path(@recipe) %>
   </div>
 </div>
 
