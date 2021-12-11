@@ -24,15 +24,44 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ml-auto">
                 <% if customer_signed_in? %>
-                  <li class="nav-item"><%= link_to "マイページ", my_page_path(current_customer)%></li>
-                  <li class="nav-item"><%= link_to "買い物リスト", lists_path %></li>
-                  <li class="nav-item"><%= link_to "レシピ投稿", new_recipe_path %></li>
-                  <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path %></li>
-                  <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete%></li>
+                  <li class="nav-item pr-3">
+                    <%= link_to  my_page_path(current_customer) do %>
+                    <div class="col"><i class="fas fa-user fa-2x"></i></div>
+                    <div style="font-size: 4px;">マイページ</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
+                    <%= link_to lists_path do %>
+                    <div class="col"><i class="fas fa-tasks fa-2x"></i></div>
+                    <div style="font-size: 4px;">買い物リスト</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
+                    <%= link_to new_recipe_path do %>
+                      <div class="col"><i class="far fa-edit fa-2x"></i></div>
+                      <div style="font-size: 4px;">レシピを書く</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
+                    <%= link_to favorites_path do %>
+                      <div class="col"><i class="far fa-bookmark fa-2x"></i></div>
+                      <div style="font-size: 4px;">ブックマーク</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_customer_session_path, method: :delete do %>
+                      <div class="col"><i class="fas fa-sign-out-alt fa-2x"></i></div>
+                      <div style="font-size: 3px;">ログアウト</div>
+                    <% end %>
+                  </li>
                 <% elsif admin_signed_in? %>
                   <li class="nav-item"><%= link_to "栄養素表示", admin_material_details_path %></li>
                   <li class="nav-item"><%= link_to "ユーザ一覧", admin_customers_path %></li>
-                  <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" %></li>
+                  <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" do %>
+                    <div class="col"><i class="fas fa-sign-out-alt fa-2x"></i></div>
+                    <div style="font-size: 3px;">ログアウト</div>
+                  <% end %>
+                  </li>
                 <% else %>
                   <li class="nav-item"><%= link_to "ログイン", new_customer_session_path %></li>
                   <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path %></li>
