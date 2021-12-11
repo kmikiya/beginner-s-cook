@@ -2,9 +2,9 @@ class Customer::RecipesController < ApplicationController
 
 
   def top
-    @recipes = Recipe.all
+    @recipes = Recipe.page(params[:page]).per(3).order("created_at desc")
     #evaluation_avgここで定義
-    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc")
+    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(3)
     # binding.irb
   end
 
