@@ -44,6 +44,7 @@ class Customer::RecipesController < ApplicationController
     end
     @list = List.new
     @comment = Comment.new
+    #@people = @recipe.materials.people
   end
 
   def edit
