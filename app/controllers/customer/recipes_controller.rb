@@ -6,6 +6,8 @@ class Customer::RecipesController < ApplicationController
     #evaluation_avgここで定義
     @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(3)
     # binding.irb
+    recipes = Recipe.all
+    @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(3)
   end
 
   def index
@@ -32,6 +34,7 @@ class Customer::RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
     @materials = @recipe.material_details
     #平均点

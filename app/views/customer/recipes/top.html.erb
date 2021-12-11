@@ -43,4 +43,20 @@
         </div>
     <% end %>
   </div>
+
+  <div class="mt-3 mb-3">
+    <h2>よく閲覧されるレシピ</h2>
+  </div>
+  <div class="row">
+    <%  @recipe_pvs.each do |recipe| %>
+        <div class="col-md-4">
+          <div><%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
+          <%= link_to recipe_path(recipe) do %>
+            <div><%= recipe.title %></div>
+          <% end %>
+          <div><%= recipe.comment %></div>
+        </div>
+    <% end %>
+  </div>
+
 </div>

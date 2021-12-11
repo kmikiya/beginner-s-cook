@@ -1,58 +1,66 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto text-center rounded px-0 my-5 align-self-center">
-      <h5 class="text-dark bg-light py-4 mb-0">レシピ投稿</h5>
+      <h5 class="text-dark bg-light py-4 mt-5">レシピ投稿</h5>
         <%= form_with model: recipe, local:true do |f| %>
-          <div class="row form-body p-4">
-            <div class="col input-group mb-3">
-              <div class="input-group-prepend"></div>
-              <div class="mb-3"><img id="preview" style="width:40%;"></div>
-               <%= f.attachment_field :image, class:"form-control.file" %>
+          <div class="row">
+            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto text-center rounded px-0 my-5 align-self-center">
+              <div class="row form-body p-4">
+                <div class="col input-group mb-3">
+                  <div class="input-group-prepend"></div>
+                  <div class="mb-3"><img id="preview" style="width:40%;"></div>
+                   <%= f.attachment_field :image, class:"form-control.file" %>
+                </div>
+                <div class="col input-group mb-3 flex-column">
+                  <div class="input-group-prepend"></div>
+                  <%= f.text_field :title, placeholder:"フライパンとめんつゆで作る！簡単親子丼", class: "mb-3", style:"width: 65%;" %>
+                  <div class="input-group-prepend"></div>
+                  <%= f.text_field :time, placeholder:"30分", style:"width: 20%;", class: "mb-3"  %>
+                  <div class="input-group-prepend"></div>
+                  <%= f.text_area :comment, placeholder:"とろとろ卵の絶品親子丼です。卵は２回に分けて入れるのがポインです♪", style:"height: 100px;"  %>
+                  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+              　</div>
+              </div>
             </div>
-            <div class="col input-group mb-3 flex-column">
-              <div class="input-group-prepend"></div>
-              <%= f.text_field :title, placeholder:"料理名", class: "mb-3", style:"width: 60%;" %>
-              <div class="input-group-prepend"></div>
-              <%= f.text_field :time, placeholder:"調理時間", style:"width: 20%;", class: "mb-3"  %>
-              <div class="input-group-prepend"></div>
-              <%= f.text_area :comment, placeholder:"レシピコメント", style:"height: 100px;"  %>
-              <%= f.hidden_field :customer_id, :value => current_customer.id %>
-          　</div>
           </div>
 
-          <div class="mb-5 material_detail">
-            <div class="col-10 mx-auto mt-2">
-            </div>
-            <%= f.fields_for :material_details do |t| %>
-               <%= render 'material_detail_fields', f: t %>
-            <% end %>
-            <div id="detail-association-insertion-point"></div>
-            <%= link_to_add_association "材料追加", f, :material_details,
-                class: "add_fields",
-                id: 'add-btn',
-                data: {
-                association_insertion_node: '#detail-association-insertion-point',
+          <div class=" row mb-5 material_detail mx-auto">
+            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 my-5 align-self-center">
+              <h2>材料</h2>
+              <div class="col-md-5 ml-6 d-flex align-items-center mb-4"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</div>
+              <%= f.fields_for :material_details do |t| %>
+                <%= render 'material_detail_fields', f: t %>
+              <% end %>
+              <div id="detail-association-insertion-material"></div>
+              <%= link_to_add_association "材料追加", f, :material_details,
+                  class: "add_fields d-flex justify-content-center",
+                  id: 'add-btn',
+                  data: {
+                  association_insertion_node: '#detail-association-insertion-material',
+                  association_insertion_method: 'before'
               }%>
+            </div>
           </div>
-          <div class="mb-5 explanation">
-            <div class="mx-auto">
+
+          <div class="row mb-5 explanation mx-auto">
+            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 my-5 align-self-center">
+              <h2>作り方</h2>
               <%= f.fields_for :explanations do |t| %>
                 <%= render 'explanation_fields', f: t %>
               <% end %>
-            </div>
-            <div id="detail-association-insertion-point"></div>
-              <div class="col-10 mx-auto mt-2">
-                <%= link_to_add_association "工程追加", f, :explanations %>
-              </div>
-          </div>
+              <div id="detail-association-insertion-explanation"></div>
 
+              <%= link_to_add_association "工程追加", f, :explanations,
+                  class: "add_fields d-flex justify-content-center",
+                  id: 'add-btn',
+                  data: {
+                  association_insertion_node: '#detail-association-insertion-explanation',
+                  association_insertion_method: 'before'
+              }%>
+            </div>
+          </div>
           <%= f.submit "レシピ投稿" %>
-  </div>
         <% end %>
-      </div>
-    </div>
-  </div>
 </div>
+
 
 
 

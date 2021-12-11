@@ -1,4 +1,5 @@
 class Recipe < ApplicationRecord
+  is_impressionable counter_cache: true
   has_many :explanations, dependent: :destroy
   has_many :materials, dependent: :destroy
   has_many :favorites, dependent: :destroy
