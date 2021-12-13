@@ -1,8 +1,8 @@
 class Customer::ListsController < ApplicationController
-
+before_action :authenticate_customer!
   def index
     @lists = current_customer.lists
-    
+
   end
 
   def create

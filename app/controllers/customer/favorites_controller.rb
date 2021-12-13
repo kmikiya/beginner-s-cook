@@ -1,4 +1,5 @@
 class Customer::FavoritesController < ApplicationController
+  before_action :authenticate_customer!
 
   def create
     recipe = Recipe.find(params[:recipe_id])
@@ -15,7 +16,7 @@ class Customer::FavoritesController < ApplicationController
   end
 
   def index
-    @favorites = current_customer.favorites
+    @favorites = current_customer.favorites.order(created_at: 'DESC')
   end
 
 end
