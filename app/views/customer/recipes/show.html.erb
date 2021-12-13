@@ -52,8 +52,8 @@
         (<%= 0 %>点)
         <% end %>
     </div>
-<p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
 
+<p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
   <div class="row mb-5 mt-5 justify-content-center" >
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
@@ -77,7 +77,7 @@
 
      <div class="col-md-2 align-self-end">
 
-       <% if customer_signed_in? %>
+      <% if customer_signed_in? %>
         <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
           <%= link_to recipe_reports_path(@recipe) do %>
               <div>みんなが作った数<%= @recipe.reports.count %>件</div>
@@ -100,8 +100,9 @@
         <tr>
           <td class="col-md-4"><%= material.name %></td>
           <td class="col-md-4"><%= material.amount %></td>
-          <td class="col-md-4">
-              <% if customer_signed_in? %>
+          
+            <td class="col-md-4">
+              <% if customer_signed_in? %>  
                 <%= form_with model: @list, url: lists_path, local:true do |f| %>
                   <%= f.hidden_field :customer_id, :value => current_customer.id %>
                   <%= f.hidden_field :material_detail_id, :value => material.id %>

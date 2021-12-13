@@ -5,7 +5,6 @@
   <div class="row mt-3 mb-3 justify-content-around">
   <% @favorites.each do |favorite| %>
     <div class="col-md-5 card mt-3 mb-3 pr-3 shadow-lg" style="width: 50%;">
-      
       <%= link_to recipe_path(favorite.recipe) do %>
         <div class="d-flex justify-content-center pb-1 pt-4">
           <%= attachment_image_tag favorite.recipe, :image, :fill, 200, 200, size: '300x300' %>
