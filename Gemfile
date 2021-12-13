@@ -71,3 +71,7 @@ gem 'kaminari'
 gem 'rails-i18n'
 gem 'cocoon'
 gem 'impressionist', '~>1.6.1'
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
