@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2021_12_11_053121) do
   end
 
   create_table "material_details", force: :cascade do |t|
+    t.string "name", null: false
     t.float "calorie"
     t.float "sugar"
     t.float "protein"
@@ -107,8 +108,6 @@ ActiveRecord::Schema.define(version: 2021_12_11_053121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "amount"
-    t.string "name"
-    t.index ["name"], name: "index_material_details_on_name", unique: true
   end
 
   create_table "materials", force: :cascade do |t|
