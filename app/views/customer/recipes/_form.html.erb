@@ -1,8 +1,8 @@
 <div class="container">
-      <h5 class="text-dark bg-light py-4 mt-5">レシピ投稿</h5>
+      <h5 class="text-dark bg-light py-4 mt-5 pl-2">レシピ投稿</h5>
         <%= form_with model: recipe, local:true do |f| %>
           <div class="row">
-            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto text-center rounded px-0 my-5 align-self-center">
+            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto text-center rounded px-0 align-self-center">
               <div class="row form-body p-4">
                 <div class="col input-group mb-3">
                   <div class="input-group-prepend"></div>
@@ -26,7 +26,7 @@
           </div>
 
           <div class="row mb-5 material_detail">
-            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 my-5 align-self-center">
+            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 align-self-center">
               <h2>材料</h2>
               <div class="col-md-5 ml-6 d-flex align-items-center mb-4"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</div>
               <%= f.fields_for :material_details do |t| %>
@@ -44,7 +44,7 @@
           </div>
 
           <div class="row mb-5 explanation">
-            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 my-5 align-self-center">
+            <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 align-self-center">
               <h2>作り方</h2>
               <%= f.fields_for :explanations do |t| %>
                 <%= render 'explanation_fields', f: t %>
@@ -60,7 +60,7 @@
               }%>
             </div>
           </div>
-          <%= f.submit "レシピ投稿" %>
+          <div class="row justify-content-center"><%= f.submit "レシピ投稿", class: "btn btn-success justify-content-center" %></div>
         <% end %>
 </div>
 

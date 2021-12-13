@@ -63,9 +63,9 @@
         </div>
 
         <div id="tab2" class="tab">
-          <div class="row">
+          <div class="row justify-content-around">
             <% @reports.each do |report| %>
-              <div class="col-md-3 card mb-3" style="height: auto;">
+              <div class="card mb-3" style="width: 32%;">
                 <div><%= attachment_image_tag report.recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '50x50', class: "img-fluid" %></div>
                 <%= link_to recipe_path(report.recipe) do %>
                   <strong><%= report.recipe.title %></strong>
@@ -87,10 +87,10 @@
         </div>
 
         <div id="tab3" class="tab">
-          <div class="row">
+          <div class="row justify-content-around">
             <% @recipes.each do |recipe| %>
               <% recipe.reports.each do |report| %>
-                <div class="col-md-3 card mb-3" style="height: auto;">
+                <div class="card mb-3" style="width: 32%;">
                   <div><%= attachment_image_tag report.recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '50x50', class: "img-fluid" %></div>
                   <%= link_to recipe_path(report.recipe) do %>
                     <strong><%= report.recipe.title %></strong>
