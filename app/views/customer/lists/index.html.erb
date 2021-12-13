@@ -1,0 +1,21 @@
+<!--material_detail_idをuniqueにする-->
+<div class="container">
+  <h2>買い物リスト</h2>
+  <table class="table">
+    <thead>
+      <th></th>
+      <th>材料</th>
+      <th>分量</th>
+    </thead>
+    <tbody>
+      <% @lists.each do |list| %>
+        <tr>
+          <td></td>
+          <td><%= list.material_detail.name %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

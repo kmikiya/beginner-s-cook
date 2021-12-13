@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :customer do
+    get 'reports/edit'
+  end
+  get 'reports/edit'
 # 顧客用
 # URL /customers/sign_in ...
 devise_for :customers, controllers: {
@@ -17,7 +21,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
  #customer側↓
 scope module: :customer do
   #カスタマー
-  resources :customers, only: [:show, :edit, :update, :delete] do
+  resources :customers, only: [:edit, :update, :destroy] do
     #リレーション(kichenをフォロー)
         resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
@@ -27,20 +31,27 @@ scope module: :customer do
     get 'my_page/:id/edit' => 'customers#edit', as: 'edit_my_page'
 
 
+  resources :lists, only: [:index, :destroy, :create]
   #レシピ
-  resources :recipes, only: [:new, :create, :show, :edit, :update, :delete] do
-    #コメント
-    resources :comments, only: [:create, :destroy]
+  resources :recipes do
+
     #いいね
     resource :favorites, only: [:create, :destroy]
+    #手順
+    resources :explanations, only: [:create, :edit, :update, :destroy]
+     #コメント
+      resource :comments, only: [:create, :destroy]
+
+    #材料詳細
+    resources :material_details, only: [:new, :create]
+    #作ったreport
+    resources :reports
+    resources :materials
   end
-    post 'recipe/id/confirm' => 'recipes#confirm'
-    get 'complete' => 'recipes#compleate'
+    get 'favorites' => 'favorites#index', as: 'favorites'
+    #post 'recipes/id/confirm' => 'recipes#confirm'
+   # get 'complete' => 'recipes#compleate'
     root to: 'recipes#top'
-
-
-  #材料詳細
-  resources :material_detail, only: [:new, :create]
 end
 
 namespace :admin do
@@ -49,10 +60,10 @@ namespace :admin do
     get '/' => 'homes#top'
 
     #カスタマー
-    resources :customers, only:[:index, :show, :edit, :update]
+    resources :customers, only:[:index, :destroy]
 
     #材料
-    resources :material_details, only:[:create, :edit, :update, :delete]
+    resources :material_details, only:[:index, :new, :create, :edit, :update, :destroy]
 end
 
 end

@@ -1,0 +1,19 @@
+<%= form_with model: [:admin,@material],local:true do |f| %>
+
+  <%= f.label :name, "材料名" %>
+  <%= f.text_field :name, step: '0.01' %>
+  <%= f.number_field :amount %>g あたり
+  <%= f.label :calorie, "カロリー" %>
+  <%= f.number_field :calorie, step: '0.01' %>
+  <%= f.label :sugar, "糖質" %>
+  <%= f.number_field :sugar, step: '0.01' %>
+  <%= f.label :dietary_fiber, "食物繊維" %>
+  <%= f.number_field :dietary_fiber, step: '0.01' %>
+  <%= f.label :protein, "タンパク質" %>
+  <%= f.number_field :protein, step: '0.01' %>
+  <%= f.label :lipids, "脂質" %>
+  <%= f.number_field :lipids, step: '0.01' %>
+  <%= f.label :salt, "塩分" %>
+  <%= f.number_field :salt, step: '0.01' %>
+  <%= f.submit %>
+<% end %>

@@ -1,16 +1,124 @@
 <div class="container">
-  <div>
-    <%= attachment_image_tag @customer, :bg_image, :fill, 200, 200, fallback:"no_bg_image.jpg"%>
+  <div class="shadow-lg">
+  <div class="row-md-8 mx-2 mx-sm-auto  rounded px-0 align-self-center mt-5">
+    <div class="col-md-12 col-sm-10 pl-0 pr-0">
+    <%= attachment_image_tag @customer, :bg_image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '600x300', style: "width: 100%;" %>
+    </div>
   </div>
-  <div>
-    <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '150x150'%>
-    <%= @customer.name %>
+
+  <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
+    <div class="col-md-4 align-self-center">
+      <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '100x100'%>
+      <%= @customer.name %>
+    </div>
+    <div class="col-md-3 align-self-center flex-column">
+      <% if customer_signed_in? %>
+        <% if current_customer == @customer %>
+          <%= link_to "プロフィール編集", edit_my_page_path(@customer), class: "btn btn-primary" %>
+        <% else %>
+          <% if current_customer.following?(@customer) %>
+            <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete, class: "btn btn-primary" %>
+          <% else %>
+              <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post, class: "btn btn-success" %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= link_to "レシピ投稿", new_recipe_path, class: "btn" %>
+      <div>
+        フォロワー数
+        <%= link_to customer_followers_path(@customer) do %>
+          <%= @customer.followers.count %>
+        <% end %>
+          フォロー数
+          <%= link_to customer_followings_path(@customer) do %>
+          <%= @customer.followings.count %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row px-5 pb-2 pt-2 justify-content-start mb-3" style="width: 80%;">
     <%= @customer.profile %>
-    <% if current_customer == @customer %>
-      <%= link_to "プロフィール編集", edit_my_page_path(@customer) %>
-    <% end %>
+  </div>
+   <div>
+      <ul id="tab-menu">
+        <li><a href="#tab1" class="active">投稿レシピ</a></li>
+        <li><a href="#tab2" class="">つくレポ</a></li>
+        <li><a href="#tab3" class="">もらったつくレポ</a></li>
+      </ul>
+      <div id="tab-contents">
+        <div id="tab1" class="tab">
+          <% @recipes.each do |recipe| %>
+            <div class="row mb-3">
+              <div class="col-md-3 ml-3">
+                <%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '200x2s00', class: "img-fluid" %>
+               </div>
+               <div class="col-md-4 align-self-center">
+                 <%= link_to recipe_path(recipe) do %>
+                   <%= recipe.title %>
+                 <% end %>
+                 <div><%= recipe.comment %></div>
+               </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div id="tab2" class="tab">
+          <div class="row">
+            <% @reports.each do |report| %>
+              <div class="col-md-3 card mb-3" style="height: auto;">
+                <div><%= attachment_image_tag report.recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '50x50', class: "img-fluid" %></div>
+                <%= link_to recipe_path(report.recipe) do %>
+                  <strong><%= report.recipe.title %></strong>
+                <% end %>
+                <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                <% if @customer = current_customer %>
+                  <%= link_to recipe_report_path(report.recipe, report), method: :delete do %>
+                    <i class="far fa-trash-alt"></i>
+                  <% end %>
+                <% end %>
+                <div class="card-body">
+                  <h5 class="card-text">
+                    <%= report.impression %>
+                  </h5>
+                </div>
+              </div>
+           <% end %>
+          </div>
+        </div>
+
+        <div id="tab3" class="tab">
+          <div class="row">
+            <% @recipes.each do |recipe| %>
+              <% recipe.reports.each do |report| %>
+                <div class="col-md-3 card mb-3" style="height: auto;">
+                  <div><%= attachment_image_tag report.recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '50x50', class: "img-fluid" %></div>
+                  <%= link_to recipe_path(report.recipe) do %>
+                    <strong><%= report.recipe.title %></strong>
+                  <% end %>
+                  <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                  <div class="card-body">
+                    <h5 class="card-text">
+                      <%= report.impression %>
+                    </h5>
+                  </div>
+                </div>
+              <% end %>
+           <% end %>
+          </div>
+        </div>
+      </div>
   </div>
 
 
 
-</div>
+<script>
+
+$('#tab-contents .tab[id != "tab1"]').hide();
+$('#tab-menu a').on('click', function(event) {
+  $("#tab-contents .tab").hide();
+  $("#tab-menu .active").removeClass("active");
+  $(this).addClass("active");
+  $($(this).attr("href")).show();
+  event.preventDefault();
+});
+</script>

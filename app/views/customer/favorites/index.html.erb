@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="mt-4">
+    <h2>ブックマーク</h2>
+  </div>
+  <div class="row mt-3 mb-3">
+  <% @favorites.each do |favorite| %>
+    <div class="col-md-6 card mt-3 mb-3 pr-3" style="width: 50%;">
+      <%= link_to recipe_path(favorite.recipe) do %>
+        <div class="d-flex justify-content-center"><%= attachment_image_tag favorite.recipe, :image, :fill, 200, 200, size: '300x300' %></div>
+        <div class="d-flex justify-content-center"><strong><%= favorite.recipe.title %></strong></div>
+      <% end %>
+      <div class="d-flex justify-content-center"><%= favorite.recipe.comment %></div>
+    </div>
+  <% end %>
+  </div>
+
+</div>
+
+
+
+
+
+
+

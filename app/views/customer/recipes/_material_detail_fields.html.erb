@@ -1,0 +1,16 @@
+  <div class="nested-fields">
+  <div class="row mx-auto">
+    <div class="col-md-5 ml-6 pb-3"><%= f.text_field :name, class: "form-control", placeholder: "例）玉ねぎ" %></div>
+    <div class="col-md-5 ml-6"><%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %></div>
+    <div class="col-md-1 px-0 w-auto">
+      <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
+    </div>
+  </div>
+
+
+<div class="material">
+    <%= f.fields_for :materials do |t| %>
+      <%= render 'material_fields', f: t %>
+    <% end %>
+</div>
+</div>
