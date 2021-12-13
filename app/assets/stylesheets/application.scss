@@ -94,14 +94,14 @@ h1 {
   display: block;
   padding: 20px;
   text-align: center;
-  background: #000;
-  border: 1px solid #000;
+  background: #deb887;
+  border: 1px solid #fff;
   border-bottom: none;
 }
 
 #tab-menu .active {
   background: #fff;
-  color: #000;
+  color: #6c3524;
 }
 
 #tab-contents {
@@ -113,11 +113,11 @@ h1 {
   width: 100%;
   padding: 30px;
   background: #fff;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   border-top: none;
 }
 
 #tab-contents p {
-  color: #000;
+  color: #deb887;
   line-height: 2.5;
 }

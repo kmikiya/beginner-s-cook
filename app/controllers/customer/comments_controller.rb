@@ -1,4 +1,5 @@
 class Customer::CommentsController < ApplicationController
+  before_action :authenticate_customer!
 
   def create
       comment = Comment.new(comment_params)
