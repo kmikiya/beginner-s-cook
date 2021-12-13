@@ -52,9 +52,9 @@
         (<%= 0 %>点)
         <% end %>
     </div>
-    <p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
 
-  <div class="row mb-5 mt-1 justify-content-center" >
+<p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
+  <div class="row mb-5 mt-5 justify-content-center" >
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
       <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250' %>
@@ -72,6 +72,7 @@
          <td><%= @recipe.comment %></td>
        </tbody>
      </table>
+
  </div>
 
      <div class="col-md-2 align-self-end">
@@ -108,10 +109,9 @@
                   <%= f.submit "買い物リストへ追加" %>
                 <% end %>
               <% else %>
-                
-              <% end %>  
+
+              <% end %>
             </td>
-          
         </tr>
       <% end %>
     </tbody>
