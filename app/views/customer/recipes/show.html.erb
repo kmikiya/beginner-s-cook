@@ -1,8 +1,23 @@
 <div class="container pt-3" style="background-color:#f5fffa;">
-  <div class="text-center">
-    <h2><%= @recipe.title %></h2><p>(調理時間<%= @recipe.time %>)</p>
+
+  <div class="row justify-content-center">
+    <h2 class="mr-3"><%= @recipe.title %></h2>
+     <% if customer_signed_in? %>
+        <% if @recipe.favorited_by?(current_customer) %>
+            <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
+              <div class="col"><i class="fas fa-bookmark fa-2x"></i></div>
+              <div style="font-size: 4px;">ブックマーク</div>
+            <% end %>
+        <% else %>
+            <%= link_to recipe_favorites_path(@recipe), method: :post do %>
+              <div class="col"><i class="far fa-bookmark fa-2x"></i></div>
+              <div style="font-size: 4px;">ブックマーク</div>
+            <% end %>
+        <% end %>
+      <% end %>
   </div>
-      <div class="text-right">
+
+      <div class="text-right mt-2">
         <% if @reports.exists? %>
         <span>平均評価：</span>
         <span id="star-rate-average"></span>
@@ -38,7 +53,7 @@
         <% end %>
     </div>
 
-
+<p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
   <div class="row mb-5 mt-5 justify-content-center" >
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
@@ -57,34 +72,21 @@
          <td><%= @recipe.comment %></td>
        </tbody>
      </table>
-     <% if customer_signed_in? %>
-     <p class="mb-0">
-      <% if @recipe.favorited_by?(current_customer) %>
-          <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
-            ♥お気に入りから外す
-          <% end %>
-      <% else %>
-          <%= link_to recipe_favorites_path(@recipe), method: :post do %>
-            ♡お気に入りに保存
-          <% end %>
-      <% end %>
-      </p>
-      <% end %>
-      <p>この記事は<%= @recipe.favorites.count %>人のユーザーがお気に入りです。</p>
+
  </div>
 
      <div class="col-md-2 align-self-end">
 
-       <% if customer_signed_in? %>
-      <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
-      <%= link_to recipe_reports_path(@recipe) do %>
-        <div>みんなが作った数<%= @recipe.reports.count %>件</div>
-      <% end %>
-      <% if current_customer.id == @recipe.customer.id %>
-        <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
-        <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
-      <% end %>
-      <% end %>
+      <% if customer_signed_in? %>
+        <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+          <%= link_to recipe_reports_path(@recipe) do %>
+              <div>みんなが作った数<%= @recipe.reports.count %>件</div>
+          <% end %>
+          <% if current_customer.id == @recipe.customer.id %>
+            <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
+            <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
+          <% end %>
+        <% end %>
      </div>
   </div>
 
@@ -98,11 +100,18 @@
         <tr>
           <td class="col-md-4"><%= material.name %></td>
           <td class="col-md-4"><%= material.amount %></td>
-          <td class="col-md-4"><%= form_with model: @list, url: lists_path, local:true do |f| %>
-            <%= f.hidden_field :customer_id, :value => current_customer.id %>
-            <%= f.hidden_field :material_detail_id, :value => material.id %>
-            <%= f.submit "買い物リストへ追加" %>
-          <% end %></td>
+          
+            <td class="col-md-4">
+              <% if customer_signed_in? %>  
+                <%= form_with model: @list, url: lists_path, local:true do |f| %>
+                  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                  <%= f.hidden_field :material_detail_id, :value => material.id %>
+                  <%= f.submit "買い物リストへ追加" %>
+                <% end %>
+              <% else %>
+
+              <% end %>
+            </td>
         </tr>
       <% end %>
     </tbody>

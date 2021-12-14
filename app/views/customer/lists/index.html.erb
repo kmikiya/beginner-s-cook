@@ -1,18 +1,27 @@
 <!--material_detail_idをuniqueにする-->
 <div class="container">
   <h2>買い物リスト</h2>
+  <%= link_to "すべてを消す", lists_destroy_all_lists_path, method: :delete, class:"btn btn-sm btn-danger" %>
   <table class="table">
     <thead>
       <th></th>
       <th>材料</th>
-      <th>分量</th>
+      <th>メモ</th>
+      <th></th>
     </thead>
     <tbody>
       <% @lists.each do |list| %>
         <tr>
-          <td></td>
+          <td><%= check_box_tag 'deletes[#{ list.id }]',list.id %></td>
           <td><%= list.material_detail.name %></td>
-          <td></td>
+          <td>
+            <%= form_with model: list, local:true do |f| %>
+              <%= f.text_area :memo %>
+              <%= f.submit "登録" %>
+            <% end %>
+          </td>
+          <td><%= link_to "リストから消す", list_path(list), method: :delete %></td>
+
         </tr>
       <% end %>
     </tbody>
