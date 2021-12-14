@@ -4,10 +4,11 @@
           <div class="row">
             <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto text-center rounded px-0 align-self-center">
               <div class="row form-body p-4">
-                <div class="col input-group mb-3">
-                  <div class="input-group-prepend"></div>
-                  <div class="mb-3"><img id="preview" style="width:40%;"></div>
-                   <%= f.attachment_field :image, class:"form-control.file" %>
+                <div class="col-md-5 mb-3">
+                  <%#div class="mb-3"><img id="preview" style="width:40%;"></div>%>
+                   <%= f.attachment_field  :image, class: 'img_field', style: 'display:none;' %>
+                   <%= attachment_image_tag @recipe, :image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+
                 </div>
                 <div class="col input-group flex-column">
                   <div class="input-group-prepend"></div>

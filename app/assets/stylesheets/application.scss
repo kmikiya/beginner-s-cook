@@ -121,3 +121,10 @@ h1 {
   color: #deb887;
   line-height: 2.5;
 }
+
+.img_prev:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(1.01, 1.01);
+}
+

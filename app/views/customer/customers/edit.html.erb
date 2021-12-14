@@ -1,17 +1,28 @@
-<%= form_with model: @customer,local:true do |f| %>
-<div>
-  プロフィール画像
-  <%= f.attachment_field :profile_image, class:"form-control.file" %>
+<div class="container">
+  <div class="row">
+    <%= form_with model: @customer,local:true do |f| %>
+    <%= f.attachment_field :bg_image, class: 'img_field', style: "display:none;" %>
+    <%= attachment_image_tag @customer, :bg_image, size: "300x6000", fallback: 'no_bg_image.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+  </div>
+  <div class="row">
+    <%= f.attachment_field :profile_image, class: 'img_field',style: "display:none;" %>
+    <%= attachment_image_tag @customer, :profile_image, fallback: 'no-image-icon.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+  </div>
 </div>
-<div>
-  ヘッダー画像
-  <%= f.attachment_field :bg_image, class:"form-control.file" %>
-</div>
-<div>
-  ニックネーム
-  <%= f.text_field :name %>
-  自己紹介
-  <%= f.text_area :profile %>
-</div>
-<%= f.submit %>
-<% end %>
+<div class="col-md-12 col-sm-10 pl-0 pr-0">
+
+    </div>
+  </div>
+
+  <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
+    <div class="col-md-4 align-self-center">
+
+
+
+      <%= f.text_field :name %>
+      <%= f.text_area :profile %>
+      <%= f.submit "変更を保存" %>
+      <% end %>
+    </div>
+    </div>
+  </div>
