@@ -31,7 +31,11 @@ scope module: :customer do
     get 'my_page/:id/edit' => 'customers#edit', as: 'edit_my_page'
 
 
-  resources :lists, only: [:index, :destroy, :create]
+  resources :lists, only: [:index, :destroy, :create, :update] do
+    collection do
+      delete 'lists/destroy_all' => 'lists#destroy_all'
+    end
+  end
   #レシピ
   resources :recipes do
 
