@@ -7,6 +7,7 @@ class Recipe < ApplicationRecord
   belongs_to :customer
   has_many :material_details, through: :materials
   #has_many :comments, through: :explanations
+  belongs_to :category
 
   accepts_nested_attributes_for :explanations, :material_details
   accepts_attachments_for :explanations, attachment: :process_image

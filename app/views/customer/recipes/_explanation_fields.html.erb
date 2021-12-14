@@ -2,9 +2,48 @@
   <div class="row mx-auto">
     <div class="col-md-6 pb-3"><%= f.text_area :explanation, class: "form-control", placeholder: "よく熱したフライパンにサラダ油をひき、鶏もも肉を炒めます。" %></div>
     <div class="col-md-4 ml-6">
-      <%= f.attachment_field :process_image, class: 'img_field', style: 'display:none;' %>
-      <%= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+      <%= f.attachment_field :process_image, class: 'img_field2', id: 'imageField_0', style: 'display:none;' %>
+      <%#= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev', id: 'imageFile_0' %>
+      <%= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "test(this)", class: 'center-block img-thumbnail img-responsive img_prev2', id: 'imageFile_0' %>
       <%#= f.attachment_field :process_image %>
+
+      <script>
+        function test(input){
+          var id = $(input).attr('id').slice(10);
+          var image_id = "imageField_" + id;
+          console.log(image_id);
+          $("#"+image_id).click();
+
+          $(function () {
+            image_counter = 0
+            function readURL(input, counter) {
+              if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                  $('#imageFile_' + counter).attr('src', e.target.result);
+                  //image_counter++;
+                }
+                reader.readAsDataURL(input.files[0]);
+              }
+            }
+
+            $(document).on('change', "#imageField_" + id, function(){
+               //$('#imageField_'+ image_counter).change(function () {
+                console.log(id)
+                readURL(this, id);
+
+              //});
+            });
+
+             $('.explanation') //
+                .on('cocoon:after-insert', function(e, insertedItem) {
+                  image_counter++;
+                  $(insertedItem).find('.img_prev2').attr('id', 'imageFile_' + image_counter);
+                  $(insertedItem).find('.img_field2').attr('id', 'imageField_' + image_counter);
+                })
+          });
+        }
+      </script>
 
       </div>
     <div class="col-1 px-0 w-auto">

@@ -1,5 +1,5 @@
 class Customer::RecipesController < ApplicationController
-
+  before_action :set_parents
 
 
   def top
@@ -9,6 +9,20 @@ class Customer::RecipesController < ApplicationController
     # binding.irb
     recipes = Recipe.all
     @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(3)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        if params[:parent_id]
+          @childrens = Category.find(params[:parent_id]).children
+        elsif params[:children_id]
+          @grandChilds = Category.find(params[:children_id]).children
+        elsif params[:gcchildren_id]
+          @parents = Category.where(id: params[:gcchildren_id])
+        end
+      end
+  end
+
   end
 
   def index
@@ -24,7 +38,7 @@ class Customer::RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-    if @recipe.save
+    if @recipe.save!
     redirect_to root_path
     end
   end
@@ -64,6 +78,52 @@ class Customer::RecipesController < ApplicationController
     redirect_to root_path
   end
 
+  def set_parents
+    @parents = Category.where(ancestry: nil)
+  end
+
+  def get_category_children
+    @category_children = Category.find("#{params[:parent_id]}").children
+  end
+
+  def get_category_grandchildren
+    @category_grandchildren = Category.find("#{params[:child_id]}").children
+  end
+
+  def search
+    @category = Category.find_by(id: params[:id])
+
+    if @category.ancestry == nil
+      category = Category.find_by(id: params[:id]).indirect_ids
+      if category.empty?
+        @recipes = Recipe.where(category_id: @category.id).order(created_at: :desc)
+      else
+        @recipes = []
+        find_item(category)
+      end
+
+    elsif @category.ancestry.include?("/")
+      @recipes = Recipe.where(category_id: params[:id]).order(created_at: :desc)
+
+    else
+      category = Category.find_by(id: params[:id]).child_ids
+      @recipes = []
+      find_item(category)
+    end
+  end
+
+  def find_item(category)
+    category.each do |id|
+      recipe_array = Recipe.where(category_id: id).order(created_at: :desc)
+      if recipe_array.present?
+        recipe_array.each do |recipe|
+          if recipe.present?
+            @recipes.push(recipe)
+          end
+        end
+      end
+    end
+  end
 
   private
 

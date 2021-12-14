@@ -38,6 +38,15 @@ scope module: :customer do
   end
   #レシピ
   resources :recipes do
+    collection do
+      get 'top'
+      get 'get_category_children', defaults: { format: 'json' }
+      get 'get_category_grandchildren', defaults: { format: 'json' }
+      get 'name_search'
+    end
+    member do
+      get 'search'
+    end
 
     #いいね
     resource :favorites, only: [:create, :destroy]

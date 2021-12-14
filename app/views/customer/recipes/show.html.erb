@@ -62,7 +62,7 @@
     </div>
     <div class="col-md-6 ml-5">
     <%= link_to my_page_path(@recipe.customer) do %>
-      <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid" %>
+      <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
       <%= @recipe.customer.name %>
     <% end %>
 
@@ -100,9 +100,9 @@
         <tr>
           <td class="col-md-4"><%= material.name %></td>
           <td class="col-md-4"><%= material.amount %></td>
-          
+
             <td class="col-md-4">
-              <% if customer_signed_in? %>  
+              <% if customer_signed_in? %>
                 <%= form_with model: @list, url: lists_path, local:true do |f| %>
                   <%= f.hidden_field :customer_id, :value => current_customer.id %>
                   <%= f.hidden_field :material_detail_id, :value => material.id %>
@@ -125,11 +125,11 @@
 
     <div id="wrap">
       <div class="txt-show">
-        <% @explanations.each do |explanation| %>
+        <% @explanations.each_with_index do |explanation, i| %>
         <div class="row mb-3">
           <div class="col-md-7"><%= explanation.explanation %></div>
           <div class="col-md-3"><%= link_to Refile.attachment_url(explanation, :process_image), 'data-lightbox':"explanation" do %>
-          <%= attachment_image_tag explanation, :process_image, :fill, 200, 200, class: "img-fluid" %>
+          <%= attachment_image_tag explanation, :process_image, :fill, 200, 200, class: "img-fluid", id: 'imageFile_' + i.to_s %>
           <% end %></div>
           <button class="more col-md-2 align-self-center"></button>
           <div class="txt-hide">
