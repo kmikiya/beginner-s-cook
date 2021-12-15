@@ -5,8 +5,6 @@
       <%= f.attachment_field :process_image, class: 'img_field2', id: 'imageField_0', style: 'display:none;' %>
       <%#= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev', id: 'imageFile_0' %>
       <%= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "test(this)", class: 'center-block img-thumbnail img-responsive img_prev2', id: 'imageFile_0' %>
-      <%#= f.attachment_field :process_image %>
-
       <script>
         function test(input){
           var id = $(input).attr('id').slice(10);
@@ -15,6 +13,7 @@
           $("#"+image_id).click();
 
           $(function () {
+            counter = 0
             image_counter = 0
             function readURL(input, counter) {
               if (input.files && input.files[0]) {

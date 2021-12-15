@@ -1,29 +1,4 @@
 class Customer::RecipesController < ApplicationController
-  before_action :set_parents
-
-
-  def top
-    @recipes = Recipe.page(params[:page]).per(3).order("created_at desc")
-    #evaluation_avgここで定義
-    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(3)
-    # binding.irb
-    recipes = Recipe.all
-    @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(3)
-
-    respond_to do |format|
-      format.html
-      format.json do
-        if params[:parent_id]
-          @childrens = Category.find(params[:parent_id]).children
-        elsif params[:children_id]
-          @grandChilds = Category.find(params[:children_id]).children
-        elsif params[:gcchildren_id]
-          @parents = Category.where(id: params[:gcchildren_id])
-        end
-      end
-  end
-
-  end
 
   def index
     @recipes = Recipe.all
@@ -38,13 +13,11 @@ class Customer::RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-    if @recipe.save!
-    redirect_to root_path
-    end
-  end
-
-  def confirm
-    @recipe = Recipe.new(recipe_params)
+        if @recipe.save
+          redirect_to root_path
+        else
+          render 'new'
+        end
   end
 
   def show
@@ -68,7 +41,7 @@ class Customer::RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    @recipe.update!(recipe_params)
+    @recipe.update(recipe_params)
     redirect_to recipe_path(@recipe)
   end
 
@@ -76,10 +49,6 @@ class Customer::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.destroy
     redirect_to root_path
-  end
-
-  def set_parents
-    @parents = Category.where(ancestry: nil)
   end
 
   def get_category_children

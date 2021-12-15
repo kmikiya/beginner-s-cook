@@ -64,7 +64,7 @@ scope module: :customer do
     get 'favorites' => 'favorites#index', as: 'favorites'
     #post 'recipes/id/confirm' => 'recipes#confirm'
    # get 'complete' => 'recipes#compleate'
-    root to: 'recipes#top'
+    root to: 'homes#top'
 end
 
 namespace :admin do

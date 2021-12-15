@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_search
+  before_action :set_parents
 
   def set_search
     @search = Recipe.ransack(params[:q])
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
       when Admin
         admin_path
     end
+  end
+
+  def set_parents
+    @parents = Category.where(ancestry: nil)
   end
 
   protected

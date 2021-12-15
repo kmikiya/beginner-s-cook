@@ -32,7 +32,7 @@
         </div>
         <div class="row justify-content-start">
           <% @reports.each do |report| %>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %>
               <%= link_to recipe_path(report.recipe) do %>
                 <div><%= report.recipe.title %></div>
@@ -62,8 +62,8 @@
           </div>
           <div class="row justify-content-start">
             <% @recipes.each do |recipe| %>
-              <div class="col-md-4">
-                <div><%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
+              <div class="col-md-3">
+                <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
                 <%= link_to recipe_path(recipe) do %>
                   <div><%= recipe.title %></div>
                 <% end %>
@@ -80,8 +80,8 @@
           </div>
           <div class="row justify-content-start">
             <%  @recipe_pvs.each do |recipe| %>
-              <div class="col-md-4">
-                <div><%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
+              <div class="col-md-3">
+                <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
                 <%= link_to recipe_path(recipe) do %>
                   <div><%= recipe.title %></div>
                 <% end %>
@@ -94,4 +94,28 @@
       </div>
 
   </div>
+</div>
+
+<div id="Web_1920__2">
+	<div id="n_1">
+		<div id="Text">
+			<span>評価の高いレシピ</span>
+		</div>
+		<% @reports.each do |report| %>
+		<div id="n_1_i">
+			<div id="Group" class="">
+				<svg class="n_1_k">
+					<%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %>
+				</svg>
+				<div id="n__">
+					<%= link_to recipe_path(report.recipe) do %>
+            <div><%= report.recipe.title %></div>
+          <% end %>
+				</div>
+				<div id="by_">
+					by <%= report.recipe.customer.name %>
+				</div>
+			</div>
+		</div>
+		<% end %>
 </div>
