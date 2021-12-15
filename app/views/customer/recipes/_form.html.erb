@@ -61,34 +61,6 @@
               }%>
             </div>
           </div>
-
-<div class="append__category">
-  <div class="category">
-    <div class="form__label">
-      <div class="weight-bold-text lavel__name ">
-        カテゴリー
-      </div>
-      <div class="lavel__Required">
-        <%= f.collection_select :category_id, @parents, :id, :name,{ include_blank: "選択してください"},class:"serect_field", id:"item_category_id" %>
-      </div>
-    </div>
-  </div>
-</div>
           <div class="row justify-content-center"><%= f.submit "レシピ投稿", class: "btn btn-success justify-content-center" %></div>
         <% end %>
 </div>
-
-
-
-
-
-<!-- プレビューjavascript -->
-  <script>
-    $('#recipe_image').on('change', function (e) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-          $("#preview").attr('src', e.target.result);
-      }
-      reader.readAsDataURL(e.target.files[0]);
-  });
-  </script>

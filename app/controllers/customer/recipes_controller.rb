@@ -68,7 +68,7 @@ class Customer::RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    @recipe.update(recipe_params)
+    @recipe.update!(recipe_params)
     redirect_to recipe_path(@recipe)
   end
 
@@ -129,7 +129,7 @@ class Customer::RecipesController < ApplicationController
 
   def recipe_params
      params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, explanations_attributes: [:id, :explanation, :process_image],
-     material_attributes: [:id], material_details_attributes: [:id, :name, :amount] )
+     material_attributes: [:id], material_details_attributes: [:id, :name, :amount])
   end
 
 end
