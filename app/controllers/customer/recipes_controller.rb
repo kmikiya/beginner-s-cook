@@ -6,9 +6,9 @@ class Customer::RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
+    @material = @recipe.materials.build
+    @material_detail = @material.build_material_detail
     @explanation = @recipe.explanations.build
-    @material_detail = @recipe.material_details.build
-    @material = @material_detail.materials.build
   end
 
   def create
@@ -24,7 +24,7 @@ class Customer::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
-    @materials = @recipe.material_details
+    @materials = @recipe.materials
     #平均点
     @reports = @recipe.reports
     if @reports.exists?
@@ -98,7 +98,7 @@ class Customer::RecipesController < ApplicationController
 
   def recipe_params
      params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, explanations_attributes: [:id, :explanation, :process_image],
-     material_attributes: [:id], material_details_attributes: [:id, :name, :amount])
+     materials_attributes: [:id, :people, :amount, :material_detail_id])
   end
 
 end

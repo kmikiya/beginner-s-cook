@@ -16,18 +16,13 @@
     <% @materials.each do |material| %>
     <tr>
       <td><%= material.name %></td>
-      <td><%#= ((material.calorie.quo(material.amount))*100).round(1) %></td>
-
-      <td><%#= ((material.sugar + material.dietary_fiber).quo(material.amount)*100).round(1) %></td>
-
-      <td><%#= ((material.sugar.quo(material.amount))*100).round(1) %></td>
-
-      <td><%#= ((material.dietary_fiber.quo(material.amount))*100).round(1) %></td>
-
-      <td><%#= ((material.protein.quo(material.amount))*100).round(1) %></td>
-
-      <td><%#= (material.lipids.to_f.quo(material.amount.to_i)).round(2)*100  %></td>
-      <td><%#= (material.salt.to_f.quo(material.amount.to_i)).round(2)*100  %></td>
+      <td><%= material.calorie %></td>
+      <td><%= (material.sugar.to_i + material.dietary_fiber.to_i).round(1) %></td>
+      <td><%= material.sugar %></td>
+      <td><%= material.dietary_fiber %></td>
+      <td><%= material.protein %></td>
+      <td><%= material.lipids  %></td>
+      <td><%= material.salt %></td>
       <td><%= link_to "編集する", edit_admin_material_detail_path(material) %></td>
       <td><%= link_to "削除する", admin_material_detail_path(material), method: :delete %></td>
     </tr>

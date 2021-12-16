@@ -16,3 +16,7 @@ require "csv"
 CSV.foreach('db/category.csv') do |row|
   Category.create(:id => row[0], :name => row[1], :ancestry => row[2])
 end
+
+CSV.foreach('db/material_detail.csv') do |row|
+  MaterialDetail.create(:id => row[0], :name => row[1], :calorie => row[2], :protein => row[3], :lipids => row[4], :sugar => row[5], :dietary_fiber => row[6], :salt => row[7])
+end
