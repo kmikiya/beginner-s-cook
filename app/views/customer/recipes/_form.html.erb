@@ -31,36 +31,31 @@
               <h2>材料</h2>
               <div class="col-md-5 ml-6 d-flex align-items-center mb-4"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</div>
               <%= f.fields_for :material_details do |t| %>
-                <%= render 'material_detail_fields', f: t %>
+                <form method="post" action="confirm">
+                  <div class="row mx-auto form-block" id="form_block[0]">
+                    <div class="col-md-5 ml-6 pb-3"><%= f.text_field :name, class: "form-control", placeholder: "例）玉ねぎ" %></div>
+                    <div class="col-md-5 ml-6"><%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %></div>
+                    <div class="col-md-1 px-0 w-auto">
+
+                    </div>
+                  </div>
+                    <div class="form-block", id="form_add">
+                      <span class="add" title="Add">+</span>
+                    </div>
+                </form>
               <% end %>
-              <div id="detail-association-insertion-material"></div>
-              <%= link_to_add_association "材料追加", f, :material_details,
-                  class: "add_fields d-flex justify-content-center",
-                  id: 'add-btn ',
-                  data: {
-                  association_insertion_node: '#detail-association-insertion-material',
-                  association_insertion_method: 'before'
-              }%>
-            </div>
+
           </div>
 
           <div class="row mb-5 explanation">
             <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 align-self-center">
               <h2>作り方</h2>
               <%= f.fields_for :explanations do |t| %>
-                <%= render 'explanation_fields', f: t %>
-              <% end %>
-              <div id="detail-association-insertion-explanation"></div>
 
-              <%= link_to_add_association "工程追加", f, :explanations,
-                  class: "add_fields d-flex justify-content-center",
-                  id: 'add-btn',
-                  data: {
-                  association_insertion_node: '#detail-association-insertion-explanation',
-                  association_insertion_method: 'before'
-              }%>
-            </div>
+              <% end %>
+
           </div>
           <div class="row justify-content-center"><%= f.submit "レシピ投稿", class: "btn btn-success justify-content-center" %></div>
         <% end %>
 </div>
+
