@@ -1,11 +1,13 @@
 <div class="nested-fields">
-  <div class="col-md-5 ml-6 d-flex align-items-center mb-4"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</div>
-  <div class="col-md-5 ml-6"><%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %></div>
-  <div class="col-md-5 ml-6 pb-3"><%= f.collection_select :material_detail_id, MaterialDetail.all, :id, :name, include_blank: "材料を選択して下さい" %></div>
-  <div class="col-md-1 px-0 w-auto">
+  <div class="row">
+    <div class="col-md- ml-6 pb-3"><%= f.collection_select :material_detail_id, MaterialDetail.all, :id, :name, include_blank: "材料を選択して下さい" %></div>
+    <div class="col-md-2 ml-6"><%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %></div>
+    <div class="col-md-1 px-0 w-auto">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
     </div>
 </div>
+  </div>
+
 
 
 <div class="material_detail">

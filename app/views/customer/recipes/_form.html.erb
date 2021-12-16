@@ -29,7 +29,7 @@
           <div class="row mb-5 material_detail">
             <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 align-self-center">
               <h2>材料</h2>
-
+              <div class="col-md-5 ml-6 d-flex align-items-center mb-4"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</div>
               <%= f.fields_for :materials do |t| %>
                 <%= render 'material_fields', f: t %>
               <% end %>
