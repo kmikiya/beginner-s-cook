@@ -93,13 +93,14 @@
 
 <div class="row">
   <div class="col">
-    <h2>材料（<%=  %>人分）</h2>
+    <h2>材料（<%= @recipe.people %>人分）</h2>
   <table class="table table-striped text-center">
     <tbody>
       <% @materials.each do |material| %>
         <tr>
           <td class="col-md-4"><%= material.material_detail.name %></td>
           <td class="col-md-4"><%= material.amount %></td>
+          <td class="col-md-4"><%= material.material_detail.sugar %></td>
 
             <td class="col-md-4">
               <% if customer_signed_in? %>
@@ -116,6 +117,27 @@
       <% end %>
     </tbody>
   </table>
+  <h2>栄養素(100gあたり)</h2>
+  <table class="table">
+    <thead>
+      <th>カロリー(kcal)</th>
+      <th>糖質(g)</th>
+      <th>タンパク質(g)</th>
+      <th>脂質(g)</th>
+      <th>食物繊維(g)</th>
+      <th>塩分(g)</th>
+    </thead>
+    <tbody>
+      <td><%= @calorie %></td>
+      <td><%= @sugar.round(1) %></td>
+      <td><%= @protein %></td>
+      <td><%= @lipids %></td>
+      <td><%= @dietary_fiber %></td>
+      <td><%= @salt.round(2) %></td>
+    </tbody>
+  </table>
+  <div>
+  </div>
   </div>
 </div>
 

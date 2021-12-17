@@ -25,6 +25,12 @@ class Customer::RecipesController < ApplicationController
     impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
     @materials = @recipe.materials
+    @calorie = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:calorie).sum
+    @sugar = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:sugar).sum
+    @protein = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:protein).sum
+    @lipids = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:lipids).sum
+    @dietary_fiber = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:dietary_fiber).sum
+    @salt = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:salt).sum
     #平均点
     @reports = @recipe.reports
     if @reports.exists?
@@ -97,8 +103,8 @@ class Customer::RecipesController < ApplicationController
   private
 
   def recipe_params
-     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, explanations_attributes: [:id, :explanation, :process_image],
-     materials_attributes: [:id, :people, :amount, :material_detail_id])
+     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, explanations_attributes: [:id, :explanation, :process_image],
+     materials_attributes: [:id, :amount, :material_detail_id])
   end
 
 end
