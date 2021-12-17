@@ -30,13 +30,13 @@
             <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 align-self-center">
               <h2>材料</h2>
               <div class="col-md-5 ml-6 d-flex align-items-center mb-4"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</div>
-              <%= f.fields_for :material_details do |t| %>
-                <%= render 'material_detail_fields', f: t %>
+              <%= f.fields_for :materials do |t| %>
+                <%= render 'material_fields', f: t %>
               <% end %>
               <div id="detail-association-insertion-material"></div>
-              <%= link_to_add_association "材料追加", f, :material_details,
+              <%= link_to_add_association "材料追加", f, :materials,
                   class: "add_fields d-flex justify-content-center",
-                  id: 'add-btn',
+                  id: 'add-btn ',
                   data: {
                   association_insertion_node: '#detail-association-insertion-material',
                   association_insertion_method: 'before'
@@ -64,18 +64,3 @@
           <div class="row justify-content-center"><%= f.submit "レシピ投稿", class: "btn btn-success justify-content-center" %></div>
         <% end %>
 </div>
-
-
-
-
-
-<!-- プレビューjavascript -->
-  <script>
-    $('#recipe_image').on('change', function (e) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-          $("#preview").attr('src', e.target.result);
-      }
-      reader.readAsDataURL(e.target.files[0]);
-  });
-  </script>

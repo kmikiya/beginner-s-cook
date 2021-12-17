@@ -38,6 +38,15 @@ scope module: :customer do
   end
   #レシピ
   resources :recipes do
+    collection do
+      get 'top'
+      get 'get_category_children', defaults: { format: 'json' }
+      get 'get_category_grandchildren', defaults: { format: 'json' }
+      get 'name_search'
+    end
+    member do
+      get 'search'
+    end
 
     #いいね
     resource :favorites, only: [:create, :destroy]
@@ -55,7 +64,7 @@ scope module: :customer do
     get 'favorites' => 'favorites#index', as: 'favorites'
     #post 'recipes/id/confirm' => 'recipes#confirm'
    # get 'complete' => 'recipes#compleate'
-    root to: 'recipes#top'
+    root to: 'homes#top'
 end
 
 namespace :admin do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_051520) do
+ActiveRecord::Schema.define(version: 2021_12_17_050738) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2021_12_13_051520) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "ancestry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_categories_on_ancestry"
+    t.index ["name"], name: "index_categories_on_name"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -108,7 +117,6 @@ ActiveRecord::Schema.define(version: 2021_12_13_051520) do
     t.float "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "amount"
   end
 
   create_table "materials", force: :cascade do |t|
@@ -116,7 +124,8 @@ ActiveRecord::Schema.define(version: 2021_12_13_051520) do
     t.integer "material_detail_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "people"
+    t.string "amount"
+    t.float "rough"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -128,6 +137,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_051520) do
     t.datetime "updated_at", null: false
     t.string "image_id"
     t.integer "impressions_count", default: 0
+    t.integer "people"
   end
 
   create_table "relationships", force: :cascade do |t|

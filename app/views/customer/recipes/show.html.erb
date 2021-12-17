@@ -62,7 +62,7 @@
     </div>
     <div class="col-md-6 ml-5">
     <%= link_to my_page_path(@recipe.customer) do %>
-      <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid" %>
+      <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
       <%= @recipe.customer.name %>
     <% end %>
 
@@ -93,16 +93,17 @@
 
 <div class="row">
   <div class="col">
-    <h2>材料（<%=  %>人分）</h2>
+    <h2>材料（<%= @recipe.people %>人分）</h2>
   <table class="table table-striped text-center">
     <tbody>
       <% @materials.each do |material| %>
         <tr>
-          <td class="col-md-4"><%= material.name %></td>
+          <td class="col-md-4"><%= material.material_detail.name %></td>
           <td class="col-md-4"><%= material.amount %></td>
-          
+          <td class="col-md-4"><%= material.material_detail.sugar %></td>
+
             <td class="col-md-4">
-              <% if customer_signed_in? %>  
+              <% if customer_signed_in? %>
                 <%= form_with model: @list, url: lists_path, local:true do |f| %>
                   <%= f.hidden_field :customer_id, :value => current_customer.id %>
                   <%= f.hidden_field :material_detail_id, :value => material.id %>
@@ -116,6 +117,27 @@
       <% end %>
     </tbody>
   </table>
+  <h2>目安栄養素(100gあたり)</h2>
+  <table class="table">
+    <thead>
+      <th>カロリー(kcal)</th>
+      <th>糖質(g)</th>
+      <th>タンパク質(g)</th>
+      <th>脂質(g)</th>
+      <th>食物繊維(g)</th>
+      <th>塩分(g)</th>
+    </thead>
+    <tbody>
+      <td><%= @calorie %></td>
+      <td><%= @sugar.round(1) %></td>
+      <td><%= @protein %></td>
+      <td><%= @lipids %></td>
+      <td><%= @dietary_fiber %></td>
+      <td><%= @salt.round(2) %></td>
+    </tbody>
+  </table>
+  <div>
+  </div>
   </div>
 </div>
 
@@ -125,38 +147,48 @@
 
     <div id="wrap">
       <div class="txt-show">
-        <% @explanations.each do |explanation| %>
-        <div class="row mb-3">
-          <div class="col-md-7"><%= explanation.explanation %></div>
-          <div class="col-md-3"><%= link_to Refile.attachment_url(explanation, :process_image), 'data-lightbox':"explanation" do %>
-          <%= attachment_image_tag explanation, :process_image, :fill, 200, 200, class: "img-fluid" %>
-          <% end %></div>
-          <button class="more col-md-2 align-self-center"></button>
-          <div class="txt-hide">
-            <% explanation.comments.each do |comment| %>
-              <div><%= comment.customer.name %></div>
-              <div><%= comment.comment %></div>
-              <div><%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %></div>
-            <% end %>
-            <%= form_with model: @comment, url: recipe_comments_path(explanation.recipe), local:true do |f| %>
-              <div class="col-md-1"><%= f.text_area :comment %></div>
-              <%= f.hidden_field :customer_id, :value => current_customer.id %>
-              <%= f.hidden_field :explanation_id, :value => explanation.id %>
-              <div class="col-md-1"><%= f.submit %></div>
-            <% end %>
+        <% @explanations.each_with_index do |explanation, i| %>
+          <div class="row mb-3">
+            <div class="col-md-7">
+              <h3><%= i.to_i + 1 %></h3>
+              <%= explanation.explanation %>
+            </div>
+              <div class="col-md-3">
+                <%= link_to Refile.attachment_url(explanation, :process_image), 'data-lightbox':"explanation" do %>
+                  <%= attachment_image_tag explanation, :process_image, class: "img-fluid", id: 'imageFile_' + i.to_s %>
+                <% end %>
+              </div>
+
+              <button class="more col-md-2 align-self-center", id="comment_<%= i.to_s %>"></button>
+              <div class="txt-hide comment_<%= i.to_s %>"><!--ここにeachで回したiを使ったidを埋め込みたいが、タグの中でi.to_sは文字列として認識される-->
+                <% explanation.comments.each do |comment| %>
+                  <div><%= comment.customer.name %></div>
+                  <div><%= comment.comment %></div>
+                  <div><%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %></div>
+                <% end %>
+                <% if customer_signed_in? %>
+                  <%= form_with model: @comment, url: recipe_comments_path(explanation.recipe), local:true do |f| %>
+                    <div class="col-md-1"><%= f.text_area :comment %></div>
+                    <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                    <%= f.hidden_field :explanation_id, :value => explanation.id %>
+                    <div class="col-md-1"><%= f.submit %></div>
+                  <% end %>
+                <% end %>
+              </div>
+
           </div>
-        </div>
         <% end %>
       </div>
     </div>
   </div>
-  </div>
+</div>
 
 <script>
   $(function(){
   $(".more").on("click", function() {
-    $(this).toggleClass("on-click");
-    $(".txt-hide").slideToggle(1000);
+    target_id = $(this).attr("id")
+    //$(this).toggleClass("on-click");
+    $("." + target_id).slideToggle(1000);
   });
 });
 </script>

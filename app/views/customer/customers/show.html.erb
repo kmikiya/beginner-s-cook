@@ -2,7 +2,7 @@
   <div class="shadow-lg">
   <div class="row-md-8 mx-2 mx-sm-auto  rounded px-0 align-self-center mt-5">
     <div class="col-md-12 col-sm-10 pl-0 pr-0">
-    <%= attachment_image_tag @customer, :bg_image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '600x300', style: "width: 100%;" %>
+    <%= attachment_image_tag @customer, :bg_image, fallback:"no_bg_image.jpg", class: "bg-image" %>
     </div>
   </div>
 
