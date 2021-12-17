@@ -13,6 +13,7 @@ class Customer::RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+
         if @recipe.save
           redirect_to root_path
         else
@@ -25,12 +26,14 @@ class Customer::RecipesController < ApplicationController
     impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
     @materials = @recipe.materials
-    @calorie = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:calorie).sum
-    @sugar = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:sugar).sum
-    @protein = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:protein).sum
-    @lipids = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:lipids).sum
-    @dietary_fiber = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:dietary_fiber).sum
-    @salt = MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:salt).sum
+    @roughs = @recipe.materials.map{|m| m.rough/100}
+    array = [*0.. @roughs.count-1]
+    @calorie = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:calorie)[m]}.sum.round(1)
+    @sugar = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:sugar)[m]}.sum.round(1)
+    @protein = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:protein)[m]}.sum.round(1)
+    @lipids = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:lipids)[m]}.sum.round(1)
+    @dietary_fiber = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:dietary_fiber)[m]}.sum.round(1)
+    @salt = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:salt)[m]}.sum.round(1)
     #平均点
     @reports = @recipe.reports
     if @reports.exists?
@@ -104,7 +107,7 @@ class Customer::RecipesController < ApplicationController
 
   def recipe_params
      params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, explanations_attributes: [:id, :explanation, :process_image],
-     materials_attributes: [:id, :amount, :material_detail_id])
+     materials_attributes: [:id, :amount, :rough, :material_detail_id])
   end
 
 end
