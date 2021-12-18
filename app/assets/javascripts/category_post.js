@@ -7,7 +7,7 @@ $(function(){
     var childSelectHtml = "";
     childSelectHtml = `<div class="category__child" id="children_wrapper">
                         <select id="recipe_child_category_id" name="recipe[category_id]" class="serect_field">
-                          <option value="">---</option>
+                          <option>---</option>
                           ${insertHTML}
                         </select>
                       </div>`;
@@ -17,7 +17,7 @@ $(function(){
     var grandchildSelectHtml = "";
     grandchildSelectHtml = `<div class="category__child" id="grandchildren_wrapper">
                               <select id="recipe_grandchild_category_id" name="recipe[category_id]" class="serect_field">
-                                <option value="">---</option>
+                                <option>---</option>
                                 ${insertHTML}
                                 </select>
                             </div>`;

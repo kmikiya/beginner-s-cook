@@ -41,11 +41,11 @@ class Customer::RecipesController < ApplicationController
     end
     @list = List.new
     @comment = Comment.new
-
     @category_id = @recipe.category_id
-    @category_parent = Category.find(@category_id).parent.parent
-    @category_child = Category.find(@category_id).parent
-    @category_grandchild = Category.find(@category_id)
+    @category_grandchild = Category.find(@category_id)#レシピが持ってる一番下のカテゴリ
+    @category_child = @category_grandchild.parent
+    #@category_parent = @category_grandchild.parent.parent
+
   end
 
   def edit
@@ -77,30 +77,40 @@ class Customer::RecipesController < ApplicationController
   end
 
   def search
-    @category = Category.find_by(id: params[:id])
+    @category = Category.find(params[:category_id])#選択中のカテゴリ
+      #if @category.indirects.children == nil && @category.parent == nil
+        #自分と子供と孫を表示
+      #elsif @category.children.children == nil && @category.parent.parent == nil
+        #@recipes = Recipe.where(category_id: @category.indirect_ids)#自分と孫を表示
+      #elsif @category.children == nil　&& @category.parent.parent.parent == nil #自分が孫の時
+        @recipes = Recipe.where(category_id: @category)
+      #end
+  end
 
-    if @category.ancestry == nil
-      category = Category.find_by(id: params[:id]).indirect_ids
-      if category.empty?
-        @recipes = Recipe.where(category_id: @category.id).order(created_at: :desc)
-      else
-        @recipes = []
+   def search3
+    @category = Category.find_by(id: params[:id])#選択されたカテゴリIDのレコードを探す
+
+    if @category.ancestry == nil#ancestryカラムがnilならば
+      category = Category.find_by(id: params[:id]).indirect_ids#選ばれたカテゴリの孫idを返す
+      if category.empty?#選ばれたカテゴリの孫レコードが存在するなら
+        @recipes = Recipe.where(category_id: @category.id).order(created_at: :desc)#レシピが持ってるカテゴリIDの中に選ばれたカテゴリのIDのレコードがあれば取得
+      else#選ばれたカテゴリの孫レコードが存在しないなら
+        @recipes = []#からの配列を持たせる
         find_item(category)
       end
 
-    elsif @category.ancestry.include?("/")
-      @recipes = Recipe.where(category_id: params[:id]).order(created_at: :desc)
-
-    else
-      category = Category.find_by(id: params[:id]).child_ids
-      @recipes = []
-      find_item(category)
+    #elsif @category.ancestry.include?("/")#ancestryカラムに”/”が含まれていたなら
+      #@recipes = Recipe.where(category_id: params[:id]).order(created_at: :desc)#レシピが持ってるカテゴリIDの中に選ばれたカテゴリのIDのレコードがあれば取得
+    #else#ancestryカラムが数字のみなら
+      #category = Category.find_by(id: params[:id]).child_ids#選ばれたカテゴリの子供idを返す
+      #@recipes = []
+      #find_item(category)
     end
-  end
+   end
 
   def find_item(category)
-    category.each do |id|
-      recipe_array = Recipe.where(category_id: id).order(created_at: :desc)
+    category.each do |id|#選ばれたカテゴリの孫または子供のidをひとつずつ取り出す
+      recipe_array = Recipe.where(category_id: id).order(created_at: :desc)#レシピの中で孫または子供のidを持っているレコードを取り出す。
       if recipe_array.present?
         recipe_array.each do |recipe|
           if recipe.present?

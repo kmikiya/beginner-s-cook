@@ -43,17 +43,17 @@ scope module: :customer do
       get 'get_category_children', defaults: { format: 'json' }
       get 'get_category_grandchildren', defaults: { format: 'json' }
       get 'name_search'
+      get 'search/:category_id', to: 'recipes#search', as: 'search_category'
     end
-    member do
-      get 'search'
-    end
-
+    #member do
+      #get 'search'
+    #end
     #いいね
     resource :favorites, only: [:create, :destroy]
     #手順
     resources :explanations, only: [:create, :edit, :update, :destroy]
-     #コメント
-      resource :comments, only: [:create, :destroy]
+    #コメント
+    resource :comments, only: [:create, :destroy]
 
     #材料詳細
     resources :material_details, only: [:new, :create]
@@ -61,6 +61,7 @@ scope module: :customer do
     resources :reports
     resources :materials
   end
+
     get 'favorites' => 'favorites#index', as: 'favorites'
     #post 'recipes/id/confirm' => 'recipes#confirm'
    # get 'complete' => 'recipes#compleate'

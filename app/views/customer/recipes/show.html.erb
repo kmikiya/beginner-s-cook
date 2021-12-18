@@ -18,7 +18,14 @@
   </div>
   <div class="row">
     <div class="col-md-3">
-      <p><%= @category_parent.name %> > <%= @category_child.name %> > <%= @category_grandchild.name %></p>
+      <strong>カテゴリ</strong>
+      <% if @category_child == nil %><!--1個上が空-->
+        <p><%= @category_grandchild.name %></p>
+      <% elsif @category_grandchild.parent.parent == nil %><!--2個上が空-->
+        <p><%= @category_child.name %> > <%= @category_grandchild.name %></p>
+      <% else %>
+        <p><%= @category_grandchild.parent.parent.name %> > <%= @category_child.name %> > <%= @category_grandchild.name %></p>
+      <% end %>
     </div>
   </div>
 
