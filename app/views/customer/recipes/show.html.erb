@@ -2,6 +2,7 @@
 
   <div class="row justify-content-center">
     <h2 class="mr-3"><%= @recipe.title %></h2>
+    <%#= category_parent.name %>
      <% if customer_signed_in? %>
         <% if @recipe.favorited_by?(current_customer) %>
             <%= link_to recipe_favorites_path(@recipe), method: :delete do %>

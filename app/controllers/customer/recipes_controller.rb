@@ -1,4 +1,5 @@
 class Customer::RecipesController < ApplicationController
+  #before_action :set_parents
 
   def index
     @recipes = Recipe.all
@@ -41,7 +42,11 @@ class Customer::RecipesController < ApplicationController
     end
     @list = List.new
     @comment = Comment.new
-    #@people = @recipe.materials.people
+
+    #@category_id = @recipe.category_id
+    #@category_parent = Category.find(@category_id).parent.parent
+    #@category_child = Category.find(@category_id).parent
+    #@category_grandchild = Category.find(@category_id)
   end
 
   def edit
@@ -58,6 +63,10 @@ class Customer::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.destroy
     redirect_to root_path
+  end
+
+  def set_parents
+    @parents = Category.where(ancestry: nil)
   end
 
   def get_category_children
@@ -102,6 +111,8 @@ class Customer::RecipesController < ApplicationController
       end
     end
   end
+
+
 
   private
 
