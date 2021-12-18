@@ -1,0 +1,30 @@
+ja:
+  activerecord:
+    models:
+      material_detail: 材料の詳細情報
+      material: 材料
+      customer: お客様情報の登録
+      comment: コメント
+      category: カテゴリー
+      explanation: 説明
+      report: レポート
+    attributes:
+      material_detai:
+        name: 材料名
+      material:
+        amount: 量
+        rough: 目安量
+      customer:
+        email: メールアドレス
+        password: パスワード
+        name: ニックネーム
+      comment:
+        comment: コメント
+      category:
+      explanation:
+        explanation: 説明文
+        process_image_id: 工程写真
+      report:
+        impression: 感想
+        evaluation: 評価
+        image_id: つくった写真
