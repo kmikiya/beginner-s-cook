@@ -2,7 +2,6 @@
 
   <div class="row justify-content-center">
     <h2 class="mr-3"><%= @recipe.title %></h2>
-    <%#= category_parent.name %>
      <% if customer_signed_in? %>
         <% if @recipe.favorited_by?(current_customer) %>
             <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
@@ -16,6 +15,11 @@
             <% end %>
         <% end %>
       <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <p><%= @category_parent.name %> > <%= @category_child.name %> > <%= @category_grandchild.name %></p>
+    </div>
   </div>
 
       <div class="text-right mt-2">
@@ -101,7 +105,6 @@
         <tr>
           <td class="col-md-4"><%= material.material_detail.name %></td>
           <td class="col-md-4"><%= material.amount %></td>
-          <td class="col-md-4"><%= material.material_detail.sugar %></td>
 
             <td class="col-md-4">
               <% if customer_signed_in? %>

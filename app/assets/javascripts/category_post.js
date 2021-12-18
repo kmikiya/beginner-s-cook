@@ -6,7 +6,7 @@ $(function(){
   function appendChildrenBox(insertHTML){
     var childSelectHtml = "";
     childSelectHtml = `<div class="category__child" id="children_wrapper">
-                        <select id="child__category" name="recipe[category_id]" class="serect_field">
+                        <select id="recipe_child_category_id" name="recipe[category_id]" class="serect_field">
                           <option value="">---</option>
                           ${insertHTML}
                         </select>
@@ -16,7 +16,7 @@ $(function(){
   function appendGrandchildrenBox(insertHTML){
     var grandchildSelectHtml = "";
     grandchildSelectHtml = `<div class="category__child" id="grandchildren_wrapper">
-                              <select id="grandchild__category" name="recipe[category_id]" class="serect_field">
+                              <select id="recipe_grandchild_category_id" name="recipe[category_id]" class="serect_field">
                                 <option value="">---</option>
                                 ${insertHTML}
                                 </select>
@@ -24,8 +24,8 @@ $(function(){
     $('.append__category').append(grandchildSelectHtml);
   }
 
-  $('#item_category_id').on('change',function(){
-    var parentId = document.getElementById('item_category_id').value;
+  $('#recipe_category_id').on('change',function(){
+    var parentId = document.getElementById('recipe_category_id').value;
     if (parentId != ""){
       $.ajax({
         url: '/recipes/get_category_children/',
@@ -53,8 +53,8 @@ $(function(){
       $('#grandchildren_wrapper').remove();
     }
   });
-  $('.append__category').on('change','#child__category',function(){
-    var childId = document.getElementById('child__category').value;
+  $('.append__category').on('change','#recipe_child_category_id',function(){
+    var childId = document.getElementById('recipe_child_category_id').value;
     if(childId != ""){
       $.ajax({
         url: '/recipes/get_category_grandchildren',

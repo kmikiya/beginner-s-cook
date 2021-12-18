@@ -6,8 +6,8 @@
     <div class="col-md-1 px-0 w-auto">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
     </div>
-</div>
   </div>
+</div>
 
 
 
@@ -15,5 +15,4 @@
     <%= f.fields_for :material_details do |t| %>
       <%= render 'material_detail_fields', f: t %>
     <% end %>
-</div>
 </div>

@@ -1,5 +1,5 @@
 class Customer::RecipesController < ApplicationController
-  #before_action :set_parents
+  before_action :set_parents
 
   def index
     @recipes = Recipe.all
@@ -14,12 +14,11 @@ class Customer::RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-
-        if @recipe.save
-          redirect_to root_path
-        else
-          render 'new'
-        end
+    if @recipe.save
+      redirect_to root_path
+    else
+      render 'new'
+    end
   end
 
   def show
@@ -43,10 +42,10 @@ class Customer::RecipesController < ApplicationController
     @list = List.new
     @comment = Comment.new
 
-    #@category_id = @recipe.category_id
-    #@category_parent = Category.find(@category_id).parent.parent
-    #@category_child = Category.find(@category_id).parent
-    #@category_grandchild = Category.find(@category_id)
+    @category_id = @recipe.category_id
+    @category_parent = Category.find(@category_id).parent.parent
+    @category_child = Category.find(@category_id).parent
+    @category_grandchild = Category.find(@category_id)
   end
 
   def edit
@@ -117,7 +116,7 @@ class Customer::RecipesController < ApplicationController
   private
 
   def recipe_params
-     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, explanations_attributes: [:id, :explanation, :process_image],
+     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, :category_id, explanations_attributes: [:id, :explanation, :process_image],
      materials_attributes: [:id, :amount, :rough, :material_detail_id])
   end
 
