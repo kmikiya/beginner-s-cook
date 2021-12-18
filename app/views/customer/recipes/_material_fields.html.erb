@@ -1,13 +1,13 @@
 <div class="nested-fields">
   <div class="row">
-    <div class="col-md-5 ml-6 pb-3"><%= f.collection_select :material_detail_id, MaterialDetail.all, :id, :name, include_blank: "材料を選択して下さい" %></div>
+    <div class="col-md-5 ml-6 pb-3"><%= f.collection_select :material_detail_id, MaterialDetail.all, :id, :name, include_blank: "材料を選択して下さい", class:"serect_field" %></div>
     <div class="col-md-2 ml-6"><%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %></div>
     <div class="col-md-3 ml-6"><%= f.text_field :rough, class: "form-control", placeholder: "目安量（グラム単位）例）10" %></div>
     <div class="col-md-1 px-0 w-auto">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
     </div>
-</div>
   </div>
+</div>
 
 
 
@@ -15,5 +15,4 @@
     <%= f.fields_for :material_details do |t| %>
       <%= render 'material_detail_fields', f: t %>
     <% end %>
-</div>
 </div>

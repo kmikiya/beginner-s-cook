@@ -1,23 +1,38 @@
-<div class="item-categories">
-    <h2>
-      カテゴリー一覧
-    </h2>
-    <%= link_to  recipes_path, class: "category-button", id: 'categoBtn' do %>
-      カテゴリーから探す
-    <% end %>
-    <div id="tree_menu">
-      <ul class="categoryTree">
-        <% @parents.each do |parent| %>
-          <li class="category_parent">
-            <%= link_to search_recipe_path(parent) do %>
-              <input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn">
+<div class="container-fluid ml-3 mr-3">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="item-categories">
+        <h2>
+          カテゴリー一覧
+        </h2>
+          カテゴリーから探す
+        <div id="tree_menu">
+          <ul class="categoryTree">
+            <% @category.children.each do |parent| %>
+              <li class="category_parent">
+                <%= link_to search_category_recipes_path(parent) do %>
+                  <input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn">
+                <% end %>
+              </li>
             <% end %>
-          </li>
+          </ul>
+          <ul class="categoryTree-child"></ul>
+          <ul class="categoryTree-grandchild"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row justify-content-start">
+        <% @recipes.each do |recipe| %>
+          <div class="col-md-3">
+            <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
+            <%= link_to recipe_path(recipe) do %>
+              <div><%= recipe.title %></div>
+            <% end %>
+            <div><%= recipe.comment %></div>
+          </div>
         <% end %>
-      </ul>
-      <ul class="categoryTree-child">
-      </ul>
-      <ul class="categoryTree-grandchild">
-      </ul>
+      </div>
     </div>
   </div>
+</div>

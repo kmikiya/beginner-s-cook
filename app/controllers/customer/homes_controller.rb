@@ -9,6 +9,9 @@ class Customer::HomesController < ApplicationController
       recipes = Recipe.all
       @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(3)
 
+      @resipe_calories = MaterialDetail.where(id: Material.group(:material_detail_id).select("material_detail_id")).select("calorie AS recipe_calorie").order("recipe_calorie desc")
+
+
       respond_to do |format|
         format.html
         format.json do
