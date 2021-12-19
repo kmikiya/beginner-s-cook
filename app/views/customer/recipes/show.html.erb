@@ -1,18 +1,17 @@
 <div class="container pt-3" style="background-color:#f5fffa;">
-
   <div class="row justify-content-center">
     <h2 class="mr-3"><%= @recipe.title %></h2>
      <% if customer_signed_in? %>
         <% if @recipe.favorited_by?(current_customer) %>
-            <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
-              <div class="col"><i class="fas fa-bookmark fa-2x"></i></div>
-              <div style="font-size: 4px;">ブックマーク</div>
-            <% end %>
+          <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
+            <div class="col"><i class="fas fa-bookmark fa-2x"></i></div>
+            <div style="font-size: 4px;">ブックマーク</div>
+          <% end %>
         <% else %>
-            <%= link_to recipe_favorites_path(@recipe), method: :post do %>
-              <div class="col"><i class="far fa-bookmark fa-2x"></i></div>
-              <div style="font-size: 4px;">ブックマーク</div>
-            <% end %>
+          <%= link_to recipe_favorites_path(@recipe), method: :post do %>
+            <div class="col"><i class="far fa-bookmark fa-2x"></i></div>
+            <div style="font-size: 4px;">ブックマーク</div>
+          <% end %>
         <% end %>
       <% end %>
   </div>
@@ -29,132 +28,125 @@
     </div>
   </div>
 
-      <div class="text-right mt-2">
-        <% if @reports.exists? %>
-        <span>平均評価：</span>
-        <span id="star-rate-average"></span>
-        <script>
-          $('#star-rate-average').empty();
-          $('#star-rate-average').raty({
-            size: 36,
-            starOff: "<%= asset_path('star-off.png') %>",
-            starOn: "<%= asset_path('star-on.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            half: true,
-            readOnly: true,
-            score: <%= @average %>,
-          });
-        </script>
-        (<%= @average %>点)
-        <% else %>
-        <span>平均評価：</span>
-        <span id="star-rate-0"></span>
-        <script>
-          $('#star-rate-0').empty();
-          $('#star-rate-0').raty({
-            size: 36,
-            starOff: "<%= asset_path('star-off.png') %>",
-            starOn: "<%= asset_path('star-on.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            half: true,
-            readOnly: true,
-            score: <%= 0 %>,
-          });
-        </script>
-        (<%= 0 %>点)
-        <% end %>
-    </div>
+  <div class="text-right mt-2">
+    <% if @reports.exists? %>
+      <span>平均評価：</span>
+      <span id="star-rate-average"></span>
+      <script>
+        $('#star-rate-average').empty();
+        $('#star-rate-average').raty({
+          size: 36,
+          starOff: "<%= asset_path('star-off.png') %>",
+          starOn: "<%= asset_path('star-on.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          half: true,
+          readOnly: true,
+          score: <%= @average %>,
+        });
+      </script>
+      (<%= @average %>点)
+　  <% else %>
+      <span>平均評価：</span>
+      <span id="star-rate-0"></span>
+      <script>
+        $('#star-rate-0').empty();
+        $('#star-rate-0').raty({
+          size: 36,
+          starOff: "<%= asset_path('star-off.png') %>",
+          starOn: "<%= asset_path('star-on.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          half: true,
+          readOnly: true,
+      　   score: <%= 0 %>,
+        });
+      </script>
+      (<%= 0 %>点)
+  　<% end %>
+  </div>
 
 <p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
   <div class="row mb-5 mt-5 justify-content-center" >
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
-      <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250' %>
+        <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250' %>
       <% end %>
     </div>
     <div class="col-md-6 ml-5">
-    <%= link_to my_page_path(@recipe.customer) do %>
-      <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
-      <%= @recipe.customer.name %>
-    <% end %>
-
-
+      <%= link_to my_page_path(@recipe.customer) do %>
+        <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
+        <%= @recipe.customer.name %>
+      <% end %>
       <table class="table">
         <tbody>
          <td><%= @recipe.comment %></td>
-       </tbody>
-     </table>
-
- </div>
-
-     <div class="col-md-2 align-self-end">
-        <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
-          <%= link_to recipe_reports_path(@recipe) do %>
-              <div>みんなが作った数<%= @recipe.reports.count %>件</div>
-          <% end %>
-        <% if customer_signed_in? %>
-          <% if current_customer.id == @recipe.customer.id %>
-            <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
-            <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
-          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-2 align-self-end">
+      <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+      <%= link_to recipe_reports_path(@recipe) do %>
+        <div>みんなが作った数<%= @recipe.reports.count %>件</div>
+      <% end %>
+      <% if customer_signed_in? %>
+        <% if current_customer.id == @recipe.customer.id %>
+          <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
+          <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
         <% end %>
-     </div>
+     <% end %>
+    </div>
   </div>
 
 
 <div class="row">
   <div class="col">
     <h2>材料（<%= @recipe.people %>人分）</h2>
-  <table class="table table-striped text-center">
-    <tbody>
-      <% @materials.each do |material| %>
-        <tr>
-          <td class="col-md-4"><%= material.material_detail.name %></td>
-          <td class="col-md-4"><%= material.amount %></td>
+    <table class="table table-striped text-center">
+      <tbody>
+        <% @materials.each do |material| %>
+          <tr>
+            <td class="col-md-4"><%= material.material_detail.name %></td>
+            <td class="col-md-4"><%= material.amount %></td>
 
-            <td class="col-md-4">
-              <% if customer_signed_in? %>
-                <%= form_with model: @list, url: lists_path, local:true do |f| %>
-                  <%= f.hidden_field :customer_id, :value => current_customer.id %>
-                  <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
-                  <%= f.submit "買い物リストへ追加" %>
+              <td class="col-md-4">
+                <% if customer_signed_in? %>
+                  <%= form_with model: @list, url: lists_path, local:true do |f| %>
+                    <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                    <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
+                    <%= f.submit "買い物リストへ追加" %>
+                  <% end %>
                 <% end %>
-              <% else %>
-
-              <% end %>
-            </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <h2>目安栄養素(100gあたり)</h2>
-  <table class="table">
-    <thead>
-      <th>カロリー(kcal)</th>
-      <th>糖質(g)</th>
-      <th>タンパク質(g)</th>
-      <th>脂質(g)</th>
-      <th>食物繊維(g)</th>
-      <th>塩分(g)</th>
-    </thead>
-    <tbody>
-      <td><%= @calorie %></td>
-      <td><%= @sugar.round(1) %></td>
-      <td><%= @protein %></td>
-      <td><%= @lipids %></td>
-      <td><%= @dietary_fiber %></td>
-      <td><%= @salt.round(2) %></td>
-    </tbody>
-  </table>
-  <div>
-  </div>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div>
+      <h2>目安栄養素(100gあたり)</h2>
+      <table class="table">
+        <thead>
+          <th>カロリー(kcal)</th>
+          <th>糖質(g)</th>
+          <th>タンパク質(g)</th>
+          <th>脂質(g)</th>
+          <th>食物繊維(g)</th>
+          <th>塩分(g)</th>
+        </thead>
+        <tbody>
+          <td><%= @calorie %></td>
+          <td><%= @sugar.round(1) %></td>
+          <td><%= @protein %></td>
+          <td><%= @lipids %></td>
+          <td><%= @dietary_fiber %></td>
+          <td><%= @salt.round(2) %></td>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md">
-  <h2>作り方</h2>
-
+    <h2>作り方</h2>
     <div id="wrap">
       <div class="txt-show">
         <% @explanations.each_with_index do |explanation, i| %>
@@ -185,7 +177,6 @@
                   <% end %>
                 <% end %>
               </div>
-
           </div>
         <% end %>
       </div>

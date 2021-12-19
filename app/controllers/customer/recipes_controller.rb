@@ -15,7 +15,7 @@ class Customer::RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     if @recipe.save
-      redirect_to recipe_path
+      redirect_to root_path
     else
       render 'new'
     end
@@ -49,11 +49,12 @@ class Customer::RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
     redirect_to new_customer_session_path unless customer_signed_in?
     if customer_signed_in?
       redirect_to root_path unless current_customer == @recipe.customer
     end
-  @recipe = Recipe.find(params[:id])
+
   end
 
   def update
