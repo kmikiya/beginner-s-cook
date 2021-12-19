@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def set_search
     @search = Recipe.ransack(params[:q])
-    @search_recipes = @search.result
+    @search_recipes = @search.result(distinct: true).order(created_at: "DESC")
   end
 
   #ログイン後のリンク先設定

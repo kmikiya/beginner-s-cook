@@ -1,8 +1,10 @@
 class Customer::ReportsController < ApplicationController
+  #before_action :authenticate_customer!,except: [:new]
 
   def new
     @report = Report.new
     @recipe = Recipe.find(params[:recipe_id])
+    redirect_to new_customer_session_path unless customer_signed_in?
   end
 
   def index
@@ -14,14 +16,11 @@ class Customer::ReportsController < ApplicationController
   def create
     @recipe = Recipe.find(params[:recipe_id])
     @report = Report.new(report_params)
-    @report.save
-    redirect_to recipe_reports_path(@recipe)
-  end
-
-  def edit
-  end
-
-  def update
+    if @report.save
+      redirect_to recipe_reports_path(@recipe)
+    else
+      render 'new'
+    end
   end
 
   def destroy

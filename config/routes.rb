@@ -58,7 +58,7 @@ scope module: :customer do
     #材料詳細
     resources :material_details, only: [:new, :create]
     #作ったreport
-    resources :reports
+    resources :reports, only: [:new, :index, :create, :destroy]
     resources :materials
   end
 

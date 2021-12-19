@@ -68,7 +68,7 @@
                 <% end %>
               </ul>
                 <%= search_form_for @search do |f| %>
-                  <%= f.text_field :title_cont, placeholder: '名前を入力...' %>
+                  <%= f.text_field :title_cont, placeholder: '名前を入力...', required: :true %>
                   <%= f.submit ("検索する") %>
                 <% end %>
             </div>
