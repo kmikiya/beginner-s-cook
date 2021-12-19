@@ -1,14 +1,21 @@
 ja:
   activerecord:
     models:
+      recipe: レシピ
       material_detail: 材料の詳細情報
       material: 材料
-      customer: お客様情報の登録
+      customer: お客様情報
       comment: コメント
       category: カテゴリー
       explanation: 説明
       report: レポート
     attributes:
+      recipe:
+        title: タイトル
+        time: 作成時間
+        comment: 一言コメント
+        image_id: 完成写真
+        people: 人数
       material_detai:
         name: 材料名
       material:

@@ -88,12 +88,11 @@
  </div>
 
      <div class="col-md-2 align-self-end">
-
-      <% if customer_signed_in? %>
         <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
           <%= link_to recipe_reports_path(@recipe) do %>
               <div>みんなが作った数<%= @recipe.reports.count %>件</div>
           <% end %>
+        <% if customer_signed_in? %>
           <% if current_customer.id == @recipe.customer.id %>
             <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
             <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
@@ -117,7 +116,7 @@
               <% if customer_signed_in? %>
                 <%= form_with model: @list, url: lists_path, local:true do |f| %>
                   <%= f.hidden_field :customer_id, :value => current_customer.id %>
-                  <%= f.hidden_field :material_detail_id, :value => material.id %>
+                  <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
                   <%= f.submit "買い物リストへ追加" %>
                 <% end %>
               <% else %>
