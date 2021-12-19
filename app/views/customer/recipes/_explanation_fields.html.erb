@@ -1,12 +1,17 @@
 <div class="nested-fields">
   <div class="row mx-auto">
     <div class="col-md-6 pb-3 "><%= f.text_area :explanation, class: "form-control", placeholder: "よく熱したフライパンにサラダ油をひき、鶏もも肉を炒めます。" %></div>
-    <div class="col-md-4 ml-6">
-      <%= f.attachment_field :process_image, class: 'img_field2', id: 'imageField_0', style: 'display:none;' %>
+    <div class="col-md-4 ml-6 image_wrapper">
+      <%#= f.attachment_field :process_image, class: 'img_field2', id: 'imageField_0', style: 'display:none;' %>
       <%#= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev', id: 'imageFile_0' %>
-      <%= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "test(this)", class: 'center-block img-thumbnail img-responsive img_prev2', id: 'imageFile_0' %>
+      <%#= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', onClick: "test(this)", class: 'center-block img-thumbnail img-responsive img_prev2', id: 'imageFile_0' %>
+
+      <%= f.attachment_field :process_image, class: 'img_field' %>
+      <%= attachment_image_tag @explanation, :process_image, fallback: 'noimage.png', class: 'center-block img-thumbnail img-responsive img_prev' %>
       <script>
+        /*
         function test(input){
+        console.log('test2')
           var id = $(input).attr('id').slice(10);
           var image_id = "imageField_" + id;
           console.log(image_id);
@@ -42,6 +47,7 @@
                 })
           });
         }
+        */
       </script>
     </div>
     <div class="col-1 px-0 w-auto">
