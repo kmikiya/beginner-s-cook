@@ -9,7 +9,8 @@ class Customer::RecipesController < ApplicationController
     @recipe = Recipe.new
     @material = @recipe.materials.build
     @material_detail = @material.build_material_detail
-    @explanation = @recipe.explanations.build
+    @explanation = @recipe.explanations.build({})
+    #byebug
   end
 
   def create
@@ -17,7 +18,9 @@ class Customer::RecipesController < ApplicationController
     if @recipe.save
       redirect_to root_path
     else
+      # @explanation =  Recipe.new(recipe_params).explanations.build
       render 'new'
+      #byebug
     end
   end
 

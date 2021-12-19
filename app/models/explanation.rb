@@ -8,5 +8,5 @@ class Explanation < ApplicationRecord
 
   attachment :process_image
 
-  validates :process_image_id, presence: true
+  validates :process_image, presence: true
 end

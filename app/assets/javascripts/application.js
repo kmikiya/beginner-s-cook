@@ -45,7 +45,7 @@ function test(input){
   file_field.click();
 }
 */
-$(document).on('turbolinks:load', function() {
+//$(document).on('turbolinks:load', function() {
 
   $(document).on('click', '.img_prev', function () {
     var image_wrapper = $(this).parent()
@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function() {
   $(document).on('change', '.img_field', function(){
     readURL(this);
   });
-});
+//});
 
 
 (function(root, factory) {
