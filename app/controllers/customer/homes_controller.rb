@@ -2,12 +2,12 @@ class Customer::HomesController < ApplicationController
   before_action :set_parents
 
     def top
-      @recipes = Recipe.page(params[:page]).per(3).order("created_at desc")
+      @recipes = Recipe.page(params[:page]).per(4).order("created_at desc")
       #evaluation_avgここで定義
-      @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(3)
+      @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(4)
       # binding.irb
       recipes = Recipe.all
-      @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(3)
+      @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(4)
 
       @resipe_calories = MaterialDetail.where(id: Material.group(:material_detail_id).select("material_detail_id")).select("calorie AS recipe_calorie").order("recipe_calorie desc")
 

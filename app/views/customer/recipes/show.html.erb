@@ -15,7 +15,7 @@
         <% end %>
       <% end %>
   </div>
-  <div class="row">
+  <div class="row justify-content-between">
     <div class="col-md-3">
       <strong>カテゴリ</strong>
       <% if @category_child == nil %><!--1個上が空-->
@@ -26,43 +26,48 @@
         <p><%= @category_grandchild.parent.parent.name %> > <%= @category_child.name %> > <%= @category_grandchild.name %></p>
       <% end %>
     </div>
+    <div class="col-md-3">
+      <div class="text-right mt-2">
+        <% if @reports.exists? %>
+          <span>平均評価：</span>
+          <span id="star-rate-average"></span>
+          <script>
+            $('#star-rate-average').empty();
+            $('#star-rate-average').raty({
+              size: 36,
+              starOff: "<%= asset_path('star-off.png') %>",
+              starOn: "<%= asset_path('star-on.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+              score: <%= @average %>,
+            });
+          </script>
+          (<%= @average %>点)
+    　  <% else %>
+          <span>平均評価：</span>
+          <span id="star-rate-0"></span>
+          <script>
+            //$('#star-rate-0').empty();
+            //$(document).on('turbolinks:load', function() {
+            $('#star-rate-0').raty({
+              size: 36,
+              starOff: "<%= asset_path('star-off.png') %>",
+              starOn: "<%= asset_path('star-on.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+          　   score: <%= 0 %>,
+            });
+           // });
+          </script>
+          (<%= 0 %>点)
+      　<% end %>
+      </div>
+    </div>
   </div>
 
-  <div class="text-right mt-2">
-    <% if @reports.exists? %>
-      <span>平均評価：</span>
-      <span id="star-rate-average"></span>
-      <script>
-        $('#star-rate-average').empty();
-        $('#star-rate-average').raty({
-          size: 36,
-          starOff: "<%= asset_path('star-off.png') %>",
-          starOn: "<%= asset_path('star-on.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
-          half: true,
-          readOnly: true,
-          score: <%= @average %>,
-        });
-      </script>
-      (<%= @average %>点)
-　  <% else %>
-      <span>平均評価：</span>
-      <span id="star-rate-0"></span>
-      <script>
-        $('#star-rate-0').empty();
-        $('#star-rate-0').raty({
-          size: 36,
-          starOff: "<%= asset_path('star-off.png') %>",
-          starOn: "<%= asset_path('star-on.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
-          half: true,
-          readOnly: true,
-      　   score: <%= 0 %>,
-        });
-      </script>
-      (<%= 0 %>点)
-  　<% end %>
-  </div>
+
 
 <p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
   <div class="row mb-5 mt-5 justify-content-center" >
@@ -71,22 +76,33 @@
         <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250' %>
       <% end %>
     </div>
+
     <div class="col-md-6 ml-5">
-      <%= link_to my_page_path(@recipe.customer) do %>
-        <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
-        <%= @recipe.customer.name %>
-      <% end %>
-      <table class="table">
-        <tbody>
-         <td><%= @recipe.comment %></td>
-        </tbody>
-      </table>
+      <div class="row border-bottom">
+        <%= link_to my_page_path(@recipe.customer) do %>
+          <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
+          <%= @recipe.customer.name %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="col-md-5" style="height:100px;">
+          <p><%= @recipe.comment %></p>
+        </div>
+      </div>
+      <div class="row justify-content-center pb-2" >
+        <%= link_to recipe_reports_path(@recipe) do %>
+          <div class="bg-light text-center pt-2 pb-2" style="width: 200%; height: 200%%;">みんなが作った数<%= @recipe.reports.count %>件</div>
+        <% end %>
+      </div>
+      <div class="row justify-content-end">
+        <div class="btn btn-outline-warning"><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+      </div>
     </div>
+
+
     <div class="col-md-2 align-self-end">
-      <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
-      <%= link_to recipe_reports_path(@recipe) do %>
-        <div>みんなが作った数<%= @recipe.reports.count %>件</div>
-      <% end %>
+
+
       <% if customer_signed_in? %>
         <% if current_customer.id == @recipe.customer.id %>
           <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>

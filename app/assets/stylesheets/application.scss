@@ -27,7 +27,14 @@
   object-fit: cover;
 }
 
-@media screen and (max-width: 1199.98px) {}
+@media screen and (max-width: 1199.98px) {
+  .recipe-img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+}
 
 @media screen and (max-width: 991.98px) {}
 
@@ -138,4 +145,8 @@ h1 {
   cursor: pointer;
   opacity: 0.7;
   transform: scale(1.01, 1.01);
+}
+
+body {
+  font-family: "メイリオ", sans-serif;
 }
