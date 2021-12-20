@@ -7,7 +7,7 @@
     <div class="col-md-4 mt-3 mb-3 pr-3" style="width: 50%;">
       <%= link_to recipe_path(favorite.recipe) do %>
         <div class="d-flex justify-content-center pb-1 pt-4">
-          <%= attachment_image_tag favorite.recipe, :image, :fill, 200, 200, size: '300x300' %>
+          <%= attachment_image_tag favorite.recipe, :image, size: '300x300', class: "bookmark-img" %>
         </div>
 
         <div class="d-flex justify-content-center mb-1"><strong><%= favorite.recipe.title %></strong></div>

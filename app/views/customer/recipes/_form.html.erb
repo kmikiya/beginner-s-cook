@@ -74,3 +74,13 @@
     <div class="row justify-content-center"><%= f.submit "送信", class: "btn btn-success justify-content-center" %></div>
   <% end %>
 </div>
+<%= image_tag 'noimage.png', id: "no-image", style: 'display:none' %>
+<script>
+var str = $('#add-btn').attr('data-association-insertion-template')
+//console.log(str)
+var no_image = $('#no-image').attr('src');
+var str = str.replace(/src="*"/,"src='"+ no_image + "' ")  
+//console.log(str)
+$('#add-btn').attr('data-association-insertion-template', str)
+//console.log($('#add-btn').attr('data-association-insertion-template'))
+</script>
