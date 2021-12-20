@@ -12,10 +12,8 @@
 //
 
 //= require jquery3
-//= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
-//= require jquery
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
@@ -33,6 +31,42 @@
  * version: 3.1.1
  *
  */
+
+/*
+function test(input){
+  //var image_wrapper = $(input).parents('div.image_wrapper')
+  var image_wrapper = $(input).parent()
+  //console.log($('.image_wrapper'))
+  console.log('test');
+  var file_field = image_wrapper.find('.img_field');
+  //console.log(file_field)
+  file_field.click();
+}
+*/
+//$(document).on('turbolinks:load', function() {
+
+  $(document).on('click', '.img_prev', function () {
+    var image_wrapper = $(this).parent()
+    var file_field = image_wrapper.find('.img_field');
+    file_field.click();
+  });
+
+  function readURL(input) {
+    var image_wrapper = $(input).parent()
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        image_wrapper.find('.img_prev').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(document).on('change', '.img_field', function(){
+    readURL(this);
+  });
+//});
+
 
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {

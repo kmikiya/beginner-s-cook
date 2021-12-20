@@ -9,7 +9,8 @@ class Customer::RecipesController < ApplicationController
     @recipe = Recipe.new
     @material = @recipe.materials.build
     @material_detail = @material.build_material_detail
-    @explanation = @recipe.explanations.build
+    @explanation = @recipe.explanations.build({})
+    #byebug
   end
 
   def create
@@ -17,7 +18,9 @@ class Customer::RecipesController < ApplicationController
     if @recipe.save
       redirect_to root_path
     else
+      # @explanation =  Recipe.new(recipe_params).explanations.build
       render 'new'
+      #byebug
     end
   end
 
@@ -26,9 +29,9 @@ class Customer::RecipesController < ApplicationController
     impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
     @materials = @recipe.materials
-    @roughs = @recipe.materials.map{|m| m.rough/100}
-    array = [*0.. @roughs.count-1]
-    @calorie = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:calorie)[m]}.sum.round(1)
+    @roughs = @recipe.materials.map{|m| m.rough/100}#材料を1グラムあたりに変換
+    array = [*0.. @roughs.count-1]#材料の数を数え上げてる
+    @calorie = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:calorie)[m]}.sum.round(1)#33行目で数え上げた個数分だけ足し合わせてる
     @sugar = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:sugar)[m]}.sum.round(1)
     @protein = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:protein)[m]}.sum.round(1)
     @lipids = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:lipids)[m]}.sum.round(1)

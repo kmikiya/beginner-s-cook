@@ -7,4 +7,6 @@ class Explanation < ApplicationRecord
   accepts_nested_attributes_for :comments
 
   attachment :process_image
+
+  validates :process_image, presence: true
 end

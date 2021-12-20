@@ -6,5 +6,5 @@ class Report < ApplicationRecord
 
   validates :impression, presence: true
   validates :evaluation, presence: true
-  #validates :image_id, presence: true
+  validates :image, presence: true
 end

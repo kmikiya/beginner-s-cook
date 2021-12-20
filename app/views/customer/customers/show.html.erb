@@ -42,9 +42,9 @@
   </div>
    <div>
       <ul id="tab-menu">
-        <li><a href="#tab1" class="active">投稿レシピ</a></li>
-        <li><a href="#tab2" class="">つくレポ</a></li>
-        <li><a href="#tab3" class="">もらったつくレポ</a></li>
+        <li><a href="#tab1" class="active tab-menu">投稿レシピ</a></li>
+        <li><a href="#tab2" class="tab-menu">つくレポ</a></li>
+        <li><a href="#tab3" class="tab-menu">もらったつくレポ</a></li>
       </ul>
       <div id="tab-contents">
         <div id="tab1" class="tab">
@@ -113,8 +113,22 @@
 
 
 <script>
-
-$('#tab-contents .tab[id != "tab1"]').hide();
+var a = $('.tab-menu')
+//console.log(a[0])
+for( var  i = 0; i < a.length; i++){
+    //console.log($(a[i]).attr('href'))
+    //console.log($(a[i]).attr('class'))
+  if ( $(a[i]).attr('class').indexOf('active') == -1 ){
+    //console.log('hide')
+    $($(a[i]).attr('href')).hide()
+  }
+  else{
+    //console.log('show')
+    $($(a[i]).attr('href')).show();
+  }
+}
+//$('#tab-contents .tab[id != "tab1"]').hide();
+console.log('script run');
 $('#tab-menu a').on('click', function(event) {
   $("#tab-contents .tab").hide();
   $("#tab-menu .active").removeClass("active");

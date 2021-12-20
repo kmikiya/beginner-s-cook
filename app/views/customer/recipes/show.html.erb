@@ -1,4 +1,4 @@
-<div class="container pt-3" style="background-color:#f5fffa;">
+<div class="container pt-3">
   <div class="row justify-content-center">
     <h2 class="mr-3"><%= @recipe.title %></h2>
      <% if customer_signed_in? %>
@@ -15,7 +15,7 @@
         <% end %>
       <% end %>
   </div>
-  <div class="row">
+  <div class="row justify-content-between">
     <div class="col-md-3">
       <strong>カテゴリ</strong>
       <% if @category_child == nil %><!--1個上が空-->
@@ -26,67 +26,79 @@
         <p><%= @category_grandchild.parent.parent.name %> > <%= @category_child.name %> > <%= @category_grandchild.name %></p>
       <% end %>
     </div>
+    <div class="col-md-4">
+      <div class="text-right mt-2">
+        <% if @reports.exists? %>
+          <span>平均評価：</span>
+          <span id="star-rate-average"></span>
+          <script>
+            $('#star-rate-average').empty();
+            $('#star-rate-average').raty({
+              size: 36,
+              starOff: "<%= asset_path('star-off.png') %>",
+              starOn: "<%= asset_path('star-on.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+              score: <%= @average %>,
+            });
+          </script>
+          (<%= @average %>点)
+    　  <% else %>
+          <span>平均評価：</span>
+          <span id="star-rate-0"></span>
+          <script>
+            //$('#star-rate-0').empty();
+            //$(document).on('turbolinks:load', function() {
+            $('#star-rate-0').raty({
+              size: 36,
+              starOff: "<%= asset_path('star-off.png') %>",
+              starOn: "<%= asset_path('star-on.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              half: true,
+              readOnly: true,
+          　   score: <%= 0 %>,
+            });
+           // });
+          </script>
+          (<%= 0 %>点)
+      　<% end %>
+      </div>
+    </div>
   </div>
 
-  <div class="text-right mt-2">
-    <% if @reports.exists? %>
-      <span>平均評価：</span>
-      <span id="star-rate-average"></span>
-      <script>
-        $('#star-rate-average').empty();
-        $('#star-rate-average').raty({
-          size: 36,
-          starOff: "<%= asset_path('star-off.png') %>",
-          starOn: "<%= asset_path('star-on.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
-          half: true,
-          readOnly: true,
-          score: <%= @average %>,
-        });
-      </script>
-      (<%= @average %>点)
-　  <% else %>
-      <span>平均評価：</span>
-      <span id="star-rate-0"></span>
-      <script>
-        $('#star-rate-0').empty();
-        $('#star-rate-0').raty({
-          size: 36,
-          starOff: "<%= asset_path('star-off.png') %>",
-          starOn: "<%= asset_path('star-on.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
-          half: true,
-          readOnly: true,
-      　   score: <%= 0 %>,
-        });
-      </script>
-      (<%= 0 %>点)
-  　<% end %>
-  </div>
+
 
 <p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
   <div class="row mb-5 mt-5 justify-content-center" >
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
-        <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250' %>
+        <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250', class: "recipe-show-image rounded-start" %>
       <% end %>
     </div>
+
     <div class="col-md-6 ml-5">
-      <%= link_to my_page_path(@recipe.customer) do %>
-        <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
-        <%= @recipe.customer.name %>
-      <% end %>
-      <table class="table">
-        <tbody>
-         <td><%= @recipe.comment %></td>
-        </tbody>
-      </table>
+      <div class="row border-bottom" style="width: 65%;">
+        <%= link_to my_page_path(@recipe.customer) do %>
+          <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
+          <%= @recipe.customer.name %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="col-md-8" style="height:120px; width: 50%;">
+          <%= @recipe.comment %>
+        </div>
+      </div>
+      <div class="row justify-content-center pb-2" >
+        <%= link_to recipe_reports_path(@recipe) do %>
+          <div class="bg-light text-center pt-2 pb-2" style="width: 200%; height: 200%%;">みんなが作った数<%= @recipe.reports.count %>件</div>
+        <% end %>
+      </div>
+      <div class="row justify-content-end">
+        <div class="btn btn-outline-warning"><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+      </div>
     </div>
     <div class="col-md-2 align-self-end">
-      <div><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
-      <%= link_to recipe_reports_path(@recipe) do %>
-        <div>みんなが作った数<%= @recipe.reports.count %>件</div>
-      <% end %>
       <% if customer_signed_in? %>
         <% if current_customer.id == @recipe.customer.id %>
           <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
@@ -97,17 +109,17 @@
   </div>
 
 
-<div class="row">
+<div class="row border-bottom border-top pt-3">
   <div class="col">
-    <h2>材料（<%= @recipe.people %>人分）</h2>
-    <table class="table table-striped text-center">
+    <h4>材料（<%= @recipe.people %>人分）</h4>
+    <table class="table table-striped text-center mb-5">
       <tbody>
         <% @materials.each do |material| %>
           <tr>
-            <td class="col-md-4"><%= material.material_detail.name %></td>
-            <td class="col-md-4"><%= material.amount %></td>
+            <td class="col-md-4 text-left"><%= material.material_detail.name %></td>
+            <td class="col-md-1 col-sm-2 text-left"><%= material.amount %></td>
 
-              <td class="col-md-4">
+              <td class="col-md-2 ">
                 <% if customer_signed_in? %>
                   <%= form_with model: @list, url: lists_path, local:true do |f| %>
                     <%= f.hidden_field :customer_id, :value => current_customer.id %>
@@ -120,9 +132,10 @@
         <% end %>
       </tbody>
     </table>
-    <div>
-      <h2>目安栄養素(100gあたり)</h2>
-      <table class="table">
+
+    <div class="mb-5">
+      <h4>目安栄養素(100gあたり)</h4>
+      <table class="table text-center">
         <thead>
           <th>カロリー(kcal)</th>
           <th>糖質(g)</th>
@@ -144,16 +157,18 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mt-5">
   <div class="col-md">
-    <h2>作り方</h2>
+    <h4>作り方</h4>
     <div id="wrap">
       <div class="txt-show">
         <% @explanations.each_with_index do |explanation, i| %>
-          <div class="row mb-3">
+          <div class="row mb-3 border-bottom pb-4 pt-2">
             <div class="col-md-7">
-              <h3><%= i.to_i + 1 %></h3>
-              <%= explanation.explanation %>
+              <div class="rounded text-center num-bg">
+                <h4 style="color: #fff;"><%= i.to_i + 1 %></h4><!--レシピ順の番号をとりだしてる-->
+              </div>
+              <div><%= explanation.explanation %></div>
             </div>
               <div class="col-md-3">
                 <%= link_to Refile.attachment_url(explanation, :process_image), 'data-lightbox':"explanation" do %>
@@ -162,18 +177,20 @@
               </div>
 
               <button class="more col-md-2 align-self-center", id="comment_<%= i.to_s %>"></button>
-              <div class="txt-hide comment_<%= i.to_s %>"><!--ここにeachで回したiを使ったidを埋め込みたいが、タグの中でi.to_sは文字列として認識される-->
+              <div class="txt-hide comment_<%= i.to_s %> pl-3">
                 <% explanation.comments.each do |comment| %>
-                  <div><%= comment.customer.name %></div>
-                  <div><%= comment.comment %></div>
-                  <div><%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %></div>
+                  <div><strong><%= comment.customer.name %></strong></div>
+                  <div class="pl-1"><%= comment.comment %></div>
+                  <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
+                    <%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %>
+                  <% end %>
                 <% end %>
                 <% if customer_signed_in? %>
                   <%= form_with model: @comment, url: recipe_comments_path(explanation.recipe), local:true do |f| %>
-                    <div class="col-md-1"><%= f.text_area :comment %></div>
+                    <div class="col-md-1"><%= f.text_area :comment, placeholder: "耳たぶくらいの固さって？" %></div>
                     <%= f.hidden_field :customer_id, :value => current_customer.id %>
                     <%= f.hidden_field :explanation_id, :value => explanation.id %>
-                    <div class="col-md-1"><%= f.submit %></div>
+                    <div class="col-md-1"><%= f.submit "送信する", class: "btn" %></div>
                   <% end %>
                 <% end %>
               </div>
@@ -181,7 +198,11 @@
         <% end %>
       </div>
     </div>
+    <div>
+    <p class="date-color">投稿日：<%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
   </div>
+  </div>
+
 </div>
 
 <script>

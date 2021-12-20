@@ -1,30 +1,43 @@
 <!--material_detail_idをuniqueにする-->
 <div class="container">
-  <h2>買い物リスト</h2>
-  <%= link_to "すべてを消す", lists_destroy_all_lists_path, method: :delete, class:"btn btn-sm btn-danger" %>
-  <table class="table">
-    <thead>
-      <th></th>
-      <th>材料</th>
-      <th>メモ</th>
-      <th></th>
-    </thead>
-    <tbody>
-      <% @lists.each do |list| %>
-        <tr>
-          <td><%= check_box_tag 'deletes[#{ list.id }]',list.id %></td>
-          <td><%= list.material_detail.name %></td>
-          <td>
-            <%= form_with model: list, local:true do |f| %>
-              <%= f.text_area :memo %>
-              <%= f.submit "登録" %>
-            <% end %>
-          </td>
-          <td><%= link_to "リストから消す", list_path(list), method: :delete %></td>
-
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <h2>買い物リスト</h2>
+      <div class="row justify-content-end">
+        <div class="col-md-3">
+          <%= link_to lists_destroy_all_lists_path, method: :delete do %>
+            <div><i class="fas fa-check-double fa-2x font-awesome-text"></i>すべて消す</div>
+          <% end %>
+        </div>
+      </div>
+      <table class="table text-center">
+        <thead>
+          <th></th>
+          <th>材料</th>
+          <th>メモ</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <% @lists.each do |list| %>
+            <tr>
+              <td><%= check_box_tag 'deletes[#{ list.id }]',list.id %></td>
+              <td><%= list.material_detail.name %></td>
+              <td>
+                <%= form_with model: list, local:true do |f| %>
+                  <%= f.text_area :memo %>
+                  <%= f.submit "登録", class: "border-warning rounded", style: "background-color: #fff;" %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to list_path(list), method: :delete do %>
+                  <div><i class="fas fa-check fa-2x font-awesome-text"></i>消す</div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 

@@ -15,6 +15,8 @@
  */
  @import "bootstrap";
 
+
+
 .bg-image{
   width: 100%;
   height: 300px;
@@ -23,23 +25,80 @@
 
 .recipe-img {
   width: 300px;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
 }
 
-@media screen and (max-width: 1199.98px) {}
+@media screen and (max-width: 1199.98px) {
+.recipe-img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+#star-rate-average{
+  display: none;
+}
+
+#star-rate-0{
+  display: none;
+}
+
+#star-rate-average_1{
+  display: none;
+}
+
+#star-rate-average_2{
+  display: none;
+}
+
+#star-rate-average_3{
+  display: none;
+}
+
+#star-rate-average_4{
+  display: none;
+}
+
+}
+@media screen and (max-width: 1940.98px) {
+.recipe-img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 1378.98px) {
+  .recipe-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 1057.98px) {
+.bookmark-img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+}
 
 @media screen and (max-width: 991.98px) {}
 
 @media screen and (max-width: 767.98px) {
   .recipe-img {
     height: 150px;
+    width: 150px;
   }
+
 }
 
 @media screen and (max-width: 575.98px) {
     .recipe-img {
     height: 100px;
+    width: 100px;
   }
 }
 
@@ -134,8 +193,30 @@ h1 {
   transform: scale(1.01, 1.01);
 }
 
-.img_prev2:hover {
+.recipe_img_prev:hover {
   cursor: pointer;
   opacity: 0.7;
   transform: scale(1.01, 1.01);
+}
+
+body {
+  font-family: "メイリオ", sans-serif;
+}
+
+.num-bg{
+  width: 5%;
+  background-color: #ffa500;
+}
+
+.date-color{
+  color:#708090;
+  font-size: 10px;
+}
+
+.font-awesome-text{
+  font-size: 4px;
+}
+
+.top-text{
+  color:#696969;
 }

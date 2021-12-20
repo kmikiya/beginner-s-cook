@@ -6,8 +6,8 @@
         <div class="row form-body p-4">
           <div class="col-md-5 mb-3">
                   <%#div class="mb-3"><img id="preview" style="width:40%;"></div>%>
-            <%= f.attachment_field  :image, class: 'img_field', style: 'display:none;' %>
-            <%= attachment_image_tag @recipe, :image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+            <%= f.attachment_field  :image, class: 'recipe_img_field', style: 'display:none;' %>
+            <%= attachment_image_tag @recipe, :image, fallback: 'noimage.png', onClick: "$('.recipe_img_field').click()", class: 'center-block img-thumbnail img-responsive recipe_img_prev' %>
           </div>
           <div class="col input-group flex-column">
             <div class="input-group-prepend"></div>
@@ -47,7 +47,7 @@
       <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto rounded px-0 align-self-center">
         <h2>作り方</h2>
         <%= f.fields_for :explanations do |t| %>
-          <%= render 'explanation_fields', f: t %>
+          <%= render partial: 'explanation_fields', locals: { f: t} %>
         <% end %>
         <div id="detail-association-insertion-explanation"></div>
         <%= link_to_add_association "工程追加", f, :explanations,
@@ -74,3 +74,13 @@
     <div class="row justify-content-center"><%= f.submit "送信", class: "btn btn-success justify-content-center" %></div>
   <% end %>
 </div>
+<%= image_tag 'noimage.png', id: "no-image", style: 'display:none' %>
+<script>
+var str = $('#add-btn').attr('data-association-insertion-template')
+//console.log(str)
+var no_image = $('#no-image').attr('src');
+var str = str.replace(/src="*"/,"src='"+ no_image + "' ")  
+//console.log(str)
+$('#add-btn').attr('data-association-insertion-template', str)
+//console.log($('#add-btn').attr('data-association-insertion-template'))
+</script>

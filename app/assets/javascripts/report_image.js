@@ -3,13 +3,13 @@ $(document).on('turbolinks:load', function() {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-        $('.recipe_img_prev').attr('src', e.target.result);
+        $('.report_img_prev').attr('src', e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }
   }
 
-  $('.recipe_img_field').change(function () {
+  $('.report_img_field').change(function () {
     readURL(this);
   });
 });

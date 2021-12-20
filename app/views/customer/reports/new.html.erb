@@ -19,8 +19,8 @@
        <%= form_with model:[@recipe, @report], local:true do |f| %>
           <div class="input-group mb-3">
               <div class="input-group-prepend"></div>
-               <%= f.attachment_field :image, class: 'img_field', style: 'display:none;' %>
-               <%= attachment_image_tag @report, :image, fallback: 'noimage.png', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
+               <%= f.attachment_field :image, class: 'report_img_field', style: 'display:none;' %>
+               <%= attachment_image_tag @report, :image, fallback: 'noimage.png', onClick: "$('.report_img_field').click()", class: 'center-block img-thumbnail img-responsive report_img_prev' %>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -55,15 +55,5 @@
     starHalf: '<%= asset_path('star-half.png') %>',
     scoreName: 'report[evaluation]',
     half: true,
-  });
-  </script>
-  <!-- プレビューjavascript -->
-  <script>
-    $('#report_image').on('change', function (e) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-          $("#preview").attr('src', e.target.result);
-      }
-      reader.readAsDataURL(e.target.files[0]);
   });
   </script>
