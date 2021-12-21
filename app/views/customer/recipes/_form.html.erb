@@ -1,8 +1,21 @@
-<div class="container">
+<div class="container mb-5">
   <h5 class="text-dark bg-light py-4 mt-5 pl-2">レシピ投稿</h5>
   <%= form_with model: recipe, local:true do |f| %>
     <div class="row">
+      <div class="append__category ml-4">
+        <div class="category">
+          <div class="form__label">
+            <div class="weight-bold-text lavel__name ">
+                    カテゴリー
+            </div>
+            <div class="lavel__Required">
+              <%= f.collection_select :category_id, @parents, :id, :name,{ include_blank: "選択してください"}, class:"serect_field" %>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col-md-12 col-sm-10 mx-2 mx-sm-auto text-center rounded px-0 align-self-center">
+
         <div class="row form-body p-4">
           <div class="col-md-5 mb-3">
                   <%#div class="mb-3"><img id="preview" style="width:40%;"></div>%>
@@ -59,19 +72,8 @@
         }%>
       </div>
     </div>
-    <div class="append__category">
-      <div class="category">
-        <div class="form__label">
-          <div class="weight-bold-text lavel__name ">
-                  カテゴリー
-          </div>
-          <div class="lavel__Required">
-            <%= f.collection_select :category_id, @parents, :id, :name,{ include_blank: "選択してください"}, class:"serect_field" %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-center"><%= f.submit "送信", class: "btn btn-success justify-content-center" %></div>
+
+    <div class="row justify-content-center"><%= f.submit "送信", class: "btn btn-success justify-content-center s-btn" %></div>
   <% end %>
 </div>
 <%= image_tag 'noimage.png', id: "no-image", style: 'display:none' %>
@@ -79,7 +81,7 @@
 var str = $('#add-btn').attr('data-association-insertion-template')
 //console.log(str)
 var no_image = $('#no-image').attr('src');
-var str = str.replace(/src="*"/,"src='"+ no_image + "' ")  
+var str = str.replace(/src="*"/,"src='"+ no_image + "' ")
 //console.log(str)
 $('#add-btn').attr('data-association-insertion-template', str)
 //console.log($('#add-btn').attr('data-association-insertion-template'))
