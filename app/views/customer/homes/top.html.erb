@@ -1,6 +1,6 @@
 <div class="container-fluid ml-3 mr-3">
-  <div class="row align-self-center">
-    <div class="col-md-2">
+  <div class="row justify-content-center">
+    <div class="col-md-2 categories">
       <div class="item-categories">
         <h2>
           カテゴリー一覧
@@ -26,74 +26,78 @@
 
       <div class="col-md-8 mb-5">
 
-        <div class="col mb-5">
+        <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
             <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
               <h5 class="mt-2 top-text">評価が高いレシピ</h5>
             </div>
           </div>
-          <div class="row justify-content-start">
+          <div class="row">
             <% @reports.each do |report| %>
-              <div class="col-md-3">
-                <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %>
+              <div class="col-md-3 mt-3">
+                <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                 <%= link_to recipe_path(report.recipe) do %>
-                  <div><strong><%= report.recipe.title %></strong></div>
+                  <div class="title-font-color"><strong><%= report.recipe.title %></strong></div>
                 <% end %>
-                <span id="star-rate-average_<%= report.recipe.id %>"></span>
-                (<%= report.evaluation_avg.round(1) %>点)
-                  <script>
-                    $('#star-rate-average_<%= report.recipe.id %>').empty();
-                    $('#star-rate-average_<%= report.recipe.id %>').raty({
-                      size: 36,
-                      starOff: "<%= asset_path('star-off.png') %>",
-                      starOn: "<%= asset_path('star-on.png') %>",
-                      starHalf: "<%= asset_path('star-half.png') %>",
-                      half: true,
-                      readOnly: true,
-                      score: <%= report.evaluation_avg.round(1) %>,
-                    });
-                  </script>
-                </div>
+                <div style="font-size: 2px;"><%= report.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                  <div>
+                    <span id="star-rate-average_<%= report.recipe.id %>"></span>
+                    (<%= report.evaluation_avg.round(1) %>点)
+                      <script>
+                        $('#star-rate-average_<%= report.recipe.id %>').empty();
+                        $('#star-rate-average_<%= report.recipe.id %>').raty({
+                          size: 36,
+                          starOff: "<%= asset_path('star-off.png') %>",
+                          starOn: "<%= asset_path('star-on.png') %>",
+                          starHalf: "<%= asset_path('star-half.png') %>",
+                          half: true,
+                          readOnly: true,
+                          score: <%= report.evaluation_avg.round(1) %>,
+                        });
+                    </script>
+                  </div>
+              </div>
             <% end %>
           </div>
+          <%= link_to "一覧を表示", recipe_evaluation_path %>
         </div>
 
-
-
-        <div class="col mb-5">
+        <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
             <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
               <h5 class="mt-2 top-text">新着レシピ</h5>
             </div>
           </div>
-          <div class="row justify-content-start">
+          <div class="row">
             <% @recipes.each do |recipe| %>
-              <div class="col-md-3">
-                <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
+              <div class="col-md-3 mt-3">
+                <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                 <%= link_to recipe_path(recipe) do %>
-                  <div><strong><%= recipe.title %></strong></div>
+                  <div class="title-font-color"><strong><%= recipe.title %></strong></div>
                 <% end %>
+                <div style="font-size: 2px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
               </div>
             <% end %>
+            <%= link_to "一覧を表示", recipe_create_at_path %>
           </div>
         </div>
 
-
-        <div class="col mb-5">
+        <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
             <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
               <h5 class="mt-2 top-text">注目のレシピ</h5>
             </div>
           </div>
-          <div class="row justify-content-start">
+          <div class="row">
             <%  @recipe_pvs.each do |recipe| %>
-              <div class="col-md-3">
-                <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
+              <div class="col-md-3 mt-3">
+                <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %></div>
                 <%= link_to recipe_path(recipe) do %>
-                  <div><strong><%= recipe.title %></strong></div>
+                  <div class="title-font-color"><strong><%= recipe.title %></strong></div>
                 <% end %>
               </div>
             <% end %>
+            <%= link_to "一覧を表示", recipe_view_path %>
           </div>
         </div>
 

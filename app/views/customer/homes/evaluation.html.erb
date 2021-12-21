@@ -1,0 +1,43 @@
+<div class="container-fluid ml-3 mr-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="row mt-3 mb-3 justify-content-center">
+          <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
+            <h5 class="mt-2 top-text" style="font-size: 30px;">評価の高いレシピ</h5>
+          </div>
+      </div>
+        <div class="row">
+          <% @reports.each do |recipe| %>
+            <div class="col-md-4 mb-5">
+              <%= attachment_image_tag recipe.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img-create rounded" %>
+              <%= link_to recipe_path(recipe.recipe) do %>
+                <div class="title-font-color"  style="font-size: 30px;"><strong><%= recipe.recipe.title %></strong></div>
+              <% end %>
+              <div style="font-size: 5px;"><%= recipe.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+              <div>
+                <span id="star-rate-average_<%= recipe.recipe.id %>"></span>
+                (<%= recipe.evaluation_avg.round(1) %>点)
+                <script>
+                  $('#star-rate-average_<%= recipe.recipe.id %>').empty();
+                  $('#star-rate-average_<%= recipe.recipe.id %>').raty({
+                    size: 36,
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starHalf: "<%= asset_path('star-half.png') %>",
+                    half: true,
+                    readOnly: true,
+                   score: <%= recipe.evaluation_avg.round(1) %>,
+                  });
+                </script>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <%= paginate @reports, theme: 'twitter-bootstrap-4' %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

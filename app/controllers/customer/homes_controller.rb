@@ -9,9 +9,6 @@ class Customer::HomesController < ApplicationController
       recipes = Recipe.all
       @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(4)
 
-      @resipe_calories = MaterialDetail.where(id: Material.group(:material_detail_id).select("material_detail_id")).select("calorie AS recipe_calorie").order("recipe_calorie desc")
-
-
       respond_to do |format|
         format.html
         format.json do
@@ -28,6 +25,19 @@ class Customer::HomesController < ApplicationController
 
   def set_parents
     @parents = Category.where(ancestry: nil)
+  end
+
+  def evaluation
+    @reports = Report.group(:recipe_id).select("recipe_id, AVG(evaluation) AS evaluation_avg").order("evaluation_avg desc").page(params[:page]).per(6)
+  end
+
+  def view
+    recipes = Recipe.all
+   @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(6)
+  end
+
+  def create_at
+    @recipes = Recipe.page(params[:page]).per(6).order("created_at desc")
   end
 
 end

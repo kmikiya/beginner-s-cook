@@ -1,0 +1,16 @@
+      <div class="row">
+        <% recipes.each do |recipe| %>
+          <div class="col-md-4 mb-5">
+            <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img-create rounded" %>
+            <%= link_to recipe_path(recipe) do %>
+              <div class="title-font-color"  style="font-size: 30px;"><strong><%= recipe.title %></strong></div>
+            <% end %>
+            <div style="font-size: 5px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+          </div>
+        <% end %>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <%= paginate recipes, theme: 'twitter-bootstrap-4' %>
+        </div>
+      </div>

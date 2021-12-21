@@ -1,114 +1,149 @@
 <div class="container">
   <div class="shadow-lg">
-  <div class="row-md-8 mx-2 mx-sm-auto  rounded px-0 align-self-center mt-5">
-    <div class="col-md-12 col-sm-10 pl-0 pr-0">
-    <%= attachment_image_tag @customer, :bg_image, fallback:"no_bg_image.jpg", class: "bg-image" %>
-    </div>
-  </div>
-
-  <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
-    <div class="col-md-4 align-self-center">
-      <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '100x100'%>
-      <%= @customer.name %>
-    </div>
-    <div class="col-md-3 align-self-center flex-column">
-      <% if customer_signed_in? %>
-        <% if current_customer == @customer %>
-          <%= link_to "プロフィール編集", edit_my_page_path(@customer), class: "btn btn-primary" %>
-          <%= link_to "レシピ投稿", new_recipe_path, class: "btn" %>
-        <% else %>
-          <% if current_customer.following?(@customer) %>
-            <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete, class: "btn btn-primary" %>
-          <% else %>
-              <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post, class: "btn btn-success" %>
-          <% end %>
-        <% end %>
-      <% end %>
-
-      <div>
-        フォロワー数
-        <%= link_to customer_followers_path(@customer) do %>
-          <%= @customer.followers.count %>
-        <% end %>
-          フォロー数
-          <%= link_to customer_followings_path(@customer) do %>
-          <%= @customer.followings.count %>
-        <% end %>
+    <div class="row-md-8 mx-2 mx-sm-auto  rounded px-0 align-self-center mt-5">
+      <div class="col-md-12 col-sm-10 pl-0 pr-0">
+      <%= attachment_image_tag @customer, :bg_image, fallback:"no_bg_image.jpg", class: "bg-image" %>
       </div>
     </div>
-  </div>
-  <div class="row px-5 pb-2 pt-2 justify-content-start mb-3" style="width: 80%;">
-    <%= @customer.profile %>
-  </div>
-   <div>
-      <ul id="tab-menu">
-        <li><a href="#tab1" class="active tab-menu">投稿レシピ</a></li>
-        <li><a href="#tab2" class="tab-menu">つくレポ</a></li>
-        <li><a href="#tab3" class="tab-menu">もらったつくレポ</a></li>
-      </ul>
-      <div id="tab-contents">
-        <div id="tab1" class="tab">
-          <% @recipes.each do |recipe| %>
-            <div class="row mb-3">
-              <div class="col-md-3 ml-3">
-                <%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '200x2s00', class: "img-fluid" %>
-               </div>
-               <div class="col-md-4 align-self-center">
-                 <%= link_to recipe_path(recipe) do %>
-                   <%= recipe.title %>
-                 <% end %>
-                 <div><%= recipe.comment %></div>
-               </div>
-            </div>
+
+    <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
+      <div class="col-md-4 align-self-center">
+        <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '100x100'%>
+        <%= @customer.name %>
+      </div>
+      <div class="col-md-3 align-self-center flex-column">
+        <% if customer_signed_in? %>
+          <% if current_customer == @customer %>
+            <%= link_to "プロフィール編集", edit_my_page_path(@customer), class: "btn btn-primary" %>
+            <%= link_to "レシピ投稿", new_recipe_path, class: "btn" %>
+          <% else %>
+            <% if current_customer.following?(@customer) %>
+              <%= link_to "フォロー外す", customer_relationships_path(@customer.id), method: :delete, class: "btn btn-primary" %>
+            <% else %>
+                <%= link_to "フォローする", customer_relationships_path(@customer.id), method: :post, class: "btn btn-success" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <div>
+          フォロワー数
+          <%= link_to customer_followers_path(@customer) do %>
+            <%= @customer.followers.count %>
+          <% end %>
+            フォロー数
+            <%= link_to customer_followings_path(@customer) do %>
+            <%= @customer.followings.count %>
           <% end %>
         </div>
+      </div>
+    </div>
+    <div class="row px-5 pb-2 pt-2 justify-content-start mb-3" style="width: 80%;">
+       <%= @customer.profile %>
+    </div>
+    <div>
+        <ul id="tab-menu">
+          <li><a href="#tab1" class="active tab-menu">投稿レシピ</a></li>
+          <li><a href="#tab2" class="tab-menu">つくレポ</a></li>
+          <li><a href="#tab3" class="tab-menu">もらったつくレポ</a></li>
+        </ul>
+        <div id="tab-contents">
 
-        <div id="tab2" class="tab">
-          <div class="row justify-content-around">
-            <% @reports.each do |report| %>
-              <div class="card mb-3" style="width: 32%;">
-                <div><%= attachment_image_tag report.recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '50x50', class: "img-fluid" %></div>
-                <%= link_to recipe_path(report.recipe) do %>
-                  <strong><%= report.recipe.title %></strong>
-                <% end %>
-                <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
-                <% if @customer = current_customer %>
-                  <%= link_to recipe_report_path(report.recipe, report), method: :delete do %>
-                    <i class="far fa-trash-alt"></i>
+          <div id="tab1" class="tab">
+            <div class="row">
+              <% @recipes.each do |recipe| %>
+                <div class="col-md-3">
+                  <%= link_to recipe_path(recipe) do %>
+                    <strong class="title-font-color" style="font-size: 15px;"><%= recipe.title.truncate(14) %></strong>
                   <% end %>
-                <% end %>
-                <div class="card-body">
-                  <h5 class="card-text">
-                    <%= report.impression %>
-                  </h5>
-                </div>
-              </div>
-           <% end %>
-          </div>
-        </div>
-
-        <div id="tab3" class="tab">
-          <div class="row justify-content-around">
-            <% @recipes.each do |recipe| %>
-              <% recipe.reports.each do |report| %>
-                <div class="card mb-3" style="width: 32%;">
-                  <div><%= attachment_image_tag report.recipe, :image, :fill, 200, 200, fallback: "no-image-icon.jpg", size: '50x50', class: "img-fluid" %></div>
-                  <%= link_to recipe_path(report.recipe) do %>
-                    <strong><%= report.recipe.title %></strong>
+                  <div style="font-size: 2px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                  <%= link_to recipe_path(recipe) do %>
+                    <figure><%= attachment_image_tag recipe, :image, :fill, 200, 200 %></figure>
                   <% end %>
-                  <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
-                  <div class="card-body">
-                    <h5 class="card-text">
-                      <%= report.impression %>
-                    </h5>
-                  </div>
                 </div>
               <% end %>
-           <% end %>
+            </div>
+            <%= link_to "一覧表示", customer_my_recipe_path(@customer) %>
           </div>
-        </div>
-      </div>
+
+          <div id="tab2" class="tab">
+            <div class="row">
+              <% @reports.each do |report| %>
+                <div class="col-md-3">
+                  <%= link_to my_page_path(report.customer) do %>
+                    <strong class="title-font-color" style="font-size: 15px;"><%= report.recipe.title.truncate(8) %></strong><span style="color: black; font-size: 10px;">へのレポート</span>
+                  <% end %>
+                  <% if current_customer == report.customer %>
+                    <%= link_to recipe_report_path(report.recipe, report), method: :delete, "data-confirm" => "つくれぽを削除しますか？" do %>
+                      <i class="fas fa-trash-alt ml-4" style="color: red;"></i>
+                    <% end %>
+                  <% end %>
+                  <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                  <%= link_to recipe_path(report.recipe) do %>
+                  　<figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
+                  <% end %>
+                  <div class="relative-post-evaluation">
+                    <span>評価：</span>
+                    <span id="star-rate-<%= report.id %>"></span>
+                      <script>
+                        $('#star-rate-<%= report.id %>').empty();
+                        $('#star-rate-<%= report.id %>').raty({
+                          size: 36,
+                          starOff: "<%= asset_path('star-off.png') %>",
+                          starOn: "<%= asset_path('star-on.png') %>",
+                          starHalf: "<%= asset_path('star-half.png') %>",
+                          half: true,
+                          readOnly: true,
+                          score: <%= report.evaluation %>,
+                        });
+                      </script>
+                  </div>
+                    <%= report.impression.truncate(30) %>
+                </div>
+              <% end %>
+            </div>
+            <%= link_to "一覧表示", customer_my_report_path(@customer) %>
+          </div>
+
+
+          <div id="tab3" class="tab">
+            <div class="row">
+              <% @recipeds.each do |recipe| %>
+                <% recipe.reports.each do |report| %>
+                  <div class="col-md-3">
+                    <%= link_to my_page_path(report.customer) do %>
+                      <%= attachment_image_tag report.customer, :profile_image, :fill, 200, 200, fallback:"no-image-icon.jpg", size: '25x25', class: "img-fluid rounded" %>
+                      <%= report.customer.name %></ul>
+                    <% end %>
+                    <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                    <%= link_to recipe_path(report.recipe) do %>
+                    　<figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
+                    <% end %>
+                    <div class="relative-post-evaluation">
+                      <span>評価：</span>
+                      <span id="star-my-rate-<%= report.id %>"></span>
+                        <script>
+                          $('#star-my-rate-<%= report.id %>').empty();
+                          $('#star-my-rate-<%= report.id %>').raty({
+                            size: 36,
+                            starOff: "<%= asset_path('star-off.png') %>",
+                            starOn: "<%= asset_path('star-on.png') %>",
+                            starHalf: "<%= asset_path('star-half.png') %>",
+                            half: true,
+                            readOnly: true,
+                            score: <%= report.evaluation %>,
+                          });
+                        </script>
+                    </div>
+                    <%= report.impression.truncate(30)  %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <%= link_to "一覧表示", customer_receive_report_path(@customer) %>
+          </div>
+       </div>
+    </div>
   </div>
+</div>
 
 
 

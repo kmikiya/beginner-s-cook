@@ -26,9 +26,13 @@ scope module: :customer do
         resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
+    get 'my_recipe/' => 'customers#my_recipe'
+    get 'my_report/' => 'customers#my_report'
+    get 'receive_report/' => 'customers#receive_report'
   end
     get 'my_page/:id' => 'customers#show', as: 'my_page'
     get 'my_page/:id/edit' => 'customers#edit', as: 'edit_my_page'
+
 
 
   resources :lists, only: [:index, :destroy, :create, :update] do
@@ -61,7 +65,9 @@ scope module: :customer do
     resources :reports, only: [:new, :index, :create, :destroy]
     resources :materials
   end
-
+    get 'recipe/evaluation' => 'homes#evaluation'
+    get 'recipe/create_at' => 'homes#create_at'
+    get 'recipe/view' => 'homes#view'
     get 'favorites' => 'favorites#index', as: 'favorites'
     #post 'recipes/id/confirm' => 'recipes#confirm'
    # get 'complete' => 'recipes#compleate'
