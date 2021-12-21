@@ -77,3 +77,4 @@ group :production do
   gem 'mysql2'
 end
 gem 'rails-i18n'
+gem 'bootstrap4-kaminari-views'

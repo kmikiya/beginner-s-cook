@@ -1,12 +1,12 @@
 <!--material_detail_idをuniqueにする-->
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-10 mt-3">
       <h2>買い物リスト</h2>
       <div class="row justify-content-end">
         <div class="col-md-3">
           <%= link_to lists_destroy_all_lists_path, method: :delete do %>
-            <div><i class="fas fa-check-double fa-2x font-awesome-text"></i>すべて消す</div>
+            <div style="color: red;"><i class="fas fa-check-double fa-2x font-awesome-text"></i>すべて消す</div>
           <% end %>
         </div>
       </div>
@@ -24,13 +24,13 @@
               <td><%= list.material_detail.name %></td>
               <td>
                 <%= form_with model: list, local:true do |f| %>
-                  <%= f.text_area :memo %>
-                  <%= f.submit "登録", class: "border-warning rounded", style: "background-color: #fff;" %>
+                  <%= f.text_area :memo, class: "form-control", placeholder: "2個" %>
+                  <%= f.submit "登録", class: "mt-1 border-warning rounded", style: "width: 30%; background-color: #fff;" %>
                 <% end %>
               </td>
               <td>
                 <%= link_to list_path(list), method: :delete do %>
-                  <div><i class="fas fa-check fa-2x font-awesome-text"></i>消す</div>
+                  <div style="color: red;"><i class="fas fa-check fa-2x font-awesome-text"></i>消す</div>
                 <% end %>
               </td>
             </tr>

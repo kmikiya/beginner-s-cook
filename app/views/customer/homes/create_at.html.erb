@@ -1,0 +1,12 @@
+<div class="container-fluid ml-3 mr-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="row mt-3 mb-3 justify-content-center">
+          <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
+            <h5 class="mt-2 top-text" style="font-size: 30px;">新着レシピ</h5>
+          </div>
+      </div>
+      <%= render partial: 'index', locals: { recipes: @recipes} %>
+    </div>
+  </div>
+</div>

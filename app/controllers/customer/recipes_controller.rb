@@ -98,27 +98,6 @@ class Customer::RecipesController < ApplicationController
       #end
   end
 
-   def search3
-    @category = Category.find_by(id: params[:id])#選択されたカテゴリIDのレコードを探す
-
-    if @category.ancestry == nil#ancestryカラムがnilならば
-      category = Category.find_by(id: params[:id]).indirect_ids#選ばれたカテゴリの孫idを返す
-      if category.empty?#選ばれたカテゴリの孫レコードが存在するなら
-        @recipes = Recipe.where(category_id: @category.id).order(created_at: :desc)#レシピが持ってるカテゴリIDの中に選ばれたカテゴリのIDのレコードがあれば取得
-      else#選ばれたカテゴリの孫レコードが存在しないなら
-        @recipes = []#からの配列を持たせる
-        find_item(category)
-      end
-
-    #elsif @category.ancestry.include?("/")#ancestryカラムに”/”が含まれていたなら
-      #@recipes = Recipe.where(category_id: params[:id]).order(created_at: :desc)#レシピが持ってるカテゴリIDの中に選ばれたカテゴリのIDのレコードがあれば取得
-    #else#ancestryカラムが数字のみなら
-      #category = Category.find_by(id: params[:id]).child_ids#選ばれたカテゴリの子供idを返す
-      #@recipes = []
-      #find_item(category)
-    end
-   end
-
   def find_item(category)
     category.each do |id|#選ばれたカテゴリの孫または子供のidをひとつずつ取り出す
       recipe_array = Recipe.where(category_id: id).order(created_at: :desc)#レシピの中で孫または子供のidを持っているレコードを取り出す。
@@ -131,8 +110,6 @@ class Customer::RecipesController < ApplicationController
       end
     end
   end
-
-
 
   private
 

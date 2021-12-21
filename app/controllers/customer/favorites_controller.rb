@@ -16,7 +16,7 @@ class Customer::FavoritesController < ApplicationController
   end
 
   def index
-    @favorites = current_customer.favorites.order(created_at: 'DESC')
+    @favorites = current_customer.favorites.order(created_at: 'DESC').page(params[:page]).per(6)
   end
 
 end
