@@ -9,13 +9,16 @@
           </div>
         </div>
       <% end %>
-
-        <%= customer.profile.truncate(35) %>
-        <% if current_customer.id != customer.id %>
-          <div class="text-center" id="follow_buttons_<%= customer.id %>">
-             <%= render "customer/relationships/following", customer: customer %>
-           </div>
-        <% end %>
+      <% if customer.profile != nil %>
+        <%= customer.profile.truncate(30) %>
+      <% else %>
+        <%= customer.profile %>
+      <% end %>
+      <% if current_customer.id != customer.id %>
+        <div class="text-center" id="follow_buttons_<%= customer.id %>">
+            <%= render "customer/relationships/following", customer: customer %>
+         </div>
+      <% end %>
 
 
     </div>
