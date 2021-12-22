@@ -13,7 +13,7 @@
     <th>塩分(g)</th>
   </thead>
   <tbody>
-    <% @materials.each do |material| %>
+    <% @materials.each_with_index do |material, i| %>
     <tr>
       <td><%= material.name %></td>
       <td><%= material.calorie %></td>
@@ -29,4 +29,9 @@
     <% end %>
   </tbody>
 </table>
+<div class="row justify-content-center">
+        <div class="col-md-4">
+          <%= paginate @materials, theme: 'twitter-bootstrap-4' %>
+        </div>
+      </div>
 </div>

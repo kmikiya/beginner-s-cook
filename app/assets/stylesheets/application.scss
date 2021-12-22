@@ -15,6 +15,10 @@
  */
  @import "bootstrap";
 
+ .btn-potition{
+   text-align: right;
+ }
+
 .center-img{
   display: block;
   margin-left: auto;
@@ -34,8 +38,7 @@
 }
 
 .date-potition{
-  margin-left: 21%;
-  margin-right: auto;
+  text-align: right;
 }
 
 .date-potition-index{
@@ -71,6 +74,12 @@
 .recipe-img-create {
   width: 350px;
   height: 350px;
+  object-fit: cover;
+}
+
+.customer-img-lg{
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 }
 
