@@ -1,0 +1,6 @@
+<%= form_with model: comment, url: recipe_comments_path(explanation.recipe) do |f| %>
+  <div class="col-md-1"><%= f.text_area :comment, placeholder: "例）耳たぶくらいの固さって？" %></div>
+  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+  <%= f.hidden_field :explanation_id, :value => explanation.id %>
+  <div class="col-md-1"><%= f.submit "送信する", class: "btn" %></div>
+<% end %>

@@ -1,0 +1,7 @@
+<% explanation.comments.each do |comment| %>
+                  <div><strong><%= comment.customer.name %></strong></div>
+                  <div class="pl-1"><%= comment.comment %></div>
+                  <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
+                    <%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %>
+                  <% end %>
+                <% end %>

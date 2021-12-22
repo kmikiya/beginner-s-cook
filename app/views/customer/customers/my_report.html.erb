@@ -1,6 +1,6 @@
 <div class="container-fluid ml-3 mr-3">
   <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <div class="row mt-3 mb-3 justify-content-center">
           <div class="border-top border-bottom text-center mb-4" style="width: 60%; border-color:#708090;">
             <h5 class="mt-2 top-text" style="font-size: 30px;"><%= @customer.name %>さんのつくれぽ</h5>
@@ -8,20 +8,27 @@
       </div>
       <div class="row">
         <% @reports.each do |report| %>
-          <div class="col-md-4 mb-5">
+          <div class="col-md-6 mb-5", style="margin: 0px auto;">
             <%= link_to recipe_path(report.recipe) do %>
-              <strong class="title-font-color" style="font-size: 20px;"><%= report.recipe.title.truncate(14) %></strong><span style="color: black;">へのレポート</span>
+              <div class="text-center">
+                <strong class="title-font-color" style="font-size: 20px;">
+                  <%= report.recipe.title.truncate(14) %>
+                </strong>
+                <span style="color: black;">
+                  へのレポート
+                </span>
             <% end %>
             <% if current_customer == report.customer %>
               <%= link_to recipe_report_path(report.recipe, report), method: :delete, "data-confirm" => "つくれぽを削除しますか？" do %>
                 <i class="fas fa-trash-alt ml-4" style="color: red;"></i>
               <% end %>
             <% end %>
-            <div style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+            </div>
+            <div class="date-potition" style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
             <%= link_to recipe_path(report.recipe) do %>
-              <figure><%= attachment_image_tag report, :image, :fill, 200, 200, class:"recipe-img-create img-fluid rounded" %></figure>
+              <%= attachment_image_tag report, :image, :fill, 200, 200, class:"recipe-img-create img-fluid rounded center-img" %>
             <% end %>
-            <div class="relative-post-evaluation">
+            <div class="relative-post-evaluation date-potition mb-3 mt-3">
               <span>評価：</span>
               <span id="star-rate-<%= report.id %>"></span>
               <script>
@@ -37,7 +44,9 @@
                 });
               </script>
             </div>
-            <%= report.impression.truncate(40) %>
+            <div class="text-width">
+              <%= report.impression.truncate(40) %>
+            </div>
           </div>
         <% end %>
       </div>

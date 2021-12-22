@@ -22,6 +22,7 @@ class Recipe < ApplicationRecord
   validates :comment, presence: true
   validates :category_id, presence: true
   validates :image, presence: true
+  validates :people, presence: true
 
 
   attachment :image
