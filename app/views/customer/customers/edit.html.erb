@@ -1,28 +1,47 @@
 <div class="container">
-  <div class="row">
-    <%= form_with model: @customer,local:true do |f| %>
-    <%= f.attachment_field :bg_image, class: 'img_field', style: "display:none;" %>
-    <%= attachment_image_tag @customer, :bg_image, size: "300x6000", fallback: 'no_bg_image.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
-  </div>
-  <div class="row">
-    <%= f.attachment_field :profile_image, class: 'img_field',style: "display:none;" %>
-    <%= attachment_image_tag @customer, :profile_image, fallback: 'no-image-icon.jpg', onClick: "$('.img_field').click()", class: 'center-block img-thumbnail img-responsive img_prev' %>
-  </div>
-</div>
-<div class="col-md-12 col-sm-10 pl-0 pr-0">
+  <div class="shadow-lg">
+    <div class="row-md-8 mx-2 mx-sm-auto rounded px-0 align-self-center mt-5">
+      <%= form_with model: @customer,local:true do |f| %>
+        <div class="col-md-12 col-sm-10 pl-0 pr-0">
+          <%= f.attachment_field :bg_image, class: 'bg_img_field', style: "display:none;" %>
+          <%= attachment_image_tag @customer, :bg_image, size: "1000x100", fallback: 'no_bg_image.jpg', onClick: "$('.bg_img_field').click()", class: 'bg_img_prev bg-image' %>
+        </div>
 
-    </div>
-  </div>
-
-  <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
-    <div class="col-md-4 align-self-center">
-
-
-
-      <%= f.text_field :name %>
-      <%= f.text_area :profile %>
-      <%= f.submit "変更を保存" %>
+        <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
+          <div class="col-md-6 align-self-center">
+            <div class="row">
+              <div class="col-md-3">
+                <%= f.attachment_field :profile_image, class: 'profile_img_field',style: "display:none;" %>
+                <%= attachment_image_tag @customer, :profile_image, size: "100x100", fallback: 'no-image-icon.jpg', onClick: "$('.profile_img_field').click()", class: 'profile_img_prev' %>
+              </div>
+              <div class="col-md-6 name-field ">
+                <strong><%= f.label :name, "ユーザネーム" %></strong>
+                <%= f.text_field :name, class: "form-control " %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 align-self-center flex-column">
+            <div class="row mt-4 mb-2">
+              <div class="btn btn-primary"><p>プロフィール編集</p></div>
+                <div class="ml-2">
+                  <div class="col"><i class="far fa-edit fa-2x"></i></div>
+                  <div class="font-awesome-text">レシピを書く</div>
+                </div>
+              </div>
+            <div>
+            フォロワー数<%= @customer.followers.count %>
+            フォロー数<%= @customer.followings.count %>
+            </div>
+          </div>
+        </div>
+        <div class="row px-5 pb-2 pt-2 justify-content-start mb-3" style="width: 80%;">
+          <div class="col-md-10 name-field ">
+            <strong><%= f.label :profile, "自己紹介" %></strong>
+            <%= f.text_area :profile, class: "form-control" %>
+          </div>
+        </div>
+        <%= f.submit "変更を保存" %>
       <% end %>
     </div>
-    </div>
   </div>
+</div>
