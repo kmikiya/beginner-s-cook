@@ -2,7 +2,7 @@ class Customer::RecipesController < ApplicationController
   before_action :set_parents
 
   def index
-    @recipes = Recipe.all
+    #@recipes = Recipe.all
   end
 
   def new
@@ -115,7 +115,7 @@ class Customer::RecipesController < ApplicationController
   private
 
   def recipe_params
-     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, :category_id, explanations_attributes: [:id, :explanation, :process_image],
+     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, :category_id, explanations_attributes: [:id, :explanation, :process_image, :_destroy],
      materials_attributes: [:id, :amount, :rough, :material_detail_id])
   end
 

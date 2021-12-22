@@ -1,6 +1,12 @@
-<%= form_with model: comment, url: recipe_comments_path(explanation.recipe) do |f| %>
-  <div class="col-md-1"><%= f.text_area :comment, placeholder: "例）耳たぶくらいの固さって？" %></div>
-  <%= f.hidden_field :customer_id, :value => current_customer.id %>
-  <%= f.hidden_field :explanation_id, :value => explanation.id %>
-  <div class="col-md-1"><%= f.submit "送信する", class: "btn" %></div>
-<% end %>
+                     <% explanation.comments.each do |comment| %>
+                      <div>
+                        <div><strong><%= comment.customer.name %></strong></div>
+                        <div class="pl-1"><%= comment.comment %>
+                          <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
+                            <%= link_to recipe_comments_path(recipe_id: explanation.recipe, comment_id: comment.id, explanation_id: explanation.id), method: :delete, remote: true do %>
+                               <i class="fas fa-trash-alt ml-4" style="color: red;"></i>
+                            <% end %>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>

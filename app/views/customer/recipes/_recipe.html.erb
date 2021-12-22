@@ -1,4 +1,16 @@
-<%= attachment_image_tag recipe, :image, :fill, 200, 200, fallback:"no_bg_image.jpg", size: '60x60'%>
-<%= link_to recipe_path(recipe) do %>
-  <%= recipe.title %>
-<% end %>
+<div class="row">
+        <%# recipes.each do |recipe| %>
+          <div class="col-md-6 mb-5">
+            <%= link_to recipe_path(recipe) do %>
+              <div class="text-center">
+                <div class="title-font-color"  style="font-size: 30px;">
+                  <strong><%= recipe.title.truncate(14) %></strong>
+                </div>
+              </div>
+            <% end %>
+            <div class="date-potition", style="font-size: 5px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+            <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "recipe-img-create img-fluid rounded center-img" %>
+          </div>
+        <%# end %>
+      </div>
+

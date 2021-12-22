@@ -29,7 +29,7 @@
         <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
             <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-              <h5 class="mt-2 top-text">評価が高いレシピ</h5>
+              <h5 class="mt-2 top-title-font"><a>評価が高いレシピ</a></h5>
             </div>
           </div>
           <div class="row">
@@ -59,13 +59,15 @@
               </div>
             <% end %>
           </div>
-          <%= link_to "一覧を表示", recipe_evaluation_path %>
+          <div class="col-md-12 submit-prace mt-3">
+              <%= link_to "一覧を表示", recipe_evaluation_path %>
+            </div>
         </div>
 
         <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
             <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-              <h5 class="mt-2 top-text">新着レシピ</h5>
+              <h5 class="mt-2 top-title-font">新着レシピ</h5>
             </div>
           </div>
           <div class="row">
@@ -78,14 +80,16 @@
                 <div style="font-size: 2px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
               </div>
             <% end %>
-            <%= link_to "一覧を表示", recipe_create_at_path %>
+            <div class="col-md-12 submit-prace">
+              <%= link_to "一覧を表示", recipe_create_at_path %>
+            </div>
           </div>
         </div>
 
         <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
             <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-              <h5 class="mt-2 top-text">注目のレシピ</h5>
+              <h5 class="mt-2 top-title-font">注目のレシピ</h5>
             </div>
           </div>
           <div class="row">
@@ -97,7 +101,9 @@
                 <% end %>
               </div>
             <% end %>
-            <%= link_to "一覧を表示", recipe_view_path %>
+            <div class="col-md-12 submit-prace">
+              <%= link_to "一覧を表示", recipe_view_path %>
+            </div>
           </div>
         </div>
 
