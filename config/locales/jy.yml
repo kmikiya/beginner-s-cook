@@ -14,11 +14,13 @@ ja:
         title: タイトル
         time: 作成時間
         comment: 一言コメント
-        image_id: 完成写真
+        image: 完成写真
         people: 人数
+        category: カテゴリ
+        category_id: カテゴリ
       material_detai:
         name: 材料名
-      material:
+      recipe/materials:
         amount: 量
         rough: 目安量
       customer:
@@ -27,8 +29,7 @@ ja:
         name: ニックネーム
       comment:
         comment: コメント
-      category:
-      explanation:
+      recipe/explanations:
         explanation: 説明文
         process_image_id: 工程写真
       report:

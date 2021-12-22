@@ -1,29 +1,30 @@
-
-<table class="table">
-  <thead>
-    <th>image</th>
-    <th>name</th>
-    <th>profile</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <% customers.each do |customer| %>
-    <tr>
-      <td><%= attachment_image_tag customer, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg" %></td>
-      <%= link_to customer_path(customer) do %>
-        <td><%= customer.name %></td>
+<div class="row">
+  <% customers.each do |customer| %>
+    <div class="col-md-3 mb-5">
+      <%= link_to my_page_path(customer) do %>
+        <div class="text-center">
+          <div class="title-font-color"  style="font-size: 30px;">
+            <strong><%= customer.name.truncate(14) %></strong>
+            <%= attachment_image_tag  customer, :profile_image, fallback:"no-image-icon.jpg", class: "customer-img-lg img-fluid rounded center-img" %>
+          </div>
+        </div>
       <% end %>
-      <td><%= customer.profile %></td>
-      <td>
-        <% if current_customer.id != customer.id %>
-          <% if current_customer.following?(customer) %>
-            <%= link_to "フォロー外す", customer_relationships_path(customer.id), method: :delete, class: "btn btn-primary" %>
-          <% else %>
-            <%= link_to "フォローする", customer_relationships_path(customer.id), method: :post, class: "btn btn-success" %>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% if customer.profile != nil %>
+        <%= customer.profile.truncate(30) %>
+      <% else %>
+        <%= customer.profile %>
+      <% end %>
+      <% if current_customer.id != customer.id %>
+        <div class="text-center" id="follow_buttons_<%= customer.id %>">
+            <%= render "customer/relationships/following", customer: customer %>
+         </div>
+      <% end %>
+
+
+    </div>
+  <% end %>
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <%= paginate customers, theme: 'twitter-bootstrap-4' %>
+    </div>
+</div>

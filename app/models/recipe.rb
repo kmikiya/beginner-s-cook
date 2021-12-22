@@ -9,7 +9,7 @@ class Recipe < ApplicationRecord
   #has_many :comments, through: :explanations
   belongs_to :category
 
-  accepts_nested_attributes_for :explanations, :materials
+  accepts_nested_attributes_for :explanations, :materials, allow_destroy: true
   accepts_attachments_for :explanations, attachment: :process_image
   attr_accessor :average
 
@@ -20,8 +20,10 @@ class Recipe < ApplicationRecord
 
   validates :title, presence: true
   validates :comment, presence: true
-  validates :category_id, presence: true
+  #validates :category_id, presence: true
   validates :image, presence: true
+  validates :people, presence: true
+
 
 
   attachment :image

@@ -1,0 +1,11 @@
+<% if recipe.favorited_by?(current_customer) %>
+  <%= link_to recipe_favorites_path(recipe), method: :delete, remote: true do %>
+    <div class="col"><i class="fas fa-bookmark fa-2x"></i></div>
+    <div style="font-size: 4px;">ブックマーク</div>
+  <% end %>
+<% else %>
+  <%= link_to recipe_favorites_path(recipe), method: :post, remote: true do %>
+      <div class="col"><i class="far fa-bookmark fa-2x"></i></div>
+      <div style="font-size: 4px;">ブックマーク</div>
+  <% end %>
+<% end %>

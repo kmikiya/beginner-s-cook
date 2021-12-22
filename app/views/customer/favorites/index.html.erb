@@ -3,18 +3,24 @@
     <div class="col-md-8">
       <div class="row mt-3 mb-3 justify-content-center">
           <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-            <h5 class="mt-2 top-text" style="font-size: 30px;">ブックマーク</h5>
+            <h5 class="mt-2 top-title-font" style="font-size: 30px;">ブックマーク</h5>
           </div>
       </div>
         <div class="row">
           <% @favorites.each do |favorite| %>
-            <div class="col-md-4 mb-5">
+            <div class="col-md-6 mb-5">
               <%= link_to recipe_path(favorite.recipe) do %>
-                <div class="title-font-color"  style="font-size: 30px;"><strong><%= favorite.recipe.title.truncate(14) %></strong></div>
+                <div class="text-center">
+                  <div class="title-font-color"  style="font-size: 30px;">
+                    <strong>
+                      <%= favorite.recipe.title.truncate(14) %>
+                    </strong>
+                  </div>
+                </div>
               <% end %>
-                <div style="font-size: 5px;"><%= favorite.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                <div class="date-potition", style="font-size: 5px;"><%= favorite.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
               <%= link_to recipe_path(favorite.recipe) do %>
-                <%= attachment_image_tag favorite.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img-create rounded" %>
+                <%= attachment_image_tag favorite.recipe, :image, fallback:"no_bg_image.jpg", class: "recipe-img-create img-fluid rounded center-img" %>
               <% end %>
 
             </div>

@@ -1,18 +1,10 @@
 <div class="container pt-3">
-  <div class="row justify-content-center">
-    <h2 class="mr-3"><%= @recipe.title %></h2>
+  <div class="d-flex justify-content-center">
+      <h2 class="mr-3"><%= @recipe.title %></h2>
      <% if customer_signed_in? %>
-        <% if @recipe.favorited_by?(current_customer) %>
-          <%= link_to recipe_favorites_path(@recipe), method: :delete do %>
-            <div class="col"><i class="fas fa-bookmark fa-2x"></i></div>
-            <div style="font-size: 4px;">ブックマーク</div>
-          <% end %>
-        <% else %>
-          <%= link_to recipe_favorites_path(@recipe), method: :post do %>
-            <div class="col"><i class="far fa-bookmark fa-2x"></i></div>
-            <div style="font-size: 4px;">ブックマーク</div>
-          <% end %>
-        <% end %>
+        <span id="favorite_buttons_<%= @recipe.id %>">
+          <%= render "customer/favorites/favorite", recipe: @recipe %>
+        </span>
       <% end %>
   </div>
   <div class="row justify-content-between">
@@ -44,7 +36,7 @@
             });
           </script>
           (<%= @average %>点)
-    　  <% else %>
+        <% else %>
           <span>平均評価：</span>
           <span id="star-rate-0"></span>
           <script>
@@ -57,12 +49,12 @@
               starHalf: "<%= asset_path('star-half.png') %>",
               half: true,
               readOnly: true,
-          　   score: <%= 0 %>,
+               score: <%= 0 %>,
             });
            // });
           </script>
           (<%= 0 %>点)
-      　<% end %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -163,38 +155,56 @@
     <div id="wrap">
       <div class="txt-show">
         <% @explanations.each_with_index do |explanation, i| %>
-          <div class="row mb-3 border-bottom pb-4 pt-2">
-            <div class="col-md-7">
-              <div class="rounded text-center num-bg">
-                <h4 style="color: #fff;"><%= i.to_i + 1 %></h4><!--レシピ順の番号をとりだしてる-->
+
+          <div>
+
+            <div class="row mb-6 border-bottom pb-4 pt-2">
+              <div class="col-md-6">
+                <div class="rounded text-center num-bg">
+                  <h4 style="color: #fff;"><%= i.to_i + 1 %></h4><!--レシピ順の番号をとりだしてる-->
+                </div>
+                <div><%= explanation.explanation %></div>
               </div>
-              <div><%= explanation.explanation %></div>
-            </div>
               <div class="col-md-3">
                 <%= link_to Refile.attachment_url(explanation, :process_image), 'data-lightbox':"explanation" do %>
                   <%= attachment_image_tag explanation, :process_image, class: "img-fluid", id: 'imageFile_' + i.to_s %>
                 <% end %>
               </div>
 
-              <button class="more col-md-2 align-self-center", id="comment_<%= i.to_s %>"></button>
-              <div class="txt-hide comment_<%= i.to_s %> pl-3">
-                <% explanation.comments.each do |comment| %>
-                  <div><strong><%= comment.customer.name %></strong></div>
-                  <div class="pl-1"><%= comment.comment %></div>
-                  <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
-                    <%= link_to "削除", recipe_comments_path(explanation.recipe, comment_id: comment.id), method: :delete %>
+              <div class="col-md-3">
+                <button class="more align-self-center", id="comment_<%= i.to_s %>"></button>
+                <div class="txt-hide comment_<%= i.to_s %> pl-3">
+                  <div class="mb-3 border-bottom pb-4 pt-2" id="children_comments_<%= explanation.id %>">
+
+
+                    <% explanation.comments.each do |comment| %>
+                      <div>
+                        <div><strong><%= comment.customer.name %></strong></div>
+                        <div class="pl-1"><%= comment.comment %>
+                          <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
+                            <%= link_to recipe_comments_path(recipe_id: explanation.recipe, comment_id: comment.id, explanation_id: explanation.id), method: :delete, remote: true do %>
+                               <i class="fas fa-trash-alt ml-4" style="color: red;"></i>
+                            <% end %>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+
+
+                  </div>
+
+                  <% if customer_signed_in? %>
+                    <%= form_with model: @comment, url: recipe_comments_path(recipe_id: explanation.recipe, explanation_id: explanation.id) do |f| %>
+                      <div class="col-md-1"><%= f.text_area :comment, placeholder: "例）耳たぶくらいの固さって？" %></div>
+                      <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                      <%= f.hidden_field :explanation_id, :value => explanation.id %>
+                      <div class="col-md-1"><%= f.submit "送信する", class: "btn" %></div>
+                    <% end %>
                   <% end %>
-                <% end %>
-                <% if customer_signed_in? %>
-                  <%= form_with model: @comment, url: recipe_comments_path(explanation.recipe), local:true do |f| %>
-                    <div class="col-md-1"><%= f.text_area :comment, placeholder: "耳たぶくらいの固さって？" %></div>
-                    <%= f.hidden_field :customer_id, :value => current_customer.id %>
-                    <%= f.hidden_field :explanation_id, :value => explanation.id %>
-                    <div class="col-md-1"><%= f.submit "送信する", class: "btn" %></div>
-                  <% end %>
-                <% end %>
+                </div>
               </div>
-          </div>
+            </div>
+
         <% end %>
       </div>
     </div>

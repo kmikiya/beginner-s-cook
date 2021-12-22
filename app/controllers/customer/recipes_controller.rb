@@ -2,7 +2,7 @@ class Customer::RecipesController < ApplicationController
   before_action :set_parents
 
   def index
-    @recipes = Recipe.all
+    #@recipes = Recipe.all
   end
 
   def new
@@ -36,6 +36,7 @@ class Customer::RecipesController < ApplicationController
     @protein = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:protein)[m]}.sum.round(1)
     @lipids = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:lipids)[m]}.sum.round(1)
     @dietary_fiber = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:dietary_fiber)[m]}.sum.round(1)
+    #byebug
     @salt = array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:salt)[m]}.sum.round(1)
     #平均点
     @reports = @recipe.reports
@@ -94,7 +95,7 @@ class Customer::RecipesController < ApplicationController
       #elsif @category.children.children == nil && @category.parent.parent == nil
         #@recipes = Recipe.where(category_id: @category.indirect_ids)#自分と孫を表示
       #elsif @category.children == nil　&& @category.parent.parent.parent == nil #自分が孫の時
-        @recipes = Recipe.where(category_id: @category)
+        @recipes = @category.recipes.page(params[:page]).per(6).order("created_at desc")
       #end
   end
 
@@ -114,7 +115,7 @@ class Customer::RecipesController < ApplicationController
   private
 
   def recipe_params
-     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, :category_id, explanations_attributes: [:id, :explanation, :process_image],
+     params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, :category_id, explanations_attributes: [:id, :explanation, :process_image, :_destroy],
      materials_attributes: [:id, :amount, :rough, :material_detail_id])
   end
 

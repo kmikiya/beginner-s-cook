@@ -1,7 +1,7 @@
 class Admin::MaterialDetailsController < ApplicationController
 
   def index
-    @materials = MaterialDetail.all
+    @materials = MaterialDetail.all.page(params[:page]).per(50)
    # binding.irb
   end
 
