@@ -29,8 +29,7 @@ ja:
         name: ニックネーム
       comment:
         comment: コメント
-      category:
-      explanation:
+      recipe/explanations:
         explanation: 説明文
         process_image_id: 工程写真
       report:
