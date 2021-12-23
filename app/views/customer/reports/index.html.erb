@@ -1,10 +1,18 @@
-<div class="container pt-3">
-  <%= render 'card', reports: @reports %>
-  <div class="row mt-5">
-     <%= link_to "レシピに戻る", recipe_path(@recipe) %>
+<div class="container-fluid ml-3 mr-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="row mt-3 mb-3 justify-content-center">
+          <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
+            <h5 class="mt-2 top-text top-title-font" style="font-size: 30px;"><%= @recipe.title %>へのつくれぽ</h5>
+          </div>
+      </div>
+      <%= render 'card', reports: @reports %>
+      <div class="row mt-5">
+         <%= link_to "レシピに戻る", recipe_path(@recipe) %>
+      </div>
+    </div>
   </div>
 </div>
-
 
 
 

@@ -19,7 +19,7 @@ class Recipe < ApplicationRecord
   end
 
   validates :title, presence: true
-  validates :comment, presence: true
+  validates :comment, presence: true, length: { minimum: 3, maximum: 140 }
   #validates :category_id, presence: true
   validates :image, presence: true
   validates :people, presence: true

@@ -10,6 +10,7 @@ class Customer::CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
+    redirect_to edit_customer_path(current_customer.id) unless current_customer.id == @customer.id
   end
 
   def update

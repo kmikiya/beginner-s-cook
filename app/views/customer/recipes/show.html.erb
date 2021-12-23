@@ -1,6 +1,6 @@
 <div class="container pt-3">
   <div class="d-flex justify-content-center">
-      <h2 class="mr-3"><%= @recipe.title %></h2>
+      <h2 class="mr-3 recipe-title"><%= @recipe.title %></h2>
      <% if customer_signed_in? %>
         <span id="favorite_buttons_<%= @recipe.id %>">
           <%= render "customer/favorites/favorite", recipe: @recipe %>
@@ -62,48 +62,53 @@
 
 
 <p class="text-right mb-0">(調理時間<%= @recipe.time %>)</p>
-  <div class="row mb-5 mt-5 justify-content-center" >
+  <div class="row mb-5 mt-5 justify-content-center submit-prace" >
+
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
         <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250', class: "recipe-show-image rounded-start" %>
       <% end %>
     </div>
 
-    <div class="col-md-6 ml-5">
-      <div class="row border-bottom" style="width: 65%;">
-        <%= link_to my_page_path(@recipe.customer) do %>
-          <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid",size: '50x50' %>
-          <%= @recipe.customer.name %>
-        <% end %>
-      </div>
-      <div class="row">
-        <div class="col-md-8" style="height:120px; width: 50%;">
-          <%= @recipe.comment %>
+    <div class="col-md-4 ml-5">
+        <div class=" border-bottom">
+          <%= link_to my_page_path(@recipe.customer) do %>
+            <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid rounded-circle",size: '50x50' %>
+            <%= @recipe.customer.name %>
+          <% end %>
         </div>
-      </div>
-      <div class="row justify-content-center pb-2" >
-        <%= link_to recipe_reports_path(@recipe) do %>
-          <div class="bg-light text-center pt-2 pb-2" style="width: 200%; height: 200%%;">みんなが作った数<%= @recipe.reports.count %>件</div>
-        <% end %>
-      </div>
-      <div class="row justify-content-end">
-        <div class="btn btn-outline-warning"><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
-      </div>
+        <p class="comment-wrap"><%= @recipe.comment %></p>
     </div>
-    <div class="col-md-2 align-self-end">
-      <% if customer_signed_in? %>
-        <% if current_customer.id == @recipe.customer.id %>
-          <div><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
-          <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
+
+
+
+    <div class="col-md-3 text-center" style="height:120px; width: 50%;">
+      <div class="w-60 pb-2 ml-4" >
+        <%= link_to recipe_reports_path(@recipe) do %>
+          <div class="bg-light text-center pt-2 pb-2">みんなが作った数<%= @recipe.reports.count %>件</div>
         <% end %>
-     <% end %>
+      </div>
+      <div>
+         <div class="btn btn-outline-warning"><%= link_to "作ったreportを書く", new_recipe_report_path(@recipe) %></div>
+      </div>
+      <div class="d-flex end">
+        <% if customer_signed_in? %>
+          <% if current_customer.id == @recipe.customer.id %>
+            <div class="mr-2"><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
+            <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete, "data-confirm" => "レシピを削除しますか？" %></div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
 
+
+
+
 <div class="row border-bottom border-top pt-3">
   <div class="col">
-    <h4>材料（<%= @recipe.people %>人分）</h4>
+    <h4 class="midashi">材料（<%= @recipe.people %>人分）</h4>
     <table class="table table-striped text-center mb-5">
       <tbody>
         <% @materials.each do |material| %>
@@ -126,7 +131,7 @@
     </table>
 
     <div class="mb-5">
-      <h4>目安栄養素(100gあたり)</h4>
+      <h4 class="midashi">目安栄養素(100gあたり)</h4>
       <table class="table text-center">
         <thead>
           <th>カロリー(kcal)</th>
@@ -151,7 +156,7 @@
 
 <div class="row mt-5">
   <div class="col-md">
-    <h4>作り方</h4>
+    <h4 class="midashi">作り方</h4>
     <div id="wrap">
       <div class="txt-show">
         <% @explanations.each_with_index do |explanation, i| %>
@@ -195,10 +200,10 @@
 
                   <% if customer_signed_in? %>
                     <%= form_with model: @comment, url: recipe_comments_path(recipe_id: explanation.recipe, explanation_id: explanation.id) do |f| %>
-                      <div class="col-md-1"><%= f.text_area :comment, placeholder: "例）耳たぶくらいの固さって？" %></div>
+                      <div class="col-md-4"><%= f.text_area :comment, placeholder: "例）耳たぶくらいの固さって？", required: :true  %></div>
                       <%= f.hidden_field :customer_id, :value => current_customer.id %>
                       <%= f.hidden_field :explanation_id, :value => explanation.id %>
-                      <div class="col-md-1"><%= f.submit "送信する", class: "btn" %></div>
+                      <div class="col-md-1"><%= f.submit "送信する", class: "btn btn-success" %></div>
                     <% end %>
                   <% end %>
                 </div>

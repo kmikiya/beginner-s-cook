@@ -24,7 +24,7 @@
       </div>
     </div>
 
-      <div class="col-md-6 mb-5">
+      <div class="col-md-8 mb-5">
 
         <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
@@ -59,8 +59,8 @@
               </div>
             <% end %>
           </div>
-          <div class="col-md-12 submit-prace mt-3">
-              <%= link_to "一覧を表示", recipe_evaluation_path %>
+          <div class="col-md-12 submit-prace mt-5">
+              <%= link_to "一覧表示", recipe_evaluation_path %>
             </div>
         </div>
 
@@ -80,7 +80,7 @@
                 <div style="font-size: 2px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
               </div>
             <% end %>
-            <div class="col-md-12 submit-prace">
+            <div class="col-md-12 submit-prace mt-4">
               <%= link_to "一覧を表示", recipe_create_at_path %>
             </div>
           </div>
@@ -101,7 +101,7 @@
                 <% end %>
               </div>
             <% end %>
-            <div class="col-md-12 submit-prace">
+            <div class="col-md-12 submit-prace mt-4">
               <%= link_to "一覧を表示", recipe_view_path %>
             </div>
           </div>

@@ -8,13 +8,19 @@
       </div>
         <div class="row">
           <% @reports.each do |recipe| %>
-            <div class="col-md-4 mb-5">
-              <%= attachment_image_tag recipe.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img-create rounded" %>
+            <div class="col-md-6 mb-5">
               <%= link_to recipe_path(recipe.recipe) do %>
-                <div class="title-font-color"  style="font-size: 30px;"><strong><%= recipe.recipe.title %></strong></div>
+              <div class="text-center">
+                <div class="title-font-color midashi"  style="font-size: 30px;">
+                  <strong><%= recipe.recipe.title.truncate(14) %></strong>
+                </div>
+              </div>
               <% end %>
-              <div style="font-size: 5px;"><%= recipe.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
-              <div>
+              <div class="date-potition", style="font-size: 5px;"><%= recipe.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+              <%= link_to recipe_path(recipe.recipe) do %>
+                <%= attachment_image_tag recipe.recipe, :image, fallback:"no_bg_image.jpg", class: "recipe-img-create img-fluid rounded center-img" %>
+              <% end %>
+              <div class="submit-prace mt-3">
                 <span id="star-rate-average_<%= recipe.recipe.id %>"></span>
                 (<%= recipe.evaluation_avg.round(1) %>点)
                 <script>
