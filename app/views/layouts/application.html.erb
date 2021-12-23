@@ -24,62 +24,61 @@
               <h1 class="navbar-brand logo">ビギナーズクック！
                 <span class="logo-span">
                   Delicious & Healthy
-                 </span>
-               </h1>
-              </a>
+                </span>
+              </h1>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-
-              <div class="collapse navbar-collapse " id="navbarNavDropdown">
-                <div class="form-group right">
-                  <%= search_form_for @search do |f| %>
-                    <div class="row">
-                      <div class="col-md-8"><%= f.text_field :title_cont, placeholder: '名前を入力...', required: :true, class: "form-control" %></div>
-                      <div class="col pl-0 mt-1"><%= f.submit ("検索する") %></div>
-                    </div>
-                  <% end %>
-                </div>
-                <ul class="navbar-nav ml-auto ">
-                  <% if customer_signed_in? %>
-                    <li class="nav-item pr-3">
-                      <%= link_to  my_page_path(current_customer) do %>
-                        <div class="col"><i class="fas fa-user fa-3x"></i></div>
-                        <div class="font-awesome-text">マイページ</div>
-                      <% end %>
-                    </li>
-                    <li class="nav-item pr-3">
-                      <%= link_to lists_path do %>
-                      <div class="col"><i class="fas fa-tasks fa-3x"></i></div>
-                      <div class="font-awesome-text">買い物リスト</div>
-                      <% end %>
-                    </li>
-                    <li class="nav-item pr-3">
-                      <%= link_to favorites_path do %>
-                        <div class="col"><i class="far fa-bookmark fa-3x"></i></div>
-                        <div class="font-awesome-text">ブックマーク</div>
-                      <% end %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to destroy_customer_session_path, method: :delete do %>
-                        <div class="col"><i class="fas fa-sign-out-alt fa-3x"></i></div>
-                        <div class="font-awesome-text">ログアウト</div>
-                      <% end %>
-                    </li>
-                  <% elsif admin_signed_in? %>
-                    <li class="nav-item"><%= link_to "栄養素表示", admin_material_details_path %></li>
-                    <li class="nav-item"><%= link_to "ユーザ一覧", admin_customers_path %></li>
-                    <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" do %>
-                      <div class="col"><i class="fas fa-sign-out-alt fa-2x"></i></div>
-                      <div style="font-size: 3px;">ログアウト</div>
-                    <% end %>
-                    </li>
-                  <% else %>
-                    <li class="nav-item"><%= link_to "ログイン", new_customer_session_path %></li>
-                    <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path %></li>
-                  <% end %>
-                </ul>
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
+              <div class="form-group right">
+                <%= search_form_for @search do |f| %>
+                  <div class="row">
+                    <div class="col-md-8"><%= f.text_field :title_cont, placeholder: '名前を入力...', required: :true, class: "form-control" %></div>
+                    <div class="col pl-0 mt-1"><%= f.submit ("検索する") %></div>
+                  </div>
+                <% end %>
               </div>
+              <ul class="navbar-nav ml-auto ">
+                <% if customer_signed_in? %>
+                  <li class="nav-item pr-3">
+                    <%= link_to  my_page_path(current_customer) do %>
+                      <div class="col"><i class="fas fa-user fa-3x"></i></div>
+                      <div class="font-awesome-text">マイページ</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
+                    <%= link_to lists_path do %>
+                    <div class="col"><i class="fas fa-tasks fa-3x"></i></div>
+                    <div class="font-awesome-text">買い物リスト</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
+                    <%= link_to favorites_path do %>
+                      <div class="col"><i class="far fa-bookmark fa-3x"></i></div>
+                      <div class="font-awesome-text">ブックマーク</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_customer_session_path, method: :delete do %>
+                      <div class="col"><i class="fas fa-sign-out-alt fa-3x"></i></div>
+                      <div class="font-awesome-text">ログアウト</div>
+                    <% end %>
+                  </li>
+                <% elsif admin_signed_in? %>
+                  <li class="nav-item"><%= link_to "栄養素表示", admin_material_details_path %></li>
+                  <li class="nav-item"><%= link_to "ユーザ一覧", admin_customers_path %></li>
+                  <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" do %>
+                    <div class="col"><i class="fas fa-sign-out-alt fa-2x"></i></div>
+                    <div style="font-size: 3px;">ログアウト</div>
+                  <% end %>
+                  </li>
+                <% else %>
+                  <li class="nav-item"><%= link_to "ログイン", new_customer_session_path %></li>
+                  <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path %></li>
+                <% end %>
+              </ul>
+            </div>
 
           </div>
         </nav>
