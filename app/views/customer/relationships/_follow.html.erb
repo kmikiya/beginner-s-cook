@@ -5,7 +5,7 @@
         <div class="text-center">
           <div class="title-font-color"  style="font-size: 30px;">
             <strong><%= customer.name.truncate(14) %></strong>
-            <%= attachment_image_tag  customer, :profile_image, fallback:"no-image-icon.jpg", class: "customer-img-lg img-fluid rounded center-img" %>
+            <%= attachment_image_tag  customer, :profile_image, fallback:"no-image-icon.jpg", class: "customer-img-lg img-fluid rounded-circle center-img" %>
           </div>
         </div>
       <% end %>

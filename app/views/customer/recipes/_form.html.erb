@@ -43,7 +43,7 @@
             <div class="row flex-column">
                 <div class="col" style="display: flex;">
                   <strong class="mr-1"><%= f.label :comment, "レシピコメント", class: "d-flex justify-content-start" %></strong>
-                <p class="mandatory">必須</p>
+                <p class="mandatory-seiyaku">必須(140字以内)</p>
                 </div>
                 <div class="col">
                   <div><%= f.text_area :comment, placeholder:"とろとろ卵の絶品親子丼です。卵は２回に分けて入れるのがポインです♪", style:"width: 100%; height: 100px;", class: "form-control"  %></div>
@@ -60,7 +60,7 @@
         <h2>材料</h2>
 
       <div class="col-md-7 pb-3 ">
-        <p class="mb-0 mandatory-num text-center">必須 ※半角</p>
+        <p class="mb-0 mandatory-num text-center w-25">必須 ※半角</p>
         <p class="d-flex"><%= f.text_field :people, class: "form-control", placeholder:"例）2", style:"width: 30%;" %>人分</p>
       </div>
       <%= f.fields_for :materials do |t| %>
