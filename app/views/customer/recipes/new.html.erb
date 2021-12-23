@@ -1,7 +1,7 @@
 <div class="container">
   <% if @recipe.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h2> <%= I18n.t("errors.messages.not_saved", count:  @recipe.errors.count, resource: @recipe.class.model_name.human.downcase)%></h2>
       <ul>
         <% @recipe.errors.full_messages.each do |message| %>
           <li><%= message %></li>

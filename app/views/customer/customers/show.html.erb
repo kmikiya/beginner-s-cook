@@ -1,6 +1,6 @@
 <div class="container-fluid bg">
-  <div class="container ob-bg">
-    <div class="shadow-lg">
+  <div class="container px-0  pb-5">
+    <div class="on-bg shadow-lg">
       <div class="row-md-8 mx-2 mx-sm-auto rounded px-0 align-self-center mt-5">
         <div class="col-md-12 col-sm-10 pl-0 pr-0">
           <%= attachment_image_tag @customer, :bg_image, fallback: "bg_img.png", class: "bg-image" %>
@@ -40,7 +40,13 @@
               <%= @customer.followings.count %>
             <% end %>
           </div>
+          <div>
+            <% if @customer == current_customer %>
+              <%= link_to "退会する", customer_registration_path, method: :delete, "data-confirm" => "すべてのデータは削除されます。本当に退会しますか？"  %>
+            <% end %>
+          </div>
         </div>
+
       </div>
       <div class="row px-5 pb-2 pt-2 justify-content-start mb-3" style="width: 80%;">
          <%= @customer.profile %>
@@ -68,7 +74,9 @@
                   </div>
                 <% end %>
               </div>
-              <%= link_to "一覧表示", customer_my_recipe_path(@customer) %>
+              <div class="col-md-12 submit-prace mt-5 nypage-index">
+                <%= link_to "一覧表示", customer_my_recipe_path(@customer) %>
+              </div>
             </div>
 
             <div id="tab2" class="tab">
@@ -107,7 +115,9 @@
                   </div>
                 <% end %>
               </div>
-              <%= link_to "一覧を表示", customer_my_report_path(@customer) %>
+              <div class="col-md-12 submit-prace mt-5 nypage-index">
+                <%= link_to "一覧を表示", customer_my_report_path(@customer) %>
+              </div>
             </div>
 
 
@@ -145,7 +155,9 @@
                   <% end %>
                 <% end %>
               </div>
-              <%= link_to "一覧表示", customer_receive_report_path(@customer) %>
+              <div class="col-md-12 submit-prace mt-5 nypage-index">
+                <%= link_to "一覧表示", customer_receive_report_path(@customer) %>
+              </div>
             </div>
          </div>
       </div>

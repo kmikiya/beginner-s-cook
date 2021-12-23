@@ -1,15 +1,20 @@
 <div class="nested-fields">
   <div class="row">
-    <div class="col-md-5 col-lg-5 col-sm-10 col-2 ml-3 pb-3"><p class="mb-0 mandatory text-center">必須</p><%= f.collection_select :material_detail_id, MaterialDetail.all, :id, :name, {}, {class: "form-control test-select2"}  %></div>
-    <div class="col-md-2 ml-5 mb-3"><p class="mb-0 mandatory text-center">必須</p><%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %></div>
-    <div class="col-md-3 ml-6 mb-3"><p class="mb-0 mandatory-num text-center">必須 ※半角</p><%= f.text_field :rough, class: "form-control", placeholder: "目安量（グラム単位）例）10" %></div>
+    <div class="col-md-5 col-lg-5 col-sm-10 col-2 ml-3 pb-3">
+      <p class="mb-0 mandatory text-center">必須</p>
+      <%= f.collection_select :material_detail_id, MaterialDetail.all, :id, :name, {}, {class: "form-control test-select2"}  %>
+    </div>
+    <div class="col-md-2 ml-5 mb-3"><p class="mb-0 mandatory text-center">必須</p>
+      <%= f.text_field :amount, class: "form-control", placeholder: "例）1個" %>
+    </div>
+    <div class="col-md-3 ml-6 mb-3">
+      <p class="mb-0 mandatory-num text-center">必須 ※半角</p><%= f.text_field :rough, class: "form-control", placeholder: "目安量（グラム単位）例）10" %>
+    </div>
     <div class="col-md-1 px-0 w-auto">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block mt-4" %>
     </div>
   </div>
 </div>
-
-
 
 <div class="material_detail">
     <%= f.fields_for :material_details do |t| %>
@@ -18,9 +23,9 @@
 </div>
 
 <script>
-$(function() {
-  $('.test-select2').select2({
-    language: "ja" //日本語化
-  });
-})
+  $(function() {
+    $('.test-select2').select2({
+      language: "ja" //日本語化
+    });
+  })
 </script>

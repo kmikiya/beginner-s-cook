@@ -43,6 +43,19 @@ function test(input){
   file_field.click();
 }
 */
+
+// for select2
+$(document).on('turbolinks:load',function(){
+  if(location.pathname === '/recipes/new'){
+    let head = document.getElementsByTagName("head")[0]
+    let meta = document.createElement("meta")
+    meta.setAttribute("name", "turbolinks-visit-control")
+    meta.setAttribute("content", "reload")
+    head.appendChild(meta)
+  }
+})
+
+
 //$(document).on('turbolinks:load', function() {
 
   $(document).on('click', '.img_prev', function () {

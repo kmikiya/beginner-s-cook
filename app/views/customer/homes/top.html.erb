@@ -24,7 +24,7 @@
       </div>
     </div>
 
-      <div class="col-md-8 mb-5">
+      <div class="col-lg-7  col-md-10 mb-5">
 
         <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
@@ -34,12 +34,12 @@
           </div>
           <div class="row">
             <% @reports.each do |report| %>
-              <div class="col-md-3 mt-3">
+              <div class="col-lg-4 col-md-6 col-sm-6 mt-3">
                 <%= link_to recipe_path(report.recipe) do %>
                   <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                   <div class="title-font-color"><strong><%= report.recipe.title %></strong></div>
                 <% end %>
-                <div style="font-size: 2px;"><%= report.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                <div class="date-color"><%= report.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
                   <div>
                     <span id="star-rate-average_<%= report.recipe.id %>"></span>
                     (<%= report.evaluation_avg.round(1) %>点)
@@ -59,9 +59,9 @@
               </div>
             <% end %>
           </div>
-          <div class="col-md-12 submit-prace mt-5">
+          <div class="col-md-12 submit-prace mt-5 title-font-color">
               <%= link_to "一覧表示", recipe_evaluation_path %>
-            </div>
+          </div>
         </div>
 
         <div class="mb-5">
@@ -72,12 +72,12 @@
           </div>
           <div class="row">
             <% @recipes.each do |recipe| %>
-              <div class="col-md-3 mt-3">
+              <div class="col-lg-4 col-md-6 col-sm-6 mt-3">
                 <%= link_to recipe_path(recipe), class:"userList" do %>
                   <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                   <div class="title-font-color"><strong><%= recipe.title %></strong></div>
                 <% end %>
-                <div style="font-size: 2px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                <div class="date-color"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
               </div>
             <% end %>
             <div class="col-md-12 submit-prace mt-4">
@@ -94,11 +94,12 @@
           </div>
           <div class="row">
             <%  @recipe_pvs.each do |recipe| %>
-              <div class="col-md-3 mt-3">
+              <div class="col-lg-4 col-md-6 col-sm-6 mt-3">
                 <%= link_to recipe_path(recipe) do %>
                   <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %></div>
                   <div class="title-font-color"><strong><%= recipe.title %></strong></div>
                 <% end %>
+                <div class="date-color"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
               </div>
             <% end %>
             <div class="col-md-12 submit-prace mt-4">
@@ -106,24 +107,6 @@
             </div>
           </div>
         </div>
-
-        <div class="col">
-          <div class="mt-3 mb-3">
-            <h2>低カロリーレシピ</h2>
-          </div>
-          <div class="row justify-content-start">
-            <%#  @resipe_calories.each do |recipe| %>
-              <div class="col-md-3">
-                <div><%#= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img" %></div>
-                <%#= link_to recipe_path(recipe) do %>
-                  <div><%#= recipe.title %></div>
-                <%# end %>
-                <div><%#= recipe.comment %></div>
-              </div>
-            <%# end %>
-          </div>
-        </div>
-
       </div>
 
   </div>

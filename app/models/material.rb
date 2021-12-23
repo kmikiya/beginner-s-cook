@@ -4,4 +4,5 @@ class Material < ApplicationRecord
 
   validates :rough, presence: true
   validates :amount, presence: true
+  #validates :material_detail_id, uniqueness: true
 end
