@@ -95,7 +95,7 @@
         <% if customer_signed_in? %>
           <% if current_customer.id == @recipe.customer.id %>
             <div class="mr-2"><%= link_to "レシピ編集", edit_recipe_path(@recipe) %></div>
-            <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete %></div>
+            <div><%= link_to "レシピ削除", recipe_path(@recipe), method: :delete, "data-confirm" => "レシピを削除しますか？" %></div>
           <% end %>
         <% end %>
       </div>
