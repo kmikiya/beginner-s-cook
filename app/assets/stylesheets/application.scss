@@ -20,6 +20,12 @@
 //   display: none !important;
 // }
 
+//header
+a {
+  color:#0000FF; text-decoration:none;
+}
+
+
 .icon{
   color: #ff8c00;
 }
@@ -56,7 +62,7 @@ header{
 .font-awesome-text{
   font-size: 13px;
   font-family: 'Kosugi maru', sans-serif;
-  margin: 10px;
+  margin: 7px;
 }
 
 footer{
@@ -116,6 +122,17 @@ footer{
 .midashi{
   font-family: 'Kosugi maru', sans-serif;
 }
+
+//my_page
+
+.delete{
+  color: red;
+}
+
+.right{
+  margin: 0 0 0 auto;
+}
+
 
 .bg{
   background-color: #fff5ee;
