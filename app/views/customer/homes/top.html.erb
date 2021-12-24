@@ -94,7 +94,7 @@
           </div>
           <div class="row">
             <%  @recipe_pvs.each do |recipe| %>
-              <div class="col-lg-4 col-md-6 col-sm-6 mt-3">
+              <div class="col-lg-4 col-md-6 col-sm-6 mt-3 view-img">
                 <%= link_to recipe_path(recipe) do %>
                   <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %></div>
                   <div class="title-font-color"><strong><%= recipe.title %></strong></div>

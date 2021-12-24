@@ -20,6 +20,10 @@
 //   display: none !important;
 // }
 
+.icon{
+  color: #ff8c00;
+}
+
 header{
   height: 100px;
   background-color: #fff5ee;
@@ -51,6 +55,8 @@ header{
 
 .font-awesome-text{
   font-size: 13px;
+  font-family: 'Kosugi maru', sans-serif;
+  margin: 10px;
 }
 
 footer{
@@ -74,6 +80,14 @@ footer{
   width: 300px;
   height: 300px;
   object-fit: cover;
+}
+
+.recipe-imgt:last-child{
+  display: none;
+}
+
+.view-img:last-child{
+  display: none;
 }
 
 .title-font-color{
@@ -303,9 +317,7 @@ a {
     margin: 0 0 0 auto;
 }
 
-.font-awesome-text{
-  font-size: 13px;
-}
+
 
 footer{
   width: 100%;
