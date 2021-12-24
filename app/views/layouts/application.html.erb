@@ -43,26 +43,26 @@
                 <% if customer_signed_in? %>
                   <li class="nav-item pr-3">
                     <%= link_to  my_page_path(current_customer) do %>
-                      <div class="col"><i class="fas fa-user fa-3x"></i></div>
-                      <div class="font-awesome-text">マイページ</div>
+                      <div class="col"><i class="fas fa-user fa-3x icon"></i></div>
+                      <div class="font-awesome-text icon">マイページ</div>
                     <% end %>
                   </li>
                   <li class="nav-item pr-3">
                     <%= link_to lists_path do %>
-                    <div class="col"><i class="fas fa-tasks fa-3x"></i></div>
-                    <div class="font-awesome-text">買い物リスト</div>
+                    <div class="col"><i class="fas fa-tasks fa-3x icon"></i></div>
+                    <div class="font-awesome-text icon">買い物リスト</div>
                     <% end %>
                   </li>
                   <li class="nav-item pr-3">
                     <%= link_to favorites_path do %>
-                      <div class="col"><i class="far fa-bookmark fa-3x"></i></div>
-                      <div class="font-awesome-text">ブックマーク</div>
+                      <div class="col"><i class="far fa-bookmark fa-3x icon"></i></div>
+                      <div class="font-awesome-text icon">ブックマーク</div>
                     <% end %>
                   </li>
                   <li class="nav-item">
                     <%= link_to destroy_customer_session_path, method: :delete do %>
-                      <div class="col"><i class="fas fa-sign-out-alt fa-3x"></i></div>
-                      <div class="font-awesome-text">ログアウト</div>
+                      <div class="col"><i class="fas fa-sign-out-alt fa-3x icon"></i></div>
+                      <div class="font-awesome-text icon">ログアウト</div>
                     <% end %>
                   </li>
                 <% elsif admin_signed_in? %>
@@ -74,8 +74,18 @@
                   <% end %>
                   </li>
                 <% else %>
-                  <li class="nav-item"><%= link_to "ログイン", new_customer_session_path %></li>
-                  <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path %></li>
+                  <li class="nav-item pr-3">
+                    <%= link_to new_customer_registration_path do %>
+                      <div class="col"><i class="fas fa-user-plus fa-3x icon"></i></div>
+                      <div class="font-awesome-text icon">新規登録</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
+                    <%= link_to new_customer_session_path do %>
+                      <div class="col"><i class="fas fa-sign-in-alt fa-3x icon"></i></div>
+                      <div class="font-awesome-text icon">ログイン</div>
+                    <% end %>
+                  </li>
                 <% end %>
               </ul>
             </div>

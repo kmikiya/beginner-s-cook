@@ -8,7 +8,7 @@
       </div>
 
       <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
-        <div class="col-md-4 align-self-center">
+        <div class="col-md-4 align-self-center midashi">
           <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", class: "rounded-circle", size: '100x100'%>
           <%= @customer.name %>
         </div>
@@ -16,11 +16,11 @@
           <% if customer_signed_in? %>
             <% if current_customer == @customer %>
               <div class="row mt-4 mb-2">
-                <%= link_to "プロフィール編集", edit_my_page_path(@customer), class: "btn btn-primary" %>
+                <%= link_to "プロフィール編集", edit_my_page_path(@customer), class: "btn btn-primary midashi" %>
                 <div class="ml-2">
                   <%= link_to new_recipe_path do %>
                       <div class="col"><i class="far fa-edit fa-2x"></i></div>
-                      <div class="font-awesome-text">レシピを書く</div>
+                      <div class="font-awesome-text midashi">レシピを書く</div>
                   <% end %>
                 </div>
               </div>
@@ -30,7 +30,7 @@
             </div>
             <% end %>
           <% end %>
-          <div>
+          <div class="midashi">
             フォロワー数
             <%= link_to customer_followers_path(@customer) do %>
               <%= @customer.followers.count %>
@@ -40,23 +40,26 @@
               <%= @customer.followings.count %>
             <% end %>
           </div>
-          <div>
-            <% if @customer == current_customer %>
-              <%= link_to "退会する", customer_registration_path, method: :delete, "data-confirm" => "すべてのデータは削除されます。本当に退会しますか？"  %>
-            <% end %>
-          </div>
+
         </div>
 
       </div>
-      <div class="row px-5 pb-2 pt-2 justify-content-start mb-3" style="width: 80%;">
-         <%= @customer.profile %>
+      <div class="px-5 pb-2 pt-2 justify-content-start mb-3 midashi d-flex w-100" style="width: 80%;">
+        <div >
+          <%= @customer.profile %>
+        </div>
+        <div class="right">
+          <% if @customer == current_customer %>
+            <%= link_to "退会する", customer_registration_path, method: :delete, class: "midashi btn btn-danger mt-3", "data-confirm" => "すべてのデータは削除されます。本当に退会しますか？"  %>
+          <% end %>
+        </div>
       </div>
 
       <div>
           <ul id="tab-menu">
-            <li><a href="#tab1" class="active tab-menu">投稿レシピ</a></li>
-            <li><a href="#tab2" class="tab-menu">つくレポ</a></li>
-            <li><a href="#tab3" class="tab-menu">もらったつくレポ</a></li>
+            <li><a href="#tab1" class="active tab-menu midashi">投稿レシピ</a></li>
+            <li><a href="#tab2" class="tab-menu midashi">つくレポ</a></li>
+            <li><a href="#tab3" class="tab-menu midashi">もらったつくレポ</a></li>
           </ul>
           <div id="tab-contents">
 
