@@ -87,7 +87,7 @@
                 <% @reports.each do |report| %>
                   <div class="col-md-3">
                     <%= link_to my_page_path(report.customer) do %>
-                      <strong class="mypage-font"><%= report.recipe.title.truncate(8) %></strong><span class:"mypage-detal">へのレポート</span>
+                      <strong class="mypage-font"><%= report.recipe.title.truncate(8) %></strong><span class="mypage-detal">へのレポート</span>
                     <% end %>
                     <% if current_customer == report.customer %>
                       <%= link_to recipe_report_path(report.recipe, report), method: :delete, "data-confirm" => "つくれぽを削除しますか？" do %>

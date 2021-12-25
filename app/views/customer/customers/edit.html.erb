@@ -1,4 +1,9 @@
 <div class="container">
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <%= render "customer/shared/error_messages", resource: @customer %>
+    </div>
+  <% end %>
   <div class="shadow-lg">
     <div class="row-md-8 mx-2 mx-sm-auto rounded px-0 align-self-center mt-5">
       <%= form_with model: @customer,local:true do |f| %>
@@ -22,7 +27,7 @@
           </div>
           <div class="col-md-3 align-self-center flex-column">
             <div class="row mt-4 mb-2">
-              <div class="btn btn-primary"><p>プロフィール編集</p></div>
+              <div class="btn btn-primary h-25">プロフィール編集</div>
                 <div class="ml-2">
                   <div class="col"><i class="far fa-edit fa-2x"></i></div>
                   <div class="font-awesome-text">レシピを書く</div>
