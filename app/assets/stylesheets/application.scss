@@ -113,6 +113,7 @@ footer{
 
 .recipe-title{
   font-family: 'Dela Gothic One', sans-serif;
+  font-size: 60px;
 }
 
 .recipe-midashi{
@@ -172,6 +173,32 @@ footer{
  .btn-potition{
    text-align: right;
  }
+
+//recipe詳細
+
+.rd-title{
+font-size: 12px;
+}
+
+.bookmarktag{
+  color: #f08080;
+}
+
+.recipe-moji{
+  font-family: 'Kosugi maru', sans-serif;
+  color: #000;
+}
+
+.category-font{
+  font-family: 'Kosugi maru', sans-serif;
+  color: #000;
+  font-size: 19px;
+}
+
+.cart-moji{
+  font-family: 'Kosugi maru', sans-serif;
+  color: #fff;
+}
 
 .center-img{
   display: block;

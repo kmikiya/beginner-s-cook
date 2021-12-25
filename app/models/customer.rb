@@ -12,6 +12,8 @@ class Customer < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :lists, dependent: :destroy
 
+  validates :name, presence: true
+
   def follow(customer_id)
     relationships.create(followed_id: customer_id)
   end
