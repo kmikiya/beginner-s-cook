@@ -16,30 +16,27 @@
   </head>
 
   <body>
-    <div class="wrapper">
-      <header class="shadow mb-3">
-        <nav class="navbar navbar-expand-lg navbar-light ">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container">
-            <a  href="/">
+            <a class="navbar-brand" href="/">
               <h1 class="navbar-brand logo">ビギナーズクック！
                 <span class="logo-span">
                   Delicious & Healthy
                 </span>
               </h1>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse " id="navbarNavDropdown">
-              <div class="form-group right">
-                <%= search_form_for @search do |f| %>
-                  <div class="row">
-                    <div class="col-md-8"><%= f.text_field :title_cont, placeholder: '名前を入力...', required: :true, class: "form-control" %></div>
-                    <div class="col pl-0 mt-1"><%= f.submit ("検索する") %></div>
-                  </div>
-                <% end %>
-              </div>
-              <ul class="navbar-nav ml-auto ">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <%= search_form_for @search do |f| %>
+                <div class="row">
+                  <div class="col-md-8"><%= f.text_field :title_cont, placeholder: '名前を入力...', required: :true, class: "form-control" %></div>
+                  <div class="col pl-0 mt-1"><%= f.submit ("検索する") %></div>
+                </div>
+              <% end %>
+              <ul class="navbar-nav ml-auto">
                 <% if customer_signed_in? %>
                   <li class="nav-item pr-3">
                     <%= link_to  my_page_path(current_customer) do %>
@@ -89,19 +86,23 @@
                 <% end %>
               </ul>
             </div>
-
           </div>
         </nav>
       </header>
-      <%= yield %>
-      <footer class="shadow">
-        <div>
-          <div>@Beginner's Cook</div>
-        </div>
-      </footer>
-    <!-- Select2本体 -->
+      <!--<div class="container-fluid pl-0 pr-0 on-bg">-->
+      <main>
+        <%= yield %>
+      </main>
+
+      <!--</div>-->
+    <footer class="shadow">
+      <div>
+        <div>@Beginner's Cook</div>
+      </div>
+    </footer>
+      <!-- Select2本体 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-<!-- Select2日本語化 -->
+      <!-- Select2日本語化 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/i18n/ja.js"></script><!--８３行目とこれを追加したら星評価が表示されなくなった -->
   </body>
 </html>

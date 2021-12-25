@@ -20,6 +20,10 @@
 //   display: none !important;
 // }
 
+main{
+ min-height: 80vh;
+}
+
 //header
 a {
   color:#0000FF; text-decoration:none;
@@ -76,6 +80,13 @@ footer{
 }
 
 //top-page
+
+.top-image{
+  height: 300px;
+  width: 100%;
+  background-image: url("top-image.jpg");
+}
+
 .top-title-font{
   font-family: 'Kosugi Maru', sans-serif;
   color:#696969;
@@ -92,7 +103,7 @@ footer{
   display: none;
 }
 
-.view-img:last-child{
+.view-img:last-of-type{
   display: none;
 }
 
@@ -198,6 +209,22 @@ font-size: 12px;
 .cart-moji{
   font-family: 'Kosugi maru', sans-serif;
   color: #fff;
+}
+
+//recipe-new
+.yokonarabi{
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.add-bottom{
+  font-family: 'Kosugi maru', sans-serif;
+  color: #696969;
+}
+
+//list
+.h100{
+ min-height: 80vh;
 }
 
 .center-img{
@@ -331,6 +358,8 @@ a {
   height: 150px;
   object-fit: cover;
   }
+
+
 }
 
 @media screen and (max-width: 1057.98px) {
@@ -342,11 +371,17 @@ a {
 }
 
 @media screen and (max-width: 991.98px) {
-   .categories{
-    display: none;
-  }
 
-  header{
+nav{
+  z-index: 99;
+  background-color: #fff5ee;
+}
+
+.categories{
+  display: none;
+ }
+
+header{
   height: 100px;
   background-color: #fff5ee;
 }
@@ -413,6 +448,10 @@ footer{
 .nypage-index{
    color: #d2691e;
    font-size: 18px;
+}
+
+.view-img:last-of-type{
+  display: block;
 }
 
 

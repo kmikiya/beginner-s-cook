@@ -1,5 +1,6 @@
 class Customer::RecipesController < ApplicationController
   before_action :set_parents
+  #before_action :check_validates
 
   def index
     #@recipes = Recipe.all
@@ -15,9 +16,12 @@ class Customer::RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
-    if @recipe.save
+    @error_message = nil
+    #byebug
+    if check_validates && @recipe.save
       redirect_to root_path
     else
+      @error_message = "同じ材料は登録できません"
       # @explanation =  Recipe.new(recipe_params).explanations.build
       render 'new'
       #byebug
@@ -117,6 +121,12 @@ class Customer::RecipesController < ApplicationController
   def recipe_params
      params.require(:recipe).permit(:image, :title, :time, :comment, :customer_id, :people, :category_id, explanations_attributes: [:id, :explanation, :process_image, :_destroy],
      materials_attributes: [:id, :amount, :rough, :material_detail_id])
+  end
+
+  def check_validates
+    material_ids = []
+    params[:recipe][:materials_attributes].each{|d| material_ids << d[1]["material_detail_id"]}
+    material_ids.size == material_ids.uniq.size ? true : false
   end
 
 end

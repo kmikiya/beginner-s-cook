@@ -1,10 +1,20 @@
 <div class="container">
-  <% if @recipe.errors.any? %>
+  <% if @recipe.errors.any? || @error_message.present? %>
     <div id="error_explanation">
-      <h2> <%= I18n.t("errors.messages.not_saved", count:  @recipe.errors.count, resource: @recipe.class.model_name.human.downcase)%></h2>
+      <% if @recipe.errors.count == 0 && @error_message.present?
+            count = 1
+          elsif @recipe.errors.count != 0 && @error_message.present?
+             count = @recipe.errors.count + 1
+          elsif @recipe.errors.count != 0 && @error_message.blank?
+            count = @recipe.errors.count
+          end %>
+      <h2> <%= I18n.t("errors.messages.not_saved", count:  count, resource: @recipe.class.model_name.human.downcase)%></h2>
       <ul>
         <% @recipe.errors.full_messages.each do |message| %>
           <li><%= message %></li>
+        <% end %>
+        <% if @error_message.present?  %>
+          <li><%= @error_message %></li>
         <% end %>
       </ul>
     </div>

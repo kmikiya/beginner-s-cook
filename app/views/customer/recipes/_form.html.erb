@@ -6,7 +6,7 @@
         <div class="category">
           <div class="form__label">
             <div class="row weight-bold-text lavel__name ml-1">
-                    カテゴリー<p class="mb-0 mandatory text-center">必須</p>
+                    <strong>カテゴリー</strong><p class="mb-0 mandatory text-center">必須</p>
             </div>
             <div class="lavel__Required">
               <%= f.collection_select :category_id, @parents, :id, :name,{ include_blank: "選択してください"}, class:"serect_field" %>
@@ -67,13 +67,15 @@
         <%= render 'material_fields', f: t %>
       <% end %>
       <div id="detail-association-insertion-material"></div>
-        <%= link_to_add_association "材料追加", f, :materials,
+        <%= link_to_add_association f, :materials,
           class: "add_fields d-flex justify-content-center",
           id: 'add-btn ',
           data: {
                 association_insertion_node: '#detail-association-insertion-material',
                 association_insertion_method: 'before'
-        }%>
+        } do%>
+          <div class="add-bottom submit-prace"><i class="far fa-plus-square fa-2x submit-prace"></i>材料追加</div>
+        <% end %>
     </div>
 </div>
 
