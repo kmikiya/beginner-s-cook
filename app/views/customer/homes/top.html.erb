@@ -19,19 +19,19 @@
                 <li class="category_parent category-point">
                   <%#= link_to search_category_recipes_path(parent) do %>
                     <!--<input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1">-->
-                    <input type="button" value="<%= parent.name %>" id="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1">
+                    <input type="button" value="<%= parent.name %>" id="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1 category-font-p">
                   <%# end %>
                   <ul class="ml-3">
                     <% parent.children.each do |child| %>
                       <li>
                         <%#= link_to search_category_recipes_path(child) do %>
-                          <input type="button" value="<%= child.name %>" id="<%= child.id %>" class="parent_btn btn pt-0 pb-0 mb-1">
+                          <input type="button" value="<%= child.name %>" id="<%= child.id %>" class="parent_btn btn pt-0 pb-0 mb-1 category-font-c">
                         <%# end %>
                         <ul class="ml-3">
                           <% child.children.each do |gchild| %>
                             <li>
                               <%= link_to search_category_recipes_path(gchild) do %>
-                                <input type="button" value="<%= gchild.name %>" id="<%= gchild.id %>" class="parent_btn btn pt-0 pb-0 mb-1 btn btn-primary btn-sm">
+                                <input type="button" value="<%= gchild.name %>" id="<%= gchild.id %>" class="parent_btn btn pt-0 pb-0 mb-1 btn-sm category-font-c grandchild">
                               <% end %>
                             </li>
                           <% end %>
@@ -42,100 +42,132 @@
                 </li>
               <% end %>
             </ul>
-            <ul class="categoryTree-child">
-            </ul>
-            <ul class="categoryTree-grandchild">
-            </ul>
           </div>
         </div>
       </div>
 
-        <div class="col-lg-7  col-md-10 mb-5">
+      <div class="col-lg-7  col-md-10 mb-5">
 
-          <div class="mb-5">
-            <div class="row mt-3 mb-3 justify-content-center">
-              <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-                <h5 class="mt-2 top-title-font"><a>評価が高いレシピ</a></h5>
-              </div>
-            </div>
-            <div class="row">
-              <% @reports.each do |report| %>
-                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 recipe-parent">
-                  <%= link_to recipe_path(report.recipe) do %>
-                    <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
-                    <div class="title-font-color"><strong><%= report.recipe.title %></strong></div>
-                  <% end %>
-                  <div class="date-color"><%= report.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
-                    <div>
-                      <span id="star-rate-average_<%= report.recipe.id %>"></span>
-                      (<%= report.evaluation_avg.round(1) %>点)
-                        <script>
-                          $('#star-rate-average_<%= report.recipe.id %>').empty();
-                          $('#star-rate-average_<%= report.recipe.id %>').raty({
-                            size: 36,
-                            starOff: "<%= asset_path('star-off.png') %>",
-                            starOn: "<%= asset_path('star-on.png') %>",
-                            starHalf: "<%= asset_path('star-half.png') %>",
-                            half: true,
-                            readOnly: true,
-                            score: <%= report.evaluation_avg.round(1) %>,
-                          });
-                      </script>
-                    </div>
-                </div>
-              <% end %>
-            </div>
-            <div class="col-md-12 submit-prace mt-5 itiranbtn ">
-                <%= link_to "一覧を表示", recipe_evaluation_path %>
+        <div class="mb-5">
+          <div class="row mt-3 mb-3 justify-content-center">
+            <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
+              <h5 class="mt-2 top-title-font"><a>評価が高いレシピ</a></h5>
             </div>
           </div>
-
-          <div class="mb-5">
-            <div class="row mt-3 mb-3 justify-content-center">
-              <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-                <h5 class="mt-2 top-title-font">新着レシピ</h5>
+          <div class="row">
+            <% @reports.each do |report| %>
+              <div class="col-lg-6 col-md-12 col-sm-12 mt-3 recipe-parent">
+                <%= link_to recipe_path(report.recipe) do %>
+                  <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
+                  <div class="title-font-color"><strong><%= report.recipe.title %></strong></div>
+                <% end %>
+                <div class="date-color"><%= report.recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+                  <div>
+                    <span id="star-rate-average_<%= report.recipe.id %>"></span>
+                    (<%= report.evaluation_avg.round(1) %>点)
+                      <script>
+                        $('#star-rate-average_<%= report.recipe.id %>').empty();
+                        $('#star-rate-average_<%= report.recipe.id %>').raty({
+                          size: 36,
+                          starOff: "<%= asset_path('star-off.png') %>",
+                          starOn: "<%= asset_path('star-on.png') %>",
+                          starHalf: "<%= asset_path('star-half.png') %>",
+                          half: true,
+                          readOnly: true,
+                          score: <%= report.evaluation_avg.round(1) %>,
+                        });
+                    </script>
+                  </div>
               </div>
+            <% end %>
+          </div>
+          <div class="col-md-12 submit-prace mt-5 itiranbtn ">
+              <%= link_to "一覧を表示", recipe_evaluation_path %>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <div class="row mt-3 mb-3 justify-content-center">
+            <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
+              <h5 class="mt-2 top-title-font">新着レシピ</h5>
             </div>
-            <div class="row">
-              <% @recipes.each do |recipe| %>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-3 recipe-parent">
-                  <%= link_to recipe_path(recipe), class:"userList" do %>
-                    <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
+          </div>
+          <div class="row">
+            <% @recipes.each do |recipe| %>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-3 recipe-parent">
+                <%= link_to recipe_path(recipe), class:"userList" do %>
+                  <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
+                  <div class="title-font-color"><strong><%= recipe.title %></strong></div>
+                <% end %>
+                <div class="date-color"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+              </div>
+            <% end %>
+            <div class="col-md-12 submit-prace mt-4 itiranbtn">
+              <%= link_to "一覧を表示", recipe_create_at_path %>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <div class="row mt-3 mb-3 justify-content-center">
+            <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
+              <h5 class="mt-2 top-title-font">注目のレシピ</h5>
+            </div>
+          </div>
+          <div class="row">
+              <% @recipe_pvs.each do |recipe| %>
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-3 view-img recipe-parent">
+                  <%= link_to recipe_path(recipe) do %>
+                    <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %></div>
                     <div class="title-font-color"><strong><%= recipe.title %></strong></div>
                   <% end %>
                   <div class="date-color"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
                 </div>
               <% end %>
-              <div class="col-md-12 submit-prace mt-4 itiranbtn">
-                <%= link_to "一覧を表示", recipe_create_at_path %>
-              </div>
-            </div>
           </div>
-
-          <div class="mb-5">
-            <div class="row mt-3 mb-3 justify-content-center">
-              <div class="border-top border-bottom text-center" style="width: 60%; border-color:#708090;">
-                <h5 class="mt-2 top-title-font">注目のレシピ</h5>
-              </div>
-            </div>
-            <div class="row">
-                <% @recipe_pvs.each do |recipe| %>
-                  <div class="col-lg-6 col-md-6 col-sm-12 mt-3 view-img recipe-parent">
-                    <%= link_to recipe_path(recipe) do %>
-                      <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %></div>
-                      <div class="title-font-color"><strong><%= recipe.title %></strong></div>
-                    <% end %>
-                    <div class="date-color"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
-                  </div>
-                <% end %>
-            </div>
-            <div class="row">
-              <div class="col-md-12 submit-prace mt-4 itiranbtn">
-                <%= link_to "一覧を表示", recipe_view_path %>
-              </div>
+          <div class="row">
+            <div class="col-md-12 submit-prace mt-4 itiranbtn">
+              <%= link_to "一覧を表示", recipe_view_path %>
             </div>
           </div>
         </div>
-
+      </div>
+      <div class="col-md-3 categories category-hide">
+        <div class="item-categories">
+          <p class="midashi category-size">
+            カテゴリーから探す
+          </p>
+          <div id="tree_menu">
+            <ul class="categoryTree">
+              <% @parents.each do |parent| %>
+                <li class="category_parent category-point">
+                  <%#= link_to search_category_recipes_path(parent) do %>
+                    <!--<input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1">-->
+                    <input type="button" value="<%= parent.name %>" id="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1 category-font-p">
+                  <%# end %>
+                  <ul class="ml-3">
+                    <% parent.children.each do |child| %>
+                      <li>
+                        <%#= link_to search_category_recipes_path(child) do %>
+                          <input type="button" value="<%= child.name %>" id="<%= child.id %>" class="parent_btn btn pt-0 pb-0 mb-1 category-font-c">
+                        <%# end %>
+                        <ul class="ml-3">
+                          <% child.children.each do |gchild| %>
+                            <li>
+                              <%= link_to search_category_recipes_path(gchild) do %>
+                                <input type="button" value="<%= gchild.name %>" id="<%= gchild.id %>" class="parent_btn btn pt-0 pb-0 mb-1 btn-sm category-font-c grandchild">
+                              <% end %>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
