@@ -10,10 +10,9 @@ class Admin::CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-    byebug
-    category_parent = Category.find(params[:id])
+    category_parent = Category.find(params[:category][:id])
     category_children = category_parent.children.create(params[:child_name])
-    category_grandchildren = category_children.children.create(params[:grandchild_name])
+    category_grandchildren = category_children.children.create(params[:category].permit! [:grandchild_name])
   end
 
   # def parents
