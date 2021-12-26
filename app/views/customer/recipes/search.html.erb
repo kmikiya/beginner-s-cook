@@ -11,7 +11,7 @@
             <% @category.children.each do |parent| %>
               <li class="category_parent category-point">
                 <%= link_to search_category_recipes_path(parent) do %>
-                  <input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn btn btn-success pt-0 pb-0 mb-1">
+                  <input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1">
                 <% end %>
               </li>
             <% end %>
