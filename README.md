@@ -24,7 +24,7 @@
 ・カロリーや糖質など気になり始めたとき。
 
 ## 設計書
-未完成　https://drive.google.com/drive/u/0/folders/1KzMdgMvy7aUtEsBIZfpwVV06Om_FSB8H
+https://drive.google.com/drive/u/0/folders/1KzMdgMvy7aUtEsBIZfpwVV06Om_FSB8H
 
 ## チャレンジ要素一覧
 <https://docs.google.com/spreadsheets/d/1_6HKddfmA_PLtHVcc3ZOqMLOohppMm3EoVDN8Iakp8o/edit#gid=0>
