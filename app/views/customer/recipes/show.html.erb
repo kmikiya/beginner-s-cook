@@ -190,6 +190,8 @@
                         <%= f.hidden_field :explanation_id, :value => explanation.id %>
                         <div class="col-md-1"><%= f.submit "送信する", class: "btn btn-success" %></div>
                       <% end %>
+                    <% else %>
+                      <p class="midashi">ログインしてください</p>
                     <% end %>
                   </div>
                 </div>
