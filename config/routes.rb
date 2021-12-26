@@ -84,6 +84,8 @@ namespace :admin do
 
     #材料
     resources :material_details, only:[:index, :new, :create, :edit, :update, :destroy]
+
+    resources :categories, only:[:index, :new, :create, :destroy]
 end
 
 end
