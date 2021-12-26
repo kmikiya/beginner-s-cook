@@ -18,6 +18,7 @@
               <% @parents.each do |parent| %>
                 <li class="category_parent category-point">
                   <%#= link_to search_category_recipes_path(parent) do %>
+                    <!--<input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1">-->
                     <input type="button" value="<%= parent.name %>" id="<%= parent.id %>" class="parent_btn btn pt-0 pb-0 mb-1">
                   <%# end %>
                   <ul class="ml-3">
@@ -30,7 +31,7 @@
                           <% child.children.each do |gchild| %>
                             <li>
                               <%= link_to search_category_recipes_path(gchild) do %>
-                                <input type="button" value="<%= gchild.name %>" id="<%= gchild.id %>" class="parent_btn btn pt-0 pb-0 mb-1">
+                                <input type="button" value="<%= gchild.name %>" id="<%= gchild.id %>" class="parent_btn btn pt-0 pb-0 mb-1 btn btn-primary btn-sm">
                               <% end %>
                             </li>
                           <% end %>
