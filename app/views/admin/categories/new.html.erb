@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div>
+        <%= form_with model: @category,url: admin_categories_path, local:true do |f| %>
+          <%= f.label :name, "親カテゴリ", class: "d-flex justify-content-start" %>
+          <%= f.collection_select :id, Category.find(1,2,3,4), :id, :name %>
+          <%= f.label :child_name, "子カテゴリ", class: "d-flex justify-content-start" %>
+          <%= f.text_field :child_name, style:"width: 20%;", class: "form-control mb-3" %>
+          <%= f.label :grandchild_name, "孫カテゴリ", class: "d-flex justify-content-start" %>
+          <%= f.text_field :grandchild_name, style:"width: 20%;", class: "form-control mb-3" %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

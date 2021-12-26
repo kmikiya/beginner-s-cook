@@ -1,19 +1,26 @@
-<%= form_with model: [:admin,@material],local:true do |f| %>
 
-  <%= f.label :name, "材料名" %>
-  <%= f.text_field :name, step: '0.01' %>
-  <%= f.number_field :amount %>g あたり
-  <%= f.label :calorie, "カロリー" %>
-  <%= f.number_field :calorie, step: '0.01' %>
-  <%= f.label :sugar, "糖質" %>
-  <%= f.number_field :sugar, step: '0.01' %>
-  <%= f.label :dietary_fiber, "食物繊維" %>
-  <%= f.number_field :dietary_fiber, step: '0.01' %>
-  <%= f.label :protein, "タンパク質" %>
-  <%= f.number_field :protein, step: '0.01' %>
-  <%= f.label :lipids, "脂質" %>
-  <%= f.number_field :lipids, step: '0.01' %>
-  <%= f.label :salt, "塩分" %>
-  <%= f.number_field :salt, step: '0.01' %>
-  <%= f.submit %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div>
+        <%= form_with model: [:admin,@material],local:true do |f| %>
+          <%= f.label :name, "材料名", class: "d-flex justify-content-start"  %>
+          <%= f.text_field :name, class: "d-flex justify-content-start form-controll" %>
+          <%= f.label :calorie, "カロリー", class: "d-flex justify-content-start"  %>
+          <%= f.number_field :calorie, step: '0.01', class: "d-flex justify-content-start form-controll"  %>
+          <%= f.label :sugar, "糖質" , class: "d-flex justify-content-start" %>
+          <%= f.number_field :sugar, step: '0.01', class: "d-flex justify-content-start form-controll"  %>
+          <%= f.label :dietary_fiber, "食物繊維", class: "d-flex justify-content-start"  %>
+          <%= f.number_field :dietary_fiber, step: '0.01', class: "d-flex justify-content-start form-controll"  %>
+          <%= f.label :protein, "タンパク質", class: "d-flex justify-content-start"  %>
+          <%= f.number_field :protein, step: '0.01', class: "d-flex justify-content-start form-controll"  %>
+          <%= f.label :lipids, "脂質", class: "d-flex justify-content-start"  %>
+          <%= f.number_field :lipids, step: '0.01', class: "d-flex justify-content-start form-controll"  %>
+          <%= f.label :salt, "塩分", class: "d-flex justify-content-start"  %>
+          <%= f.number_field :salt, step: '0.01', class: "d-flex justify-content-start form-controll"  %>
+          <%= f.submit class: "btn btn-success mt-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

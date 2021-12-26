@@ -45,6 +45,12 @@
                     <% end %>
                   </li>
                   <li class="nav-item pr-3">
+                    <%= link_to new_recipe_path do %>
+                        <div class="col"><i class="far fa-edit fa-3x icon"></i></div>
+                        <div class="font-awesome-text icon">レシピを書く</div>
+                    <% end %>
+                  </li>
+                  <li class="nav-item pr-3">
                     <%= link_to lists_path do %>
                     <div class="col"><i class="fas fa-tasks fa-3x icon"></i></div>
                     <div class="font-awesome-text icon">買い物リスト</div>

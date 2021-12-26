@@ -1,0 +1,4 @@
+<% @categories.each do |category| %>
+  <%= category.name %>
+<% end %>
+<%= link_to "カテゴリ作成", new_admin_category_path %>
