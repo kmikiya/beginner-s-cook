@@ -8,18 +8,17 @@
           そんなレシピサイトです。
         </ul>
       </div>
-      <div class="col-md-2 categories">
+      <div class="col-md-3 categories">
         <div class="item-categories">
-          <h2>
-            カテゴリー一覧
-          </h2>
+          <p class="midashi category-size">
             カテゴリーから探す
+          </p>
           <div id="tree_menu">
             <ul class="categoryTree">
               <% @parents.each do |parent| %>
-                <li class="category_parent">
+                <li class="category_parent category-point">
                   <%= link_to search_category_recipes_path(parent) do %>
-                    <input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn">
+                    <input type="button" value="<%= parent.name %>" name="<%= parent.id %>" class="parent_btn btn btn-success pt-0 pb-0 mb-1">
                   <% end %>
                 </li>
               <% end %>
@@ -42,7 +41,7 @@
             </div>
             <div class="row">
               <% @reports.each do |report| %>
-                <div class="col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 recipe-parent">
                   <%= link_to recipe_path(report.recipe) do %>
                     <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                     <div class="title-font-color"><strong><%= report.recipe.title %></strong></div>
@@ -67,8 +66,8 @@
                 </div>
               <% end %>
             </div>
-            <div class="col-md-12 submit-prace mt-5 title-font-color">
-                <%= link_to "一覧表示", recipe_evaluation_path %>
+            <div class="col-md-12 submit-prace mt-5 itiranbtn ">
+                <%= link_to "一覧を表示", recipe_evaluation_path %>
             </div>
           </div>
 
@@ -80,7 +79,7 @@
             </div>
             <div class="row">
               <% @recipes.each do |recipe| %>
-                <div class="col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-3 recipe-parent">
                   <%= link_to recipe_path(recipe), class:"userList" do %>
                     <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                     <div class="title-font-color"><strong><%= recipe.title %></strong></div>
@@ -88,7 +87,7 @@
                   <div class="date-color"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
                 </div>
               <% end %>
-              <div class="col-md-12 submit-prace mt-4">
+              <div class="col-md-12 submit-prace mt-4 itiranbtn">
                 <%= link_to "一覧を表示", recipe_create_at_path %>
               </div>
             </div>
@@ -102,7 +101,7 @@
             </div>
             <div class="row">
                 <% @recipe_pvs.each do |recipe| %>
-                  <div class="col-lg-4 col-md-6 col-sm-6 mt-3 view-img">
+                  <div class="col-lg-6 col-md-6 col-sm-12 mt-3 view-img recipe-parent">
                     <%= link_to recipe_path(recipe) do %>
                       <div><%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %></div>
                       <div class="title-font-color"><strong><%= recipe.title %></strong></div>
@@ -112,7 +111,7 @@
                 <% end %>
             </div>
             <div class="row">
-              <div class="col-md-12 submit-prace mt-4">
+              <div class="col-md-12 submit-prace mt-4 itiranbtn">
                 <%= link_to "一覧を表示", recipe_view_path %>
               </div>
             </div>
