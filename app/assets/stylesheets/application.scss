@@ -15,6 +15,7 @@
  */
 @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kosugi&family=Kosugi+Maru&family=Reem+Kufi:wght@500&family=Zen+Kaku+Gothic+New&display=swap');
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&display=swap');
 
 // .select2-container:not(:nth-child(1)){
 //   display: none !important;
@@ -82,16 +83,39 @@ footer{
 //top-page
 
 .top-image{
-  height: 300px;
+  height: 500px;
   width: 100%;
   background-image: url("top-image.jpg");
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.top-image ul{
+  position: absolute;
+    top: 10%;
+    left: 18%;
+    list-style: none;
+    font-size: 30px;
+    font-family: 'Dela Gothic One', sans-serif;
+}
+
+.top-image li{
+  font-size: 50px;
 }
 
 .top-title-font{
-  font-family: 'Kosugi Maru', sans-serif;
+  font-family: 'Dela Gothic One', sans-serif;
   color:#696969;
   font-size: 40px;
 }
+
+// .new-top-title-font{
+//   font-family: 'Dela Gothic One', sans-serif;
+//   color:#696969;
+//   font-size: 40px;
+// }
 
 .recipe-img {
   width: 300px;
