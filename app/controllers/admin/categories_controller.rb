@@ -1,7 +1,8 @@
 class Admin::CategoriesController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
-    @categories = Category.all
+    @categories = Category.where(ancestry: nil)
   end
 
   def new
@@ -11,8 +12,9 @@ class Admin::CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     category_parent = Category.find(params[:category][:id])
-    category_children = category_parent.children.create(params[:child_name])
-    category_grandchildren = category_children.children.create(params[:category].permit! [:grandchild_name])
+    category_children = category_parent.children.create(name: params[:category][:child_name])
+    category_children.children.create(name: params[:category][:grandchild_name]) unless params[:category][:grandchild_name].blank?
+    redirect_to admin_categories
   end
 
   # def parents

@@ -69,11 +69,9 @@
                     <% end %>
                   </li>
                 <% elsif admin_signed_in? %>
-                  <li class="nav-item"><%= link_to "栄養素表示", admin_material_details_path %></li>
-                  <li class="nav-item"><%= link_to "ユーザ一覧", admin_customers_path %></li>
                   <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-outline-secondary" do %>
-                    <div class="col"><i class="fas fa-sign-out-alt fa-2x"></i></div>
-                    <div style="font-size: 3px;">ログアウト</div>
+                    <div class="col"><i class="fas fa-sign-out-alt fa-3x icon"></i></div>
+                    <div class="font-awesome-text icon">ログアウト</div>
                   <% end %>
                   </li>
                 <% else %>

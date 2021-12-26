@@ -3,9 +3,12 @@
     <div class="col">
       <div>
         <h2>トップページ</h2>
-        <%= link_to "栄養素表示", admin_material_details_path %>
-        <%= link_to "ユーザ一覧", admin_customers_path %>
-        <%#= link_to "category", admin_categories_path %>
+        <div class="ul">
+          <li class=""><%= link_to "栄養素表示", admin_material_details_path %></li>
+          <li class=""><%= link_to "ユーザ一覧", admin_customers_path %></li>
+          <li><%= link_to "カテゴリ確認", admin_categories_path %></li>
+        </div>
+
       </div>
     </div>
   </div>

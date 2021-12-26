@@ -1,4 +1,5 @@
 class Admin::MaterialDetailsController < ApplicationController
+  before_action :authenticate_admin!
 
   def index
     @materials = MaterialDetail.all.page(params[:page]).per(50)
