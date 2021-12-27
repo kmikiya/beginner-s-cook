@@ -25,6 +25,10 @@ main{
  min-height: 80vh;
 }
 
+.wrap-original{
+  overflow: hidden;
+}
+
 //header
 a {
   color:#0000FF; text-decoration:none;
@@ -149,7 +153,7 @@ footer{
 
 .recipe-title{
   font-family: 'Dela Gothic One', sans-serif;
-  font-size: 60px;
+  font-size: 4vh;
 }
 
 .recipe-midashi{
@@ -238,6 +242,10 @@ footer{
 
 //recipe詳細
 
+.defolt-none{
+  display: none;
+}
+
 .rd-title{
 font-size: 12px;
 }
@@ -260,6 +268,11 @@ font-size: 12px;
 .cart-moji{
   font-family: 'Kosugi maru', sans-serif;
   color: #fff;
+}
+
+.recipe-show-image{
+  height: 250px;
+  width: 250px;
 }
 
 //recipe-new
@@ -516,6 +529,25 @@ footer{
 
 .category-hide{
   display: block;
+}
+// 詳細ページ
+.recipe-show-image{
+  height: 400px;
+  width: 400px;
+  max-width: 100%;
+}
+
+.edit-hide{
+  display: none;
+}
+
+.defolt-none{
+  display: flex;
+}
+
+.detail-box{
+  display:flex;
+  flex-direction:column;
 }
 
 }

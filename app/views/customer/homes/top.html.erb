@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="col-lg-7  col-md-10 mb-5">
+      <div class="col-lg-7 col-md-10 mb-5">
 
         <div class="mb-5">
           <div class="row mt-3 mb-3 justify-content-center">
@@ -56,7 +56,7 @@
           </div>
           <div class="row">
             <% @reports.each do |report| %>
-              <div class="col-lg-6 col-md-12 col-sm-12 mt-3 recipe-parent">
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-3 recipe-parent">
                 <%= link_to recipe_path(report.recipe) do %>
                   <%= attachment_image_tag report.recipe, :image, fallback:"no_bg_image.jpg", class: "img-fluid recipe-img rounded" %>
                   <div class="title-font-color"><strong><%= report.recipe.title %></strong></div>
