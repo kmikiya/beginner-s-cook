@@ -86,13 +86,15 @@
           <%= render partial: 'explanation_fields', locals: { f: t} %>
         <% end %>
         <div id="detail-association-insertion-explanation"></div>
-        <%= link_to_add_association "工程追加", f, :explanations,
+        <%= link_to_add_association f, :explanations,
                   class: "add_fields d-flex justify-content-center",
                   id: 'add-btn',
                   data: {
                   association_insertion_node: '#detail-association-insertion-explanation',
                   association_insertion_method: 'before'
-        }%>
+        } do%>
+          <div class="add-bottom submit-prace"><i class="far fa-plus-square fa-2x submit-prace"></i>工程追加</div>
+        <% end %>
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 class Customer::RecipesController < ApplicationController
   before_action :set_parents
+  before_action :authenticate_customer!, except: [:show]
   #before_action :check_validates
 
   def index
@@ -21,7 +22,7 @@ class Customer::RecipesController < ApplicationController
     if check_validates && @recipe.save
       redirect_to root_path
     else
-      @error_message = "同じ材料は登録できません"
+      @error_message = "同じ材料は登録できません(デフォルトで表示しています)"
       # @explanation =  Recipe.new(recipe_params).explanations.build
       render 'new'
       #byebug

@@ -15,7 +15,7 @@
         <div class="col-md-3 align-self-center flex-column">
           <% if customer_signed_in? %>
             <% if current_customer == @customer %>
-              <div class="row mt-4 mb-2">
+              <div class="row mt-4 mb-2 pr-edit-font">
                 <%= link_to "プロフィール編集", edit_my_page_path(@customer), class: "btn btn-primary midashi h-25" %>
                 <div class="ml-2">
                   <%= link_to new_recipe_path do %>
@@ -50,7 +50,7 @@
         </div>
         <div class="right">
           <% if @customer == current_customer %>
-            <%= link_to "退会する", customer_registration_path, method: :delete, class: "midashi btn btn-danger mt-3", "data-confirm" => "すべてのデータは削除されます。本当に退会しますか？"  %>
+            <%= link_to "退会する", customer_registration_path, method: :delete, class: "midashi btn btn-danger mt-3 pr-edit-font", "data-confirm" => "すべてのデータは削除されます。本当に退会しますか？"  %>
           <% end %>
         </div>
       </div>
