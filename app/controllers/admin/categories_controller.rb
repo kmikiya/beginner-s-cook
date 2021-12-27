@@ -14,7 +14,7 @@ class Admin::CategoriesController < ApplicationController
     category_parent = Category.find(params[:category][:id])
     category_children = category_parent.children.create(name: params[:category][:child_name])
     category_children.children.create(name: params[:category][:grandchild_name]) unless params[:category][:grandchild_name].blank?
-    redirect_to admin_categories
+    redirect_to admin_categories_path
   end
 
   # def parents
