@@ -51,6 +51,7 @@ class Customer::RecipesController < ApplicationController
       @average = @reports.average(:evaluation).round(1)
     end
     @list = List.new
+    @mylists = List.where(customer_id: current_customer)
     @comment = Comment.new
     @category_id = @recipe.category_id
     @category_grandchild = Category.find(@category_id)#レシピが持ってる一番下のカテゴリ
