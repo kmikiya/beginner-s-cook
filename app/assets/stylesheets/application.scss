@@ -31,8 +31,11 @@ main{
 
 //header
 a {
-  color:#0000FF; text-decoration:none;
+  color:#cd853f; text-decoration:none;
 }
+
+a:visited { color: #8b4513; }
+
 
 .icon{
   color: #ff8c00;
@@ -381,7 +384,13 @@ font-size: 12px;
   object-fit: cover;
 }
 
+//一覧
 
+.name-font{
+  font-family: 'Kosugi maru', sans-serif;
+  color: #d2691e;
+  font-size: 20px;
+}
 
 
 a {
