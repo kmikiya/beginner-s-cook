@@ -8,7 +8,10 @@
                 </div>
               </div>
             <% end %>
-            <div class="date-potition", style="font-size: 5px;"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+            <div class="date-pa">
+              <div class="date-font"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+            </div>
+
             <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "recipe-img-create img-fluid rounded center-img" %>
           </div>
         <% end %>

@@ -61,13 +61,15 @@
   <% if @recipe.time.present? %>
     <p class="text-right mb-0 recipe-moji">(調理時間<%= @recipe.time %>)</p>
   <% end %>
-  <div class="row mb-5 mt-5 justify-content-center submit-prace">
-    <div class="col-md-3">
+
+
+  <div class="row mb-5 mt-5 justify-content-center submit-prace align-items-start edit-hide">
+    <div class="col-lg-3 col-md-7">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
-        <%= attachment_image_tag @recipe, :image, :fill, 200, 200, size: '250x250', class: "recipe-show-image rounded-start" %>
+        <%= attachment_image_tag @recipe, :image, :fill, 200, 200, class: "recipe-show-image rounded-start" %>
       <% end %>
     </div>
-    <div class="col-md-4 ml-5">
+    <div class="col-lg-4 col-md-5">
       <div class=" border-bottom recipe-moji">
         <%= link_to my_page_path(@recipe.customer) do %>
           <%= attachment_image_tag @recipe.customer, :profile_image, fallback:"no-image-icon.jpg", class: "img-fluid rounded-circle",size: '50x50' %>
@@ -75,6 +77,10 @@
         <% end %>
       </div>
       <p class="comment-wrap recipe-moji"><%= @recipe.comment %></p>
+    </div>
+
+    <div>
+
     </div>
 
     <div class="col-md-3 text-center" style="height:120px; width: 50%;">
@@ -97,6 +103,11 @@
     </div>
   </div>
 
+  <div class="row mb-5 mt-5 justify-content-center submit-prace align-items-start defolt-none">
+    <%= render 'customer/recipes/responsive', recipe: @recipe %>
+  </div>
+
+
   <div class="row border-bottom border-top pt-3 justify-content-center">
     <div class="col-md-11">
       <h4 class="midashi">材料（<%= @recipe.people %>人分）</h4>
@@ -106,20 +117,19 @@
             <tr>
               <td class="col-md-4 text-left recipe-moji"><%= material.material_detail.name %></td>
               <td class="col-md-1 col-sm-2 text-left recipe-moji"><%= material.amount %></td>
-
-                <td class="col-md-2 pt-1 pb-1" id="material_<%= material.id %>">
-                  <% if customer_signed_in? %>
-                    <% if @mylists.find_by(material_detail_id: material.material_detail.id).present? %>
-                      <div class="list-present rounded-pill comment-wrap">すでに買い物リストに入っています</div>
-                    <% else %>
-                      <%= form_with model: @list, url: lists_path(material_detail_id: material.id) do |f| %>
-                        <%= f.hidden_field :customer_id, :value => current_customer.id %>
-                        <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
-                        <%= f.submit "買い物リストへ追加", class: "btn btn-secondary cart-moji " %>
-                      <% end %>
+              <td class="col-md-2 pt-1 pb-1" id="material_<%= material.id %>">
+                <% if customer_signed_in? %>
+                  <% if @mylists.find_by(material_detail_id: material.material_detail.id).present? %>
+                    <div class="list-present rounded-pill comment-wrap">すでに買い物リストに入っています</div>
+                  <% else %>
+                    <%= form_with model: @list, url: lists_path(material_detail_id: material.id) do |f| %>
+                      <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                      <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
+                      <%= f.submit "買い物リストへ追加", class: "btn btn-secondary cart-moji " %>
                     <% end %>
                   <% end %>
-                </td>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -127,7 +137,7 @@
 
       <h4 class="midashi">目安栄養素(100gあたり)</h4>
       <div class="row mb-5">
-        <table class="col table text-center">
+        <table class="col table text-center midashi">
           <thead>
             <th>カロリー(kcal)</th>
             <th>糖質(g)</th>
@@ -179,9 +189,11 @@
                         <div>
                           <div><strong><%= comment.customer.name %></strong></div>
                           <div class="pl-1"><%= comment.comment %>
-                            <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
-                              <%= link_to recipe_comments_path(recipe_id: explanation.recipe, comment_id: comment.id, explanation_id: explanation.id), method: :delete, remote: true do %>
-                                 <i class="fas fa-trash-alt ml-4" style="color: red;"></i>
+                            <% if customer_signed_in? %>
+                              <% if comment.customer.id == current_customer.id || comment.explanation.recipe.customer.id == current_customer.id %><!--レシピ投稿者とコメント投稿者のみ削除できる-->
+                                <%= link_to recipe_comments_path(recipe_id: explanation.recipe, comment_id: comment.id, explanation_id: explanation.id), method: :delete, remote: true do %>
+                                   <i class="fas fa-trash-alt ml-4" style="color: red;"></i>
+                                <% end %>
                               <% end %>
                             <% end %>
                           </div>
@@ -197,7 +209,7 @@
                         <div class="col-md-1"><%= f.submit "送信する", class: "btn btn-success" %></div>
                       <% end %>
                     <% else %>
-                      <p class="midashi">ログインしてください</p>
+                      <p class="midashi">コメントするにはログインしてください</p>
                     <% end %>
                   </div>
                 </div>

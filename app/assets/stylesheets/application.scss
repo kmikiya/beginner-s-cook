@@ -25,10 +25,17 @@ main{
  min-height: 80vh;
 }
 
+.wrap-original{
+  overflow: hidden;
+}
+
 //header
 a {
-  color:#0000FF; text-decoration:none;
+  color:#cd853f; text-decoration:none;
 }
+
+a:visited { color: #8b4513; }
+
 
 .icon{
   color: #ff8c00;
@@ -149,7 +156,7 @@ footer{
 
 .recipe-title{
   font-family: 'Dela Gothic One', sans-serif;
-  font-size: 60px;
+  font-size: 4vh;
 }
 
 .recipe-midashi{
@@ -238,6 +245,10 @@ footer{
 
 //recipe詳細
 
+.defolt-none{
+  display: none;
+}
+
 .rd-title{
 font-size: 12px;
 }
@@ -260,6 +271,11 @@ font-size: 12px;
 .cart-moji{
   font-family: 'Kosugi maru', sans-serif;
   color: #fff;
+}
+
+.recipe-show-image{
+  height: 250px;
+  width: 250px;
 }
 
 //recipe-new
@@ -311,8 +327,16 @@ font-size: 12px;
   width: auto;
 }
 
-.date-potition{
-  text-align: right;
+.date-pa{
+  width: 350px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.date-font{
+  font-size: 18px;
+  font-family: 'Kosugi maru', sans-serif;
+  color:#696969;
 }
 
 .date-potition-index{
@@ -360,7 +384,13 @@ font-size: 12px;
   object-fit: cover;
 }
 
+//一覧
 
+.name-font{
+  font-family: 'Kosugi maru', sans-serif;
+  color: #d2691e;
+  font-size: 20px;
+}
 
 
 a {
@@ -516,6 +546,25 @@ footer{
 
 .category-hide{
   display: block;
+}
+// 詳細ページ
+.recipe-show-image{
+  height: 400px;
+  width: 400px;
+  max-width: 100%;
+}
+
+.edit-hide{
+  display: none;
+}
+
+.defolt-none{
+  display: flex;
+}
+
+.detail-box{
+  display:flex;
+  flex-direction:column;
 }
 
 }
