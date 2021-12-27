@@ -1,5 +1,6 @@
 class Customer::RecipesController < ApplicationController
   before_action :set_parents
+  before_action :authenticate_customer!, except: [:show]
   #before_action :check_validates
 
   def index

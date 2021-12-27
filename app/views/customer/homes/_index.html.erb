@@ -11,8 +11,9 @@
             <div class="date-pa">
               <div class="date-font"><%= recipe.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
             </div>
-
-            <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "recipe-img-create img-fluid rounded center-img" %>
+            <%= link_to recipe_path(recipe) do %>
+              <%= attachment_image_tag recipe, :image, fallback:"no_bg_image.jpg", class: "recipe-img-create img-fluid rounded center-img" %>
+            <% end %>
           </div>
         <% end %>
       </div>
