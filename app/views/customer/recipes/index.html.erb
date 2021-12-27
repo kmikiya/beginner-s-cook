@@ -6,7 +6,9 @@
             <h5 class="mt-2 top-title-font">検索結果</h5>
           </div>
       </div>
-  <%= render partial: 'recipe', collection: @search_recipes %>
+      <div class="row">
+        <%= render partial: 'recipe', collection: @search_recipes %>
+      </div>
     </div>
   </div>
 </div>
