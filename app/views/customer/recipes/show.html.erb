@@ -58,7 +58,9 @@
       </div>
     </div>
   </div>
-  <p class="text-right mb-0 recipe-moji">(調理時間<%= @recipe.time %>)</p>
+  <% if @recipe.time.present? %>
+    <p class="text-right mb-0 recipe-moji">(調理時間<%= @recipe.time %>)</p>
+  <% end %>
   <div class="row mb-5 mt-5 justify-content-center submit-prace">
     <div class="col-md-3">
       <%= link_to Refile.attachment_url(@recipe, :image), 'data-lightbox':"recipe" do %>
@@ -105,12 +107,16 @@
               <td class="col-md-4 text-left recipe-moji"><%= material.material_detail.name %></td>
               <td class="col-md-1 col-sm-2 text-left recipe-moji"><%= material.amount %></td>
 
-                <td class="col-md-2 pt-1 pb-0">
+                <td class="col-md-2 pt-1 pb-1" id="material_<%= material.id %>">
                   <% if customer_signed_in? %>
-                    <%= form_with model: @list, url: lists_path, local:true do |f| %>
-                      <%= f.hidden_field :customer_id, :value => current_customer.id %>
-                      <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
-                      <%= f.submit "買い物リストへ追加", class: "btn btn-secondary cart-moji" %>
+                    <% if @mylists.find_by(material_detail_id: material.material_detail.id).present? %>
+                      <div class="list-present rounded-pill comment-wrap">すでに買い物リストに入っています</div>
+                    <% else %>
+                      <%= form_with model: @list, url: lists_path(material_detail_id: material.id) do |f| %>
+                        <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                        <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
+                        <%= f.submit "買い物リストへ追加", class: "btn btn-secondary cart-moji " %>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </td>
@@ -190,6 +196,8 @@
                         <%= f.hidden_field :explanation_id, :value => explanation.id %>
                         <div class="col-md-1"><%= f.submit "送信する", class: "btn btn-success" %></div>
                       <% end %>
+                    <% else %>
+                      <p class="midashi">ログインしてください</p>
                     <% end %>
                   </div>
                 </div>

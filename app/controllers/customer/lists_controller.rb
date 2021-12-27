@@ -6,8 +6,10 @@ class Customer::ListsController < ApplicationController
   end
 
   def create
-      list = List.new(list_params)
-      list.save
+      @list = List.new(list_params)
+      @material_detail = MaterialDetail.find(params[:material_detail_id])
+      @list.save
+
       redirect_to request.referer
   end
 

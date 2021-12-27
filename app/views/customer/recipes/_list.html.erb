@@ -1,0 +1,7 @@
+<% if customer_signed_in? %>
+  <%= form_with model: list, url: lists_path(material_detail_id: material.id) do |f| %>
+    <%= f.hidden_field :customer_id, :value => current_customer.id %>
+    <%= f.hidden_field :material_detail_id, :value => material.material_detail.id %>
+    <%= f.submit "買い物リストへ追加", class: "btn btn-secondary cart-moji" %>
+  <% end %>
+<% end %>
