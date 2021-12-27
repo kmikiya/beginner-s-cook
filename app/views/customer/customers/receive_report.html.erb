@@ -18,10 +18,20 @@
               <%= link_to recipe_path(report.recipe) do %>
                 <figure><%= attachment_image_tag report, :image, :fill, 200, 200 %></figure>
               <% end %>
-              <div class="relative-post-evaluation">
-                <span>評価：</span>
+              <div class="mb-2">
                 <span id="star-my-rate-<%= report.id %>"></span>
-
+                  <script>
+                  $('#star-my-rate-<%= report.id %>').empty();
+                  $('#star-my-rate-<%= report.id %>').raty({
+                    size: 36,
+                    starOff: "<%= asset_path('star-off.png') %>",
+                    starOn: "<%= asset_path('star-on.png') %>",
+                    starHalf: "<%= asset_path('star-half.png') %>",
+                    half: true,
+                    readOnly: true,
+                    score: <%= report.evaluation %>,
+                  });
+                </script>
               </div>
               <%= report.impression.truncate(30)  %>
             </div>

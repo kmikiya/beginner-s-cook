@@ -24,12 +24,13 @@
               <% end %>
             <% end %>
             </div>
-            <div class="date-potition" style="font-size: 2px;"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+            <div class="date-pa">
+              <div class="date-font"><%= report.created_at.strftime('%Y/%m/%d  %H:%M:%S') %></div>
+            </div>
             <%= link_to recipe_path(report.recipe) do %>
               <%= attachment_image_tag report, :image, :fill, 200, 200, class:"recipe-img-create img-fluid rounded center-img" %>
             <% end %>
-            <div class="relative-post-evaluation date-potition mb-3 mt-3">
-              <span>評価：</span>
+            <div class="submit-prace  mb-3 mt-3">
               <span id="star-rate-<%= report.id %>"></span>
               <script>
                 $('#star-rate-<%= report.id %>').empty();
@@ -44,7 +45,7 @@
                 });
               </script>
             </div>
-            <div class="text-width">
+            <div class="date-pa">
               <%= report.impression.truncate(40) %>
             </div>
           </div>
