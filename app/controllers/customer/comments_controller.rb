@@ -7,19 +7,16 @@ class Customer::CommentsController < ApplicationController
       #recipe = Recipe.find(params[:recipe_id])
       #byebug
       #@explanations = recipe.explanations.where(recipe_id: recipe.id)
-      @ex_comments = Comment.where(explanation_id: params[:explanation_id])
+      @comments = Comment.where(explanation_id: params[:explanation_id])
       @parent_explanation_id = params[:explanation_id]
       # redirect_to request.referer
   end
 
   def destroy
-     #@recipe = Recipe.find(params[:id])
       @comment = Comment.find(params[:comment_id])
       @comment.destroy
-      recipe = Recipe.find(params[:recipe_id])
-      @explanation = recipe.explanations.find_by(recipe_id: recipe.id)
+      @comments = Comment.where(explanation_id: params[:explanation_id])
       @parent_explanation_id = params[:explanation_id]
-      #redirect_to request.referer
   end
 
 private
