@@ -4,10 +4,10 @@ class Customer::CommentsController < ApplicationController
   def create
       @comment = Comment.new(comment_params)
       @comment.save
-
-      recipe = Recipe.find(params[:recipe_id])
-      @explanation = recipe.explanations.find_by(recipe_id: recipe.id)
-
+      #recipe = Recipe.find(params[:recipe_id])
+      #byebug
+      #@explanations = recipe.explanations.where(recipe_id: recipe.id)
+      @ex_comments = Comment.where(explanation_id: params[:explanation_id])
       @parent_explanation_id = params[:explanation_id]
       # redirect_to request.referer
   end

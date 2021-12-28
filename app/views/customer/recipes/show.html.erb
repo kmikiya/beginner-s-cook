@@ -182,9 +182,8 @@
                 <div class="col-md-3">
                   <button class="more align-self-center recipe-moji", id="comment_<%= i.to_s %>"></button>
                   <div class="txt-hide comment_<%= i.to_s %> pl-3">
+                    
                     <div class="mb-3 border-bottom pb-4 pt-2" id="children_comments_<%= explanation.id %>">
-
-
                       <% explanation.comments.each do |comment| %>
                         <div>
                           <div><strong><%= comment.customer.name %></strong></div>
