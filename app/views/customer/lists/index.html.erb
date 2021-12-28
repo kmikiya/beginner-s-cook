@@ -24,7 +24,7 @@
               <td><%= list.material_detail.name %></td>
               <td>
                 <%= form_with model: list, local:true do |f| %>
-                  <%= f.text_area :memo, class: "form-control", placeholder: "2個" %>
+                  <%= f.text_area :memo, class: "form-control", placeholder: "例）2個" %>
                   <%= f.submit "登録", class: "mt-1 border-warning rounded", style: "width: 30%; background-color: #fff;" %>
                 <% end %>
               </td>
