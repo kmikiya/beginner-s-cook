@@ -9,8 +9,8 @@
       <%= f.text_field :amount, class: "form-control", placeholder: "例）おおさじ２" %>
     </div>
     <div class="col-md-3 ml-6 mb-3">
-      <strong class="yokonarabi">目安量(g)</strong><p class="mb-0 mandatory-num text-center yokonarabi">必須 ※半角</p>
-      <%= f.text_field :rough, class: "form-control", placeholder: "100" %>
+      <strong class="yokonarabi">目安量(g)</strong><p class="mb-0 mandatory-num text-center yokonarabi">必須 ※半角 単位なし</p>
+      <%= f.text_field :rough, class: "form-control", placeholder: "例）100" %>
     </div>
     <div class="col-md-1 px-0 w-auto">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block mt-4" %>
