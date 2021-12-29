@@ -9,6 +9,13 @@ class Customer::HomesController < ApplicationController
       recipes = Recipe.all
       @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(4)
 
+      # recipes.each do |recipe|
+      #   materials = recipe.materials
+      #   roughs = recipe.materials.map{|m| m.rough/100}
+      #   array = [*0.. roughs.count-1]
+      #   @calorie = (array.map{|m| roughs[m]*MaterialDetail.where(id: materials.pluck(:material_detail_id)).pluck(:calorie)[m]}.sum*(100/ recipe.materials.sum(:rough))).round(1)
+      # end
+
       respond_to do |format|
         format.html
         format.json do
