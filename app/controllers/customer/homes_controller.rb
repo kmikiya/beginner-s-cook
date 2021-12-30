@@ -9,7 +9,7 @@ class Customer::HomesController < ApplicationController
       recipes = Recipe.all
       @recipe_pvs = recipes.order(impressions_count: 'DESC').page(params[:page]).per(4)
 
-      # recipes.each do |recipe|
+      # recipes.each do |recipe|これを並べたい
       #   materials = recipe.materials
       #   roughs = recipe.materials.map{|m| m.rough/100}
       #   array = [*0.. roughs.count-1]
