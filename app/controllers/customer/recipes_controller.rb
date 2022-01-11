@@ -34,18 +34,6 @@ class Customer::RecipesController < ApplicationController
     impressionist(@recipe, nil, unique: [:ip_address])
     @explanations = @recipe.explanations
     @materials = @recipe.materials
-
-    @roughs = @recipe.materials.map{|m| m.rough/100}#材料を1グラムあたりに変換
-
-    array = [*0.. @roughs.count-1]#材料の数を数え上げてる
-    @calorie = (array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:calorie)[m]}.sum*(100/ @recipe.materials.sum(:rough))).round(1)#33行目で数え上げた個数分だけ足し合わせて
-    @sugar = (array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:sugar)[m]}.sum*(100/ @recipe.materials.sum(:rough))).round(1)
-    @protein = (array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:protein)[m]}.sum*(100/ @recipe.materials.sum(:rough))).round(1)
-    @lipids = (array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:lipids)[m]}.sum*(100/ @recipe.materials.sum(:rough))).round(1)
-    @dietary_fiber = (array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:dietary_fiber)[m]}.sum*(100/ @recipe.materials.sum(:rough))).round(1)
-    #byebug
-    @salt = (array.map{|m| @roughs[m]*MaterialDetail.where(id: @materials.pluck(:material_detail_id)).pluck(:salt)[m]}.sum*(100/ @recipe.materials.sum(:rough))).round(1)
-
     #平均点
     @reports = @recipe.reports
     if @reports.exists?

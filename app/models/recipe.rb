@@ -23,8 +23,40 @@ class Recipe < ApplicationRecord
   #validates :category_id, presence: true
   validates :image, presence: true
   validates :people, presence: true
-
-
-
   attachment :image
+
+  def roughs
+    self.materials.map{|m| m.rough/100}#材料を1グラムあたりに変換
+  end
+
+  def calorie
+    array = [*0.. self.roughs.count-1]#材料の数を数え上げてる
+    (array.map{|m| roughs[m]*MaterialDetail.where(id: self.materials.pluck(:material_detail_id)).pluck(:calorie)[m]}.sum*(100/ self.materials.sum(:rough))).round(1)
+  end
+
+  def sugar
+    array = [*0.. self.roughs.count-1]
+    (array.map{|m| roughs[m]*MaterialDetail.where(id: self.materials.pluck(:material_detail_id)).pluck(:sugar)[m]}.sum*(100/ self.materials.sum(:rough))).round(1)
+  end
+
+  def protein
+    array = [*0.. self.roughs.count-1]
+    (array.map{|m| roughs[m]*MaterialDetail.where(id: self.materials.pluck(:material_detail_id)).pluck(:protein)[m]}.sum*(100/ self.materials.sum(:rough))).round(1)
+  end
+
+  def lipids
+    array = [*0.. self.roughs.count-1]
+    (array.map{|m| roughs[m]*MaterialDetail.where(id: self.materials.pluck(:material_detail_id)).pluck(:lipids)[m]}.sum*(100/ self.materials.sum(:rough))).round(1)
+  end
+
+  def dietary_fiber
+    array = [*0.. self.roughs.count-1]
+    (array.map{|m| roughs[m]*MaterialDetail.where(id: self.materials.pluck(:material_detail_id)).pluck(:dietary_fiber)[m]}.sum*(100/ self.materials.sum(:rough))).round(1)
+  end
+
+  def salt
+    array = [*0.. self.roughs.count-1]
+    (array.map{|m| roughs[m]*MaterialDetail.where(id: self.materials.pluck(:material_detail_id)).pluck(:salt)[m]}.sum*(100/ self.materials.sum(:rough))).round(2)
+  end
+
 end

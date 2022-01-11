@@ -147,12 +147,12 @@
             <th>塩分(g)</th>
           </thead>
           <tbody>
-            <td><%= @calorie %></td>
-            <td><%= @sugar.round(1) %></td>
-            <td><%= @protein %></td>
-            <td><%= @lipids %></td>
-            <td><%= @dietary_fiber %></td>
-            <td><%= @salt.round(2) %></td>
+            <td><%= @recipe.calorie %></td>
+            <td><%= @recipe.sugar %></td>
+            <td><%= @recipe.protein %></td>
+            <td><%= @recipe.lipids %></td>
+            <td><%= @recipe.dietary_fiber %></td>
+            <td><%= @recipe.salt %></td>
           </tbody>
         </table>
       </div>
@@ -182,7 +182,7 @@
                 <div class="col-md-3">
                   <button class="more align-self-center recipe-moji", id="comment_<%= i.to_s %>"></button>
                   <div class="txt-hide comment_<%= i.to_s %> pl-3">
-                    
+
                     <div class="mb-3 border-bottom pb-4 pt-2" id="children_comments_<%= explanation.id %>">
                       <% explanation.comments.each do |comment| %>
                         <div>
