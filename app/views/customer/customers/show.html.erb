@@ -9,7 +9,9 @@
 
       <div class="row mx-2 mx-sm-auto px-0 justify-content-between pb-2 pt-2">
         <div class="col-md-4 align-self-center midashi">
-          <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", class: "rounded-circle", size: '100x100'%>
+          <%= link_to Refile.attachment_url(@customer, :profile_image), 'data-lightbox':"customer" do %>
+            <%= attachment_image_tag @customer, :profile_image, :fill, 200, 200, fallback: "no-image-icon.jpg", class: "rounded-circle", size: '100x100'%>
+          <% end %>
           <%= @customer.name %>
         </div>
         <div class="col-md-3 align-self-center flex-column">
